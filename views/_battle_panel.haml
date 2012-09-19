@@ -1,0 +1,19 @@
+%h3.name
+  %span.race {{race.name}}
+  %span.player {{name}}
+
+.order-of-battle
+  .units
+    .unit{ class: "{{id}}", id: "unit_{{cid}}" }
+      .battle ({{battle}})
+      .name {{name}}
+      .quantity
+        %a.increase{href:'#increase'} +
+        {{quantity}}
+        %a.decrease{href:'#decrease'} -
+
+
+.actions
+  %a{ href: '#adjust-battle-values' } Battle Values
+  %a{ href: '#adjust-damage-values' } Apply Damage
+  %a{ href: '#clear-units' } Clear Units

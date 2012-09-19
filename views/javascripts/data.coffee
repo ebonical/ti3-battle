@@ -1,48 +1,13 @@
+expansions = [
+  {
+    id: "se"
+    name: "Shattered Empire"
+  }
+]
+
 units = [
   {
-    id: 'dreadnought'
-    name: "Dreadnought"
-    cost: 5
-    battle: 5
-    move: 1
-    bombard: true
-    hitpoints: 2
-    notes: "Bombardment, Sustain Damage"
-  }
-  {
-    id: 'carrier'
-    name: "Carrier"
-    cost: 3
-    battle: 9
-    move: 1
-    capacity: 6
-    notes: "Capacity: 6"
-  }
-  {
-    id: 'cruiser'
-    name: "Cruiser"
-    cost: 2
-    battle: 7
-    move: 2
-  }
-  {
-    id: 'destroyer'
-    name: "Destroyer"
-    cost: 1
-    battle: 9
-    move: 2
-    antifighter: true
-    notes: "Anti-Fighter Barrage"
-  }
-  {
-    id: 'fighter'
-    name: "Fighter"
-    cost: 1
-    battle: 9
-    move: 0
-  }
-  {
-    id: 'warsun'
+    id: "warsun"
     name: "War Sun"
     cost: 12
     battle: 3
@@ -52,29 +17,89 @@ units = [
     capacity: 6
     hitpoints: 2
     notes: "Bombardment*, Capacity: 6, Sustain Damage"
+    inSpaceCombat: true
+    inGroundCombat: true
   }
   {
-    id: 'ground'
+    id: "dreadnought"
+    name: "Dreadnought"
+    cost: 5
+    battle: 5
+    move: 1
+    bombard: true
+    hitpoints: 2
+    notes: "Bombardment, Sustain Damage"
+    inSpaceCombat: true
+    inGroundCombat: true
+  }
+  {
+    id: "cruiser"
+    name: "Cruiser"
+    cost: 2
+    battle: 7
+    move: 2
+    inSpaceCombat: true
+    inGroundCombat: false
+  }
+  {
+    id: "destroyer"
+    name: "Destroyer"
+    cost: 1
+    battle: 9
+    move: 2
+    antifighter: true
+    notes: "Anti-Fighter Barrage"
+    inSpaceCombat: true
+    inGroundCombat: false
+  }
+  {
+    id: "fighter"
+    name: "Fighter"
+    cost: 1
+    battle: 9
+    move: 0
+    inSpaceCombat: true
+    inGroundCombat: false
+  }
+  {
+    id: "carrier"
+    name: "Carrier"
+    cost: 3
+    battle: 9
+    move: 1
+    capacity: 6
+    notes: "Capacity: 6"
+    inSpaceCombat: true
+    inGroundCombat: false
+  }
+  {
+    id: "ground"
     name: "Ground Force"
     cost: 1
     battle: 8
     move: 0
+    inSpaceCombat: false
+    inGroundCombat: true
   }
   {
-    id: 'pds'
+    id: "pds"
     name: "PDS"
     cost: 2
     battle: 6
     move: 0
     notes: "Planetary Shield, Space Cannon"
+    inSpaceCombat: false
+    inGroundCombat: true
   }
   {
-    id: 'dock'
+    id: "dock"
     name: "Space Dock"
     cost: 4
     battle: 0
     move: 0
     notes: "Produce Units, Fighter Capacity: 3"
+    inSpaceCombat: false
+    inGroundCombat: false
   }
 ]
 
@@ -115,13 +140,13 @@ races = [
     leaders: ["general", "admiral", "diplomat"]
     modifiers: [
       {
-        scope: "space-battle"
+        scope: "space-combat"
         modifier: 1
         duration: 1
         automatic: false
       }
       {
-        scope: "invasion-combat"
+        scope: "ground-combat"
         modifier: 2
         duration: 1
         automatic: false
@@ -165,13 +190,13 @@ races = [
     leaders: ["admiral", "general", "general"]
     modifiers: [
       {
-        scope: "space-battle"
+        scope: "space-combat"
         modifier: 1
         duration: 0
         automatic: true
       }
       {
-        scope: "invasion-combat"
+        scope: "ground-combat"
         modifier: 1
         duration: 0
         automatic: true
@@ -189,7 +214,7 @@ races = [
     ]
     units: [
       { id: "ground", amount: 2 }
-      { id: "carrier", amount: 2}
+      { id: "carrier", amount: 2 }
       { id: "fighter", amount: 1 }
       { id: "pds", amount: 2 }
       { id: "dreadnought", amount: 1 }
@@ -199,13 +224,13 @@ races = [
     leaders: ["scientist", "scientist", "admiral"]
     modifiers: [
       {
-        scope: 'space-battle'
+        scope: "space-combat"
         modifier: -1
         automatic: true
         duration: 0
       }
       {
-        scope: 'invasion-combat'
+        scope: "ground-combat"
         modifier: -1
         automatic: true
         duration: 0
@@ -227,3 +252,11 @@ colours = [
   'purple'
   'gray'
 ]
+
+window.databank = {
+  expansions
+  units
+  races
+  colours
+  technologies
+}
