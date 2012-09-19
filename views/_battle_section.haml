@@ -1,0 +1,22 @@
+.combat-type-selection
+  %ul.nav.nav-pills
+    %li
+      %a{href:'#space-battle'} Space Battle
+    %li
+      %a{href:'#invasion-combat'} Invasion Combat
+
+.actions
+  %a{href:'#new-battle'} New Battle
+  %a{href:'#resolve-battle'} Resolve!
+
+.rounds{'data-round' => 0}
+  %h2 Round 0
+  %a{href:'#set-round'} Change
+
+.force.attacker{'data-player' => 0}
+  %h2 Attacker
+  = partial "battle_force"
+
+.force.defender{'data-player' => 0}
+  %h2 Defender
+  = partial "battle_force"
