@@ -19,6 +19,7 @@ units = [
     notes: "Bombardment*, Capacity: 6, Sustain Damage"
     inSpaceCombat: true
     inGroundCombat: true
+    ignorePds: true
   }
   {
     id: "dreadnought"

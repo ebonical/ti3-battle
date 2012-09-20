@@ -9,9 +9,15 @@
   %a{href:'#new-battle'} New Battle
   %a{href:'#resolve-battle'} Resolve!
 
-.rounds{'data-round' => 0}
-  %h2 Round 0
-  %a{href:'#set-round'} Change
+.round
+  %h2
+    %span.default.round-number
+      Round
+      %span.value 1
+    %span.pre-battle Pre-Battle Round
+
+  .actions
+    %a.pre-battle{href:'#next-round'} Skip to Round 1
 
 .force.attacker{'data-player' => 0}
   %h2 Attacker

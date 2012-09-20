@@ -7,9 +7,9 @@ class Player extends Backbone.Model
     color: 'default'
 
   toJSON: ->
-    json = super
-    json.race = @get('race').toJSON()
-    json
+    obj = super
+    obj.race = @get('race').toJSON()
+    obj
 
 class Unit extends Backbone.Model
   defaults:
@@ -25,30 +25,38 @@ class Dice
 # Battle has an attacking and defending player
 # It should track each round.
 # Space Battle phases: pre-battle anti-fighter (round 0)
-class window.Battle extends Backbone.Model
+class Battle extends Backbone.Model
   defaults:
-    round: 0
+    round: 1
     combatType: "space"
+    resolved: false
 
   initialize: ->
-    @attacker = new BattleForce
-    @defender = new BattleForce
+    @attacker = new BattleForce(stance: 'attacker')
+    @defender = new BattleForce(stance: 'defender')
     @setCombatType @get('combatType')
 
   # Roll dice for each unit in a battle force
   resolve: ->
+    return if @get("resolved")
     if @attacker.player? and @defender.player?
       for force in [@attacker, @defender]
         unit.rollDice() for unit in force.units
+
+      @setResolved true
+
+  setResolved: (isResolved) ->
+    @set "resolved", isResolved
 
   # Resets rolls and damage inflicted in this round
   resetRound: ->
     for force in [@attacker, @defender]
       unit.reset() for unit in force.units
+    @setResolved false
 
   setRound: (round) ->
     round = 0 if round < 0
-    @round = round
+    @set "round", round
 
   setCombatType: (combatType) ->
     @set 'combatType', combatType
@@ -64,13 +72,18 @@ class window.Battle extends Backbone.Model
   # Remove all damaged units.
   # Remember to carry damage for those that can sustain damage.
   nextRound: ->
-    setRound @round + 1
+    @setRound @get("round") + 1
 
   # Reset all damage points, etc
   # Perhaps a history function to rollback to previous state?
   prevRound: ->
-    @round = 1 if @round is 0
-    setRound @round - 1
+    @setRound @get("round") - 1
+
+  hits: ->
+    {
+      attacker: @attacker.hits()
+      defender: @defender.hits()
+    }
 
 
 # One side of the Battle. Either Attacker or Defender.
@@ -80,13 +93,13 @@ class BattleForce extends Backbone.Model
 
   hits: ->
     _.reduce(@units, (total, unit) ->
-        total + unit.hits
+        total + unit.get("hits")
       , 0)
 
   addUnit: (theUnit, quantity = 1) ->
     index = @indexOfUnit(theUnit)
     if index?
-      @units[index].adjustQuantity(quantity)
+      @units[index].adjustQuantityBy(quantity)
     else
       @units.push new BattleUnit(unit: theUnit, quantity: quantity)
 
@@ -99,9 +112,12 @@ class BattleForce extends Backbone.Model
     found = index for unit, index in @units when unit.id is theUnit.id
     found
 
+  opponent: ->
+    if @options.stance is "defender" then "attacker" else "defender"
+
 
 # Proxy class for units in battle
-class window.BattleUnit extends Backbone.Model
+class BattleUnit extends Backbone.Model
   defaults:
     hits: 0
     damage: 0
@@ -114,8 +130,9 @@ class window.BattleUnit extends Backbone.Model
     @set "battle", @unit.get("battle")
     @reset()
 
-  adjustQuantity: (change) ->
+  adjustQuantityBy: (change) ->
     quantity = @get("quantity") + change
+    quantity = 0 if quantity < 0
     @set "quantity", quantity
 
   reset: ->
@@ -128,9 +145,12 @@ class window.BattleUnit extends Backbone.Model
 
   setDiceRolls: (rolls) ->
     hits = 0
-    hits++ for result in rolls when result >= @get("battle")
+    hits++ for result in rolls when @hitTest(result)
     @set "rolls", rolls
     @set "hits", hits
+
+  hitTest: (value) ->
+    value >= @get("battle")
 
   toJSON: ->
     obj = @get("unit").toJSON()
@@ -176,11 +196,14 @@ class UnitListView extends Backbone.View
     this
 
 
-class window.BattleView extends Backbone.View
+class BattleView extends Backbone.View
   el: ".section#battle"
 
   initialize: ->
     state.battle = new Battle(combatType: 'space')
+
+    state.battle.on "change:round", (battleModel, round) =>
+      @_setRound(battleModel, round)
 
     @attacker = new BattleForceView
       el: @$el.find('.attacker')
@@ -201,6 +224,13 @@ class window.BattleView extends Backbone.View
       id = state.player.id + 1
       @setDefendingPlayer(Players.get(id) || Players.get(1))
 
+  events:
+    "click a[href=#resolve-battle]": "resolveBattle"
+
+  resolveBattle: (e) ->
+    e.preventDefault()
+    state.battle.resolve()
+
   setPlayer: (side, player) ->
     state.battle[side].player = player
     @[side].setPlayer player
@@ -211,6 +241,10 @@ class window.BattleView extends Backbone.View
   setDefendingPlayer: (player) ->
     @setPlayer('defender', player)
 
+  _setRound: (battleModel, round) ->
+    el = @$el.find(".round")
+    el.toggleClass("zero", round is 0)
+    $(".round-number .value", el).text(round)
 
 
 class BattleForceView extends Backbone.View
@@ -218,10 +252,19 @@ class BattleForceView extends Backbone.View
     @playerEl = $('h3.name', @$el)
     @playerTemplate = _.template(@playerEl.html())
 
+    state.battle.on "change:resolved", (model, isResolved) =>
+      @_setHitsFromOpponent(model, isResolved)
+
   setPlayer: (player) ->
     @player = player
     @$el.data('player', @player.id)
     @render()
+
+  _setHitsFromOpponent: (model, isResolved) ->
+    hits = $('.hits-from-opponent', @$el)
+    hits.toggleClass 'hidden', not isResolved
+    opponent = if @options.stance is "defender" then "attacker" else "defender"
+    $('.value', hits).text model[opponent].hits()
 
   render: ->
     @$el.removeClass ->
@@ -236,19 +279,54 @@ class BattleForceView extends Backbone.View
 
 
     # Units
+    @units = []
     oob = @$el.find('.order-of-battle .units').html('')
 
     for unit in state.battle[@options.stance].units
-      view = new BattleUnitView(model: unit)
+      view = new BattleUnitView(model: unit, id: unit.cid, className: "unit zero #{unit.id}")
       oob.append view.render().el
+      @units.push view
 
     this
 
 
-class window.BattleUnitView extends Backbone.View
-  template: _.template($('.section#battle .units').html())
+class BattleUnitView extends Backbone.View
+  rollHitTemplate: _.template('<span class="hit">{{value}}</span>')
+  rollMissTemplate: _.template('<span class="miss">{{value}}</span>')
 
-  # initialize: ->
+  template: _.template($(".order-of-battle .unit.template").html())
+
+  initialize: ->
+    @model.on "change:quantity", (model, quantity) =>
+      @_setQuantity(quantity)
+
+    @model.on "change:rolls", (model, rolls) =>
+      @_setRolls(model, rolls)
+
+  events:
+    "click .increase": "increaseQuantity"
+    "click .decrease": "decreaseQuantity"
+
+  increaseQuantity: (e) ->
+    e.preventDefault()
+    @model.adjustQuantityBy 1
+
+  decreaseQuantity: (e) ->
+    e.preventDefault()
+    @model.adjustQuantityBy -1
+
+  _setQuantity: (quantity) ->
+    @$el.toggleClass("zero", quantity is 0)
+    @$el.find('.quantity .value').text(quantity)
+
+  _setRolls: (model, rolls) ->
+    results = []
+    for roll in rolls
+      if model.hitTest(roll)
+        results.push @rollHitTemplate(value: roll)
+      else
+        results.push @rollMissTemplate(value: roll)
+    @$el.find('.rolls').html results.join(', ')
 
   render: ->
     @$el.html @template(@model.toJSON())
@@ -270,3 +348,4 @@ window.state =
 
 # init app
 window.App = new AppView
+

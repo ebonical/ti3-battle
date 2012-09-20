@@ -4,16 +4,24 @@
 
 .order-of-battle
   .units
-    .unit{ class: "{{id}}", id: "unit_{{cid}}" }
-      .battle ({{battle}})
+    .unit.template
+      .battle-value ({{battle}})
+      .image
       .name {{name}}
       .quantity
         %a.increase{href:'#increase'} +
-        {{quantity}}
+        %span.value {{quantity}}
         %a.decrease{href:'#decrease'} -
+      .rolls
 
+  .hits-from-opponent.hidden
+    %span.label Hits Taken
+    %span.value 0
 
-.actions
-  %a{ href: '#adjust-battle-values' } Battle Values
-  %a{ href: '#adjust-damage-values' } Apply Damage
-  %a{ href: '#clear-units' } Clear Units
+%ul.actions
+  %li
+    %a{href:'#adjust-battle-values'} Battle Values
+  %li
+    %a{href:'#adjust-damage-values'} Apply Damage
+  %li
+    %a{href:'#clear-units'} Clear Units

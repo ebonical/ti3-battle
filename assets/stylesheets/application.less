@@ -1,13 +1,22 @@
 @import "bootstrap/reset";
+@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-
 body {
-
+  margin: 0;
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
+  color: @textColor;
+  background-color: @bodyBackground;
 }
 
 .gamenav {
 
+}
+
+.container {
+  width: 1024px;
 }
 
 .section {
@@ -15,5 +24,57 @@ body {
 
   &.active {
     display: block;
+  }
+}
+
+.template, .hidden {
+  display: none;
+}
+
+.round {
+  .pre-battle {
+    display: none;
+  }
+  &.zero {
+    .default {
+      display: none;
+    }
+    .pre-battle {
+      display: inline;
+    }
+  }
+}
+
+.force {
+  .clearfix;
+
+  .name {
+    .player {
+      color: lighten(@textColor, 25%);
+      font-size: @baseFontSize * 0.9;
+    }
+  }
+}
+
+.unit {
+  .clearfix;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  float:left;
+
+  .image {
+    border: 1px solid #CCC;
+    width: 98px;
+    height: 98px;
+  }
+
+  .rolls {
+    .hit {
+      color: #F00;
+    }
+    .miss {
+      color: #666;
+    }
   }
 }

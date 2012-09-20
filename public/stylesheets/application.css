@@ -20,4 +20,18 @@ textarea{overflow:auto;vertical-align:top;}
 .clearfix:after{clear:both;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
 .input-block-level{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#333333;background-color:#ffffff;}
+.container{width:1024px;}
 .section{display:none;}.section.active{display:block;}
+.template,.hidden{display:none;}
+.round .pre-battle{display:none;}
+.round.zero .default{display:none;}
+.round.zero .pre-battle{display:inline;}
+.force{*zoom:1;}.force:before,.force:after{display:table;content:"";line-height:0;}
+.force:after{clear:both;}
+.force .name .player{color:#737373;font-size:12.6px;}
+.unit{*zoom:1;position:relative;width:150px;height:150px;float:left;}.unit:before,.unit:after{display:table;content:"";line-height:0;}
+.unit:after{clear:both;}
+.unit .image{border:1px solid #CCC;width:98px;height:98px;}
+.unit .rolls .hit{color:#F00;}
+.unit .rolls .miss{color:#666;}
