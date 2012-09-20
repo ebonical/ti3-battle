@@ -29,7 +29,7 @@ class Battle extends Backbone.Model
   defaults:
     round: 1
     combatType: "space"
-    resolved: false
+    diceRolled: false
 
   initialize: ->
     @attacker = new BattleForce(stance: 'attacker')
@@ -37,22 +37,23 @@ class Battle extends Backbone.Model
     @setCombatType @get('combatType')
 
   # Roll dice for each unit in a battle force
-  resolve: ->
-    return if @get("resolved")
+  # TODO check that at least one unit is on each side
+  rollDice: ->
+    return if @get("diceRolled")
     if @attacker.player? and @defender.player?
       for force in [@attacker, @defender]
         unit.rollDice() for unit in force.units
 
-      @setResolved true
+      @setDiceRolled true
 
-  setResolved: (isResolved) ->
-    @set "resolved", isResolved
+  setDiceRolled: (isRolled) ->
+    @set "diceRolled", isRolled
 
   # Resets rolls and damage inflicted in this round
   resetRound: ->
     for force in [@attacker, @defender]
       unit.reset() for unit in force.units
-    @setResolved false
+    @setDiceRolled false
 
   setRound: (round) ->
     round = 0 if round < 0
@@ -91,6 +92,13 @@ class BattleForce extends Backbone.Model
   initialize: ->
     @units = []
 
+  # attacker or defender
+  stance: ->
+    @options.stance
+
+  opponentStance: ->
+    if @stance() is "defender" then "attacker" else "defender"
+
   hits: ->
     _.reduce(@units, (total, unit) ->
         total + unit.get("hits")
@@ -111,9 +119,6 @@ class BattleForce extends Backbone.Model
   indexOfUnit: (theUnit) ->
     found = index for unit, index in @units when unit.id is theUnit.id
     found
-
-  opponent: ->
-    if @options.stance is "defender" then "attacker" else "defender"
 
 
 # Proxy class for units in battle
@@ -225,11 +230,11 @@ class BattleView extends Backbone.View
       @setDefendingPlayer(Players.get(id) || Players.get(1))
 
   events:
-    "click a[href=#resolve-battle]": "resolveBattle"
+    "click a[href=#roll-dice]": "rollDice"
 
-  resolveBattle: (e) ->
+  rollDice: (e) ->
     e.preventDefault()
-    state.battle.resolve()
+    state.battle.rollDice()
 
   setPlayer: (side, player) ->
     state.battle[side].player = player
@@ -252,21 +257,27 @@ class BattleForceView extends Backbone.View
     @playerEl = $('h3.name', @$el)
     @playerTemplate = _.template(@playerEl.html())
 
-    state.battle.on "change:resolved", (model, isResolved) =>
-      @_setHitsFromOpponent(model, isResolved)
+    state.battle.on "change:diceRolled", (model, isRolled) =>
+      @_setHitsFromOpponent(model, isRolled)
+
+  stance: ->
+    @options.stance
+
+  opponentStance: ->
+    if @stance() is "defender" then "attacker" else "defender"
 
   setPlayer: (player) ->
     @player = player
     @$el.data('player', @player.id)
     @render()
 
-  _setHitsFromOpponent: (model, isResolved) ->
-    hits = $('.hits-from-opponent', @$el)
-    hits.toggleClass 'hidden', not isResolved
-    opponent = if @options.stance is "defender" then "attacker" else "defender"
-    $('.value', hits).text model[opponent].hits()
+  _setHitsFromOpponent: (model, isRolled) ->
+    hitsEl = $('.hits-from-opponent', @$el)
+    hitsEl.toggleClass 'hidden', not isRolled
+    $('.value', hitsEl).text model[@opponentStance()].hits()
 
   render: ->
+    # Make sure the current race and colour classes are set
     @$el.removeClass ->
       _this = $(this)
       klasses = _this.attr('class').split(' ')
@@ -276,7 +287,6 @@ class BattleForceView extends Backbone.View
     @$el.addClass "race-#{@player.get("race").id} color-#{@player.get("color")}"
 
     @playerEl.html @playerTemplate(@player.toJSON())
-
 
     # Units
     @units = []
@@ -288,9 +298,10 @@ class BattleForceView extends Backbone.View
       @units.push view
 
     this
-
+  # end render
 
 class BattleUnitView extends Backbone.View
+
   rollHitTemplate: _.template('<span class="hit">{{value}}</span>')
   rollMissTemplate: _.template('<span class="miss">{{value}}</span>')
 

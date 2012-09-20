@@ -49,6 +49,7 @@ units = [
     battle: 9
     move: 2
     antifighter: true
+    preCombat: true
     notes: "Anti-Fighter Barrage"
     inSpaceCombat: true
     inGroundCombat: false
