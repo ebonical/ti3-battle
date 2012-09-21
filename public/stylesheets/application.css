@@ -30,8 +30,16 @@ body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:
 .force{*zoom:1;}.force:before,.force:after{display:table;content:"";line-height:0;}
 .force:after{clear:both;}
 .force .name .player{color:#737373;font-size:12.6px;}
+.force .hits-from-opponent{display:none;}
+.force .clear-damage{display:none;}
 .unit{*zoom:1;position:relative;width:150px;height:150px;float:left;}.unit:before,.unit:after{display:table;content:"";line-height:0;}
 .unit:after{clear:both;}
 .unit .image{border:1px solid #CCC;width:98px;height:98px;}
 .unit .rolls .hit{color:#F00;}
 .unit .rolls .miss{color:#666;}
+.unit .adjust-battle-values{display:none;}
+.unit .add-damage{display:none;}
+.dice-rolled .hits-from-opponent{display:block;}
+.dice-rolled .clear-damage{display:block;}
+.dice-rolled .add-damage{display:block;}
+.adjusting-battle-values .adjust-battle-values{display:block;}

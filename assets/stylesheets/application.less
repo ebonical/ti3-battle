@@ -54,6 +54,14 @@ body {
       font-size: @baseFontSize * 0.9;
     }
   }
+
+  .hits-from-opponent {
+    display: none;
+  }
+
+  .clear-damage {
+    display: none;
+  }
 }
 
 .unit {
@@ -76,5 +84,33 @@ body {
     .miss {
       color: #666;
     }
+  }
+
+  .adjust-battle-values {
+    display: none;
+  }
+
+  .add-damage {
+    display: none;
+  }
+}
+
+.dice-rolled {
+  .hits-from-opponent {
+    display: block;
+  }
+
+  .clear-damage {
+    display: block;
+  }
+
+  .add-damage {
+    display: block;
+  }
+}
+
+.adjusting-battle-values {
+  .adjust-battle-values {
+    display: block;
   }
 }

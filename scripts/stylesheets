@@ -1,0 +1,1 @@
+lessc -x assets/stylesheets/application.less > public/stylesheets/application.css
