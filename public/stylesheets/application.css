@@ -21,9 +21,10 @@ textarea{overflow:auto;vertical-align:top;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
 .input-block-level{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#333333;background-color:#ffffff;}
+.hidden{display:none;}
 .container{width:1024px;}
 .section{display:none;}.section.active{display:block;}
-.template,.hidden{display:none;}
+.template{display:none;}
 .round .pre-battle{display:none;}
 .round.zero .default{display:none;}
 .round.zero .pre-battle{display:inline;}
@@ -38,6 +39,9 @@ body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:
 .force .unit .rolls .hit{color:#F00;}
 .force .unit .rolls .miss{color:#666;}
 .force .unit .adjust-battle-values{display:none;}
+.reset-dice.btn{display:none;}
 .dice-rolled .hits-from-opponent{display:block;}
 .dice-rolled .damage{display:block;}.dice-rolled .damage.zero .value{display:none;}
-.adjusting-battle-values .adjust-battle-values{display:block;}
+.dice-rolled .roll-dice.btn{display:none;}
+.dice-rolled .reset-dice.btn{display:inline-block;}
+.adjusting-battle-values .unit .adjust-battle-values{display:block;}

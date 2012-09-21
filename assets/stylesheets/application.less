@@ -11,6 +11,10 @@ body {
   background-color: @bodyBackground;
 }
 
+.hidden {
+  display: none;
+}
+
 .gamenav {
 
 }
@@ -20,24 +24,25 @@ body {
 }
 
 .section {
-  display: none;
+  .hidden;
 
   &.active {
     display: block;
   }
 }
 
-.template, .hidden {
-  display: none;
+.template {
+  .hidden;
 }
 
 .round {
   .pre-battle {
-    display: none;
+    .hidden;
   }
+
   &.zero {
     .default {
-      display: none;
+      .hidden;
     }
     .pre-battle {
       display: inline;
@@ -56,11 +61,11 @@ body {
   }
 
   .hits-from-opponent {
-    display: none;
+    .hidden;
   }
 
   .damage {
-    display: none;
+    .hidden;
   }
 
   .unit {
@@ -86,9 +91,13 @@ body {
     }
 
     .adjust-battle-values {
-      display: none;
+      .hidden;
     }
   }
+}
+
+.reset-dice.btn {
+  .hidden;
 }
 
 .dice-rolled {
@@ -100,13 +109,22 @@ body {
     display: block;
 
     &.zero .value {
-      display: none;
+      .hidden;
     }
+  }
+
+  .roll-dice.btn {
+    .hidden;
+  }
+  .reset-dice.btn {
+    display: inline-block;
   }
 }
 
 .adjusting-battle-values {
-  .adjust-battle-values {
-    display: block;
+  .unit {
+    .adjust-battle-values {
+      display: block;
+    }
   }
 }
