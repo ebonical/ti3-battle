@@ -1,0 +1,17 @@
+.battle-value (<span class="value">{{battle}}</span>)
+.image
+.name {{name}}
+.quantity
+  %a.increase{href:'#increase-quantity'} +
+  %span.value {{quantity}}
+  %a.decrease{href:'#decrease-quantity'} -
+.rolls
+.adjust-battle-values
+  %a.increase{href:'#increase-battle-value'} +
+  %span.value +0
+  %a.decrease{href:'#decrease-battle-value'} -
+
+.damage.zero
+  .add-damge.damage
+    %a{href:'#add-damage'} Add Damage
+  .value 0

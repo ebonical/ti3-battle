@@ -1,4 +1,4 @@
-# Proxy class for units in battle
+# A group of the same type units in a battle force
 class BattleUnit extends Backbone.Model
   defaults:
     hits: 0
@@ -32,6 +32,17 @@ class BattleUnit extends Backbone.Model
     if Math.abs(adjustment) > 5
       adjustment = 5 * (if change < 0 then -1 else 1)
     @set "battleValueAdjustment", adjustment
+
+  setDamage: (damage) ->
+    if damage < 0 or @get("quantity") is 0
+      damage = 0
+    @set "damage", damage
+
+  adjustDamageBy: (change) ->
+    @setDamage @get("damage") + change
+
+  clearDamage: ->
+    @setDamage 0
 
   reset: ->
     @set "hits", 0

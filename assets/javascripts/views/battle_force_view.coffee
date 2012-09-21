@@ -10,6 +10,7 @@ class BattleForceView extends Backbone.View
     "click a[href=#clear-units]": "clearUnitsHandler"
     "click a[href=#adjust-battle-values]": "adjustBattleValuesHandler"
     "click a[href=#adjust-damage-values]": "adjustDamageValuesHandler"
+    "click a[href=#clear-damage]": "clearDamageHandler"
 
   stance: ->
     @options.stance
@@ -17,14 +18,18 @@ class BattleForceView extends Backbone.View
   opponentStance: ->
     if @stance() is "defender" then "attacker" else "defender"
 
+  battleForce: ->
+    state.battle[@stance()]
+
   setPlayer: (player) ->
     @player = player
     @$el.data('player', @player.id)
     @render()
 
+
   clearUnitsHandler: (e) ->
     e.preventDefault()
-    state.battle[@stance()].clearUnits()
+    @battleForce().clearUnits()
 
   adjustBattleValuesHandler: (e) ->
     e.preventDefault()
@@ -35,8 +40,14 @@ class BattleForceView extends Backbone.View
     e.preventDefault()
     console.warn "adjustDamageValuesHandler: not yet implemented"
 
+  clearDamageHandler: (e) ->
+    e.preventDefault()
+    unit.clearDamage() for unit in @battleForce().units
+
+
   _setHitsFromOpponent: (model, isRolled) ->
-    $('.hits-from-opponent .value', @$el).text model[@opponentStance()].hits()
+    @$el.find(".hits-from-opponent .value").text model[@opponentStance()].hits()
+
 
   render: ->
     # Make sure the current race and colour classes are set
@@ -50,9 +61,9 @@ class BattleForceView extends Backbone.View
 
     # Units
     @units = []
-    oob = @$el.find('.order-of-battle .units').html('')
+    oob = @$el.find(".order-of-battle .units").html('')
 
-    for unit in state.battle[@options.stance].units
+    for unit in @battleForce().units
       view = new BattleUnitView(model: unit, id: unit.cid, className: "unit zero #{unit.id}")
       oob.append view.render().el
       @units.push view

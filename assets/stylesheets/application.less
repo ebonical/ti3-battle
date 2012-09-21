@@ -59,39 +59,35 @@ body {
     display: none;
   }
 
-  .clear-damage {
+  .damage {
     display: none;
   }
-}
 
-.unit {
-  .clearfix;
-  position: relative;
-  width: 150px;
-  height: 150px;
-  float:left;
+  .unit {
+    .clearfix;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    float:left;
 
-  .image {
-    border: 1px solid #CCC;
-    width: 98px;
-    height: 98px;
-  }
-
-  .rolls {
-    .hit {
-      color: #F00;
+    .image {
+      border: 1px solid #CCC;
+      width: 98px;
+      height: 98px;
     }
-    .miss {
-      color: #666;
+
+    .rolls {
+      .hit {
+        color: #F00;
+      }
+      .miss {
+        color: #666;
+      }
     }
-  }
 
-  .adjust-battle-values {
-    display: none;
-  }
-
-  .add-damage {
-    display: none;
+    .adjust-battle-values {
+      display: none;
+    }
   }
 }
 
@@ -100,12 +96,12 @@ body {
     display: block;
   }
 
-  .clear-damage {
+  .damage {
     display: block;
-  }
 
-  .add-damage {
-    display: block;
+    &.zero .value {
+      display: none;
+    }
   }
 }
 

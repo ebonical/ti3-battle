@@ -18,6 +18,9 @@ class BattleUnitView extends Backbone.View
     @model.on "change:battleValueAdjustment", (model, newValue) =>
       @_setBattleValueAdjustment(model, newValue)
 
+    @model.on "change:damage", (model, newValue) =>
+      @_setDamageValue(model, newValue)
+
 
   events:
     "click a[href=#increase-quantity]": "increaseQuantityHandler"
@@ -25,6 +28,7 @@ class BattleUnitView extends Backbone.View
     "click a[href=#increase-battle-value]": "increaseBattleValueHandler"
     "click a[href=#decrease-battle-value]": "decreaseBattleValueHandler"
     "click a[href=#add-damage]": "addDamageHandler"
+
 
   increaseQuantityHandler: (e) ->
     e.preventDefault()
@@ -44,7 +48,8 @@ class BattleUnitView extends Backbone.View
 
   addDamageHandler: (e) ->
     e.preventDefault()
-    console.warn "addDamageHandler: pending"
+    @model.adjustDamageBy 1
+
 
   _setQuantity: (quantity) ->
     @$el.toggleClass("zero", quantity is 0)
@@ -60,12 +65,18 @@ class BattleUnitView extends Backbone.View
     @$el.find('.rolls').html results.join(', ')
 
   _setBattleValue: (model, value) ->
-    $(".battle-value .value", @$el).text(value)
+    @$el.find(".battle-value .value").text(value)
 
   _setBattleValueAdjustment: (model, adjustment) ->
     text = adjustment
     text = "+" + adjustment if adjustment >= 0
     $('.adjust-battle-values .value', @$el).text(text)
+
+  _setDamageValue: (model, value) ->
+    el = @$el.find(".damage")
+    el.find(".value").text value
+    el.toggleClass "zero", value is 0
+
 
   render: ->
     @$el.html @template(@model.toJSON())

@@ -5,26 +5,17 @@
 .order-of-battle
   .units
     .unit.template
-      .battle-value (<span class="value">{{battle}}</span>)
-      .image
-      .name {{name}}
-      .quantity
-        %a.increase{href:'#increase-quantity'} +
-        %span.value {{quantity}}
-        %a.decrease{href:'#decrease-quantity'} -
-      .rolls
-      .adjust-battle-values
-        %a.increase{href:'#increase-battle-value'} +
-        %span.value +0
-        %a.decrease{href:'#decrease-battle-value'} -
-      .add-damage
-        %a{href:'#add-damage'} Add Damage
+      = partial "battle_unit"
 
-  .hits-from-opponent
-    %span.label Hits Taken
+  .hits-from-opponent.zero
+    %span.label Hits Received
     %span.value 0
 
-  .clear-damage
+  .damage-applied.zero
+    %span.label Damage Applied
+    %span.value 0
+
+  .clear-damage.damage
     %a{href:'#clear-damage'} Clear Damage
 
 %ul.actions
