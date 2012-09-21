@@ -29,15 +29,16 @@ class BattleBoard < Sinatra::Base
 
   def bundled_javascripts
     out = ""
+    config = nil
     application = nil
     Dir[settings.root + "/assets/javascripts/**/*.coffee"].each do |file|
       src = File.read(file)
-      if file =~ /application\.coffee$/
-        application = src
-      else
-        out << src
+      case file
+        when /application\.coffee$/ then application = src
+        when /config\.coffee$/ then config = src
+        else out << src
       end
     end
-    out + application
+    config + out + application
   end
 end

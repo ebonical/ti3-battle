@@ -1,5 +1,3 @@
-_.templateSettings =
-  interpolate : /\{\{(.+?)\}\}/g
 
 # Collections
 class PlayerCollection extends Backbone.Collection
