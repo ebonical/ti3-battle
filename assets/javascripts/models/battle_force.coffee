@@ -1,4 +1,7 @@
 class BattleForce extends Backbone.Model
+  defaults:
+    damage: 0
+
   initialize: ->
     @units = []
 
@@ -19,7 +22,10 @@ class BattleForce extends Backbone.Model
     if index?
       @units[index].adjustQuantityBy(quantity)
     else
-      @units.push new BattleUnit(unit: theUnit, quantity: quantity)
+      unit = new BattleUnit(unit: theUnit, quantity: quantity)
+      unit.on "change:damage", =>
+        @sumDamage()
+      @units.push unit
 
   clearUnits: ->
     for unit in @units
@@ -33,3 +39,9 @@ class BattleForce extends Backbone.Model
   indexOfUnit: (theUnit) ->
     found = index for unit, index in @units when unit.id is theUnit.id
     found
+
+  # Total damage across all units
+  sumDamage: ->
+    @set "damage", _.reduce(@units, (total, unit) ->
+        total + unit.get("damage")
+      , 0)

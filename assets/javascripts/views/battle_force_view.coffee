@@ -6,6 +6,10 @@ class BattleForceView extends Backbone.View
     state.battle.on "change:diceRolled", (model, isRolled) =>
       @_setHitsFromOpponent(model, isRolled)
 
+    @battleForce().on "change:damage", (model, newValue) =>
+      @_setDamageApplied(newValue)
+
+
   events:
     "click a[href=#clear-units]": "clearUnitsHandler"
     "click a[href=#adjust-battle-values]": "adjustBattleValuesHandler"
@@ -47,6 +51,12 @@ class BattleForceView extends Backbone.View
 
   _setHitsFromOpponent: (model, isRolled) ->
     @$el.find(".hits-from-opponent .value").text model[@opponentStance()].hits()
+
+  _setDamageApplied: (damage) ->
+    el = @$el.find(".damage-applied")
+    el.toggleClass "zero", damage is 0
+    el.find(".value").text damage
+
 
 
   render: ->
