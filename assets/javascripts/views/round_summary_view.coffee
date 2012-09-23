@@ -41,7 +41,7 @@ class RoundSummaryView extends Backbone.View
       totalDamage = force.get("damage")
       totalLosses = force.totalUnitsLost()
       overview = "Inflicted #{totalHits} hit#{if totalHits is 1 then '' else 's'}" +
-        " on their opponent and took #{totalDamage} damage" +
+        " to the other side and took #{totalDamage} damage" +
         " losing #{totalLosses} ship#{if totalLosses is 1 then '' else 's'}."
       forceEl.find(".overview").text overview
 
