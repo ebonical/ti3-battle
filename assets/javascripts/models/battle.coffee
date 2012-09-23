@@ -6,10 +6,11 @@ class Battle extends Backbone.Model
     round: 1
     combatType: "space"
     diceRolled: false
+    roundResolved: false
 
   initialize: ->
-    @attacker = new BattleForce(stance: 'attacker')
-    @defender = new BattleForce(stance: 'defender')
+    @attacker = new BattleForce(stance: 'attacker', battle: this)
+    @defender = new BattleForce(stance: 'defender', battle: this)
     @setCombatType @get('combatType')
 
   # Roll dice for each unit in a battle force
@@ -62,3 +63,23 @@ class Battle extends Backbone.Model
       attacker: @attacker.hits()
       defender: @defender.hits()
     }
+
+  # Are there any forces left in the battle?
+  finished: ->
+    zeroAttackers = @attacker.totalNumberOfUnits() is 0
+    zeroDefenders = @defender.totalNumberOfUnits() is 0
+    @get("roundResolved") and (zeroAttackers or zeroDefenders)
+
+  winner: ->
+    attackersRemain = @attacker.totalNumberOfUnits() > 0
+    defendersRemain = @defender.totalNumberOfUnits() > 0
+    if attackersRemain and not defendersRemain
+      @attacker
+    else if defendersRemain and not attackersRemain
+      @defender
+
+  # Resolve all damage applied to units
+  resolveDamage: ->
+    @attacker.resolveDamage()
+    @defender.resolveDamage()
+    @set "roundResolved", true

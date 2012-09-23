@@ -16,7 +16,7 @@ Data =
       dice: 3
       bombard: true
       capacity: 6
-      hitpoints: 2
+      toughness: 2
       notes: "Bombardment*, Capacity: 6, Sustain Damage"
       inSpaceCombat: true
       inGroundCombat: true
@@ -29,7 +29,7 @@ Data =
       battle: 5
       move: 1
       bombard: true
-      hitpoints: 2
+      toughness: 2
       notes: "Bombardment, Sustain Damage"
       inSpaceCombat: true
       inGroundCombat: true
@@ -122,7 +122,8 @@ Data =
         { id: 'dock', amount: 1 }
       ]
       technologies: ["antimass-deflectors", "cybernetics"]
-      leaders: ["agent", "admiral", "diplomat"]
+      leaders: ["agent", "admiral", "diplomat"],
+      modifiers: []
     }
     {
       id: "letnev"
@@ -175,13 +176,14 @@ Data =
       ]
       technologies: ["enviro-compensator", "sarween-tools"]
       leaders: ["general", "scientist", "diplomat"]
+      modifiers: []
     }
     {
       id: "norr"
       name: "Sardakk N'orr"
       shortName: "N'orr"
       abilities: [
-        "You receive +1 on your combat rolls."
+        "You receive +1 on *all* your combat rolls."
       ]
       units: [
         { id: "ground", amount: 5 }
@@ -194,13 +196,7 @@ Data =
       leaders: ["admiral", "general", "general"]
       modifiers: [
         {
-          scope: "space-combat"
-          modifier: 1
-          duration: 0
-          automatic: true
-        }
-        {
-          scope: "ground-combat"
+          scope: "combat"
           modifier: 1
           duration: 0
           automatic: true
@@ -212,7 +208,7 @@ Data =
       name: "Universities of Jol-Nar"
       shortName: "Jol-Nar"
       abilities: [
-        "You receive -1 on your combat rolls."
+        "You receive -1 on *all* your combat rolls."
         "When executing the Secondary Ability of the Technology Strategy, you may execute both its Primary Ability and the Secondary ability."
         "You may spend a Command Counter from your Strategy Allocation, to immediately re-roll any of your die rolls."
       ]
@@ -228,13 +224,7 @@ Data =
       leaders: ["scientist", "scientist", "admiral"]
       modifiers: [
         {
-          scope: "space-combat"
-          modifier: -1
-          automatic: true
-          duration: 0
-        }
-        {
-          scope: "ground-combat"
+          scope: "combat"
           modifier: -1
           automatic: true
           duration: 0

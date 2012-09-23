@@ -10,6 +10,9 @@ class BattleView extends Backbone.View
     state.battle.on "change:diceRolled", (model, newValue) =>
       @_setDiceRolled(model, newValue)
 
+    state.battle.on "change:roundResolved", (model, newValue) =>
+      @_setRoundResolved(model, newValue)
+
     @attacker = new BattleForceView
       el: @$el.find('.attacker')
       stance: 'attacker'
@@ -32,6 +35,8 @@ class BattleView extends Backbone.View
   events:
     "click a[href=#roll-dice]": "rollDiceHandler"
     "click a[href=#reset-dice]": "resetDiceHandler"
+    "click a[href=#resolve-round]": "resolveRoundHandler"
+    "click a[href=#next-round]": "nextRoundHandler"
 
   rollDiceHandler: (e) ->
     e.preventDefault()
@@ -40,6 +45,15 @@ class BattleView extends Backbone.View
   resetDiceHandler: (e) ->
     e.preventDefault()
     state.battle.resetDice()
+
+  resolveRoundHandler: (e) ->
+    e.preventDefault()
+    state.battle.resolveDamage()
+
+  nextRoundHandler: (e) ->
+    e.preventDefault()
+    # move battle to next round
+
 
   setPlayer: (side, player) ->
     state.battle[side].player = player
@@ -51,10 +65,20 @@ class BattleView extends Backbone.View
   setDefendingPlayer: (player) ->
     @setPlayer('defender', player)
 
+  showRoundSummary: ->
+    return if @roundSummary?
+    @roundSummary = new RoundSummaryView(model: state.battle)
+    @roundSummary.show()
+
+
   _setRound: (battleModel, round) ->
     el = @$el.find(".round")
     el.toggleClass("zero", round is 0)
-    $(".round-number .value", el).text(round)
+    el.find(".round-number .value").text(round)
 
   _setDiceRolled: (battleModel, isRolled) ->
     @$el.toggleClass "dice-rolled", isRolled
+
+  _setRoundResolved: (battleModel, isResolved) ->
+    @$el.toggleClass "round-resolved", isResolved
+    @showRoundSummary()

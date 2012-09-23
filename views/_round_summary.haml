@@ -1,0 +1,35 @@
+%h2.heading
+  %span.win
+    Victory! <strong>{{race.name}}</strong> has won
+  %span.draw
+    It's a draw. You both lose
+  %span.continue
+    The battle continues...
+
+.summary
+  %h3.round Summary of Round <span class="value">1</span>
+
+  .forces
+    .force.template
+      %h4
+        %span.race {{race.name}}
+        %span.player {{player.name}}
+
+      %p.overview
+        Inflicted
+        %span.total-hits <span class="value">0</span> hit<span class="plural">s</span>
+        on their opponent and took
+        %span.total-damage 0
+        damage losing
+        %span.total-losses 0
+        ship<span class="total-losses-plural">s</span>.
+
+      %ul.units
+        %li.unit.template
+          %span.name {{name}}
+          %span.battle {{battle}}
+          %span.rolls {{rolls}}
+          %span.losses
+            Remove
+            %span.value {{losses}}
+            {{name}}<span class="plural">s</span>

@@ -9,6 +9,8 @@
   %a.new-battle.btn{href:'#new-battle'} New Battle
   %a.roll-dice.btn{href:'#roll-dice'} Roll Dice!
   %a.reset-dice.btn{href:'#reset-dice'} Reset Dice
+  %a.resolve-round.btn{href:'#resolve-round'} Resolve Round
+  %a.next-round.btn{href:'#next-round'} Next Round
 
 .round
   %h2
@@ -27,3 +29,6 @@
 .force.defender{'data-player' => 0}
   %h2 Defender
   = partial "battle_force"
+
+.round-summary.hidden
+  = partial "round_summary"

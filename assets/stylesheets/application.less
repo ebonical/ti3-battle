@@ -35,96 +35,141 @@ body {
   .hidden;
 }
 
-.round {
-  .pre-battle {
-    .hidden;
-  }
+#battle {
+  .round-summary {
 
-  &.zero {
-    .default {
+    h2 .win, h2 .draw {
       .hidden;
     }
+
+    &.win {
+      h2 .win {
+        display: inline;
+      }
+      h2 .continue {
+        .hidden;
+      }
+    }
+
+    &.draw {
+      h2 .draw {
+        display: inline;
+      }
+      h2 .continue {
+        .hidden;
+      }
+    }
+  }
+
+  .round {
     .pre-battle {
-      display: inline;
+      .hidden;
+    }
+
+    &.zero {
+      .default {
+        .hidden;
+      }
+      .pre-battle {
+        display: inline;
+      }
     }
   }
-}
 
-.force {
-  .clearfix;
-
-  .name {
-    .player {
-      color: lighten(@textColor, 25%);
-      font-size: @baseFontSize * 0.9;
-    }
-  }
-
-  .hits-from-opponent {
-    .hidden;
-  }
-
-  .damage {
-    .hidden;
-  }
-
-  .unit {
+  .force {
     .clearfix;
-    position: relative;
-    width: 150px;
-    height: 150px;
-    float:left;
 
-    .image {
-      border: 1px solid #CCC;
-      width: 98px;
-      height: 98px;
-    }
-
-    .rolls {
-      .hit {
-        color: #F00;
-      }
-      .miss {
-        color: #666;
+    .name {
+      .player {
+        color: lighten(@textColor, 25%);
+        font-size: @baseFontSize * 0.9;
       }
     }
 
-    .adjust-battle-values {
+    .hits-from-opponent {
       .hidden;
     }
-  }
-}
 
-.reset-dice.btn {
-  .hidden;
-}
-
-.dice-rolled {
-  .hits-from-opponent {
-    display: block;
-  }
-
-  .damage {
-    display: block;
-
-    &.zero .value {
+    .damage {
       .hidden;
     }
-  }
 
-  .roll-dice.btn {
+    .unit {
+      .clearfix;
+      position: relative;
+      width: 150px;
+      height: 150px;
+      float:left;
+
+      .image {
+        border: 1px solid #CCC;
+        width: 98px;
+        height: 98px;
+      }
+
+      .rolls {
+        .hit {
+          color: #F00;
+        }
+        .miss {
+          color: #666;
+        }
+      }
+
+      .adjust-battle-values {
+        .hidden;
+      }
+    } //.unit
+  } //.force
+
+  .reset-dice.btn {
     .hidden;
   }
-  .reset-dice.btn {
-    display: inline-block;
-  }
-}
 
-.adjusting-battle-values {
-  .unit {
-    .adjust-battle-values {
+  .resolve-round.btn {
+    .hidden;
+  }
+
+  .adjusting-battle-values {
+    .unit {
+      .adjust-battle-values {
+        display: block;
+      }
+    }
+  }
+
+  // After dice have been rolled we start applying damage
+  &.dice-rolled {
+    .hits-from-opponent {
       display: block;
     }
+
+    .damage {
+      display: block;
+
+      &.zero .value {
+        .hidden;
+      }
+    }
+
+    .roll-dice.btn {
+      .hidden;
+    }
+
+    .reset-dice.btn {
+      display: inline-block;
+    }
+
+    .resolve-round.btn {
+      display: inline-block;
+    }
   }
+
+  &.round-resolved {
+    .reset-dice.btn {
+      .hidden;
+    }
+  }
+
 }
+

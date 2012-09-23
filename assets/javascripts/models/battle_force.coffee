@@ -22,7 +22,7 @@ class BattleForce extends Backbone.Model
     if index?
       @units[index].adjustQuantityBy(quantity)
     else
-      unit = new BattleUnit(unit: theUnit, quantity: quantity)
+      unit = new BattleUnit(unit: theUnit, quantity: quantity, force: this)
       unit.on "change:damage", =>
         @sumDamage()
       @units.push unit
@@ -36,6 +36,9 @@ class BattleForce extends Backbone.Model
     if index?
       @units[index].damage += damageAmount
 
+  resolveDamage: ->
+    unit.resolveDamage() for unit in @units
+
   indexOfUnit: (theUnit) ->
     found = index for unit, index in @units when unit.id is theUnit.id
     found
@@ -45,3 +48,17 @@ class BattleForce extends Backbone.Model
     @set "damage", _.reduce(@units, (total, unit) ->
         total + unit.get("damage")
       , 0)
+
+  totalNumberOfUnits: ->
+    _.reduce(@units, (total, unit) ->
+        total + unit.get("quantity")
+      , 0)
+
+  totalNumberOfUnitsBefore: ->
+    _.reduce(@units, (total, unit) ->
+        total + unit.get("quantityBefore")
+      , 0)
+
+  totalUnitsLost: ->
+    @totalNumberOfUnitsBefore() - @totalNumberOfUnits()
+
