@@ -12,20 +12,47 @@ class BattleUnit extends Backbone.Model
     @unit = @get "unit"
     @set(key, value) for key, value of @unit.attributes
 
-    @on "change:battleValueAdjustment", @applyModifiers
+    @on "change:battleValueAdjustment", => @applyModifiers
 
+
+  getBattleValue: ->
+    @get "battle"
 
   setBattleValue: (value) ->
     value = 10 if value > 10
     value = 1 if value < 1
     @set "battle", value
 
+  getQuantity: ->
+    @get("quantity")
+
   setQuantity: (quantity) ->
     quantity = 0 if quantity < 0
     @set "quantity", quantity
 
+  getQuantityBefore: ->
+    @get("quantityBefore") or @getQuantity()
+
+  getHits: ->
+    @get "hits"
+
+  getDamage: ->
+    @get "damage"
+
+  setDamage: (damage) ->
+    if damage < 0 or @getQuantity() is 0
+      damage = 0
+    @set "damage", damage
+
+  getDice: ->
+    @get "dice"
+
+
+  hasUnits: ->
+    @getQuantity() > 0
+
   adjustQuantityBy: (change) ->
-    quantity = @get("quantity") + change
+    quantity = @getQuantity() + change
     @setQuantity quantity
 
   adjustBattleValueBy: (change) ->
@@ -34,13 +61,8 @@ class BattleUnit extends Backbone.Model
       adjustment = 5 * (if change < 0 then -1 else 1)
     @set "battleValueAdjustment", adjustment
 
-  setDamage: (damage) ->
-    if damage < 0 or @get("quantity") is 0
-      damage = 0
-    @set "damage", damage
-
   adjustDamageBy: (change) ->
-    @setDamage @get("damage") + change
+    @setDamage @getDamage() + change
 
   clearDamage: ->
     @setDamage 0
@@ -58,7 +80,7 @@ class BattleUnit extends Backbone.Model
     @setBattleValue value
 
   rollDice: ->
-    @setDiceRolls Dice.roll(@get("quantity") * @get("dice"))
+    @setDiceRolls Dice.roll(@getQuantity() * @getDice())
 
   setDiceRolls: (rolls) ->
     hits = 0
@@ -67,26 +89,27 @@ class BattleUnit extends Backbone.Model
     @set "hits", hits
 
   hitTest: (value) ->
-    value >= @get("battle")
+    value >= @getBattleValue()
 
   # After dice have been rolled and damage has been attached to each unit group
   # then reduce quantities by damage level applied
   resolveDamage: ->
-    damage =  @get "damage"
-    quantity = @get "quantity"
+    damage =  @getDamage()
+    quantity = @getQuantity()
+
+    unless damage is 0 or quantity is 0
+      # can unit sustain damage? (hitpoints)
+      hitpoints = @get("toughness") * quantity
+      remaining = Math.ceil((hitpoints - damage) / @get("toughness"))
+      @setQuantity remaining
+
     @set "quantityBefore", quantity
 
-    return if damage is 0 or quantity is 0
-
-    # can unit sustain damage? (hitpoints)
-    hitpoints = @get("toughness") * quantity
-    remaining = Math.ceil((hitpoints - damage) / @get("toughness"))
-    @setQuantity remaining
 
 
   toJSON: ->
     obj = @get("unit").toJSON()
     _.extend(obj, super)
     obj.cid = @cid
-    obj.losses = @get("quantityBefore") - @get("quantity")
+    obj.losses = @get("quantityBefore") - @getQuantity()
     obj

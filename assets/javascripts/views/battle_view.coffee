@@ -2,16 +2,17 @@ class BattleView extends Backbone.View
   el: ".section#battle"
 
   initialize: ->
-    state.battle = new Battle(combatType: 'space')
-
-    state.battle.on "change:round", (battleModel, newValue) =>
+    @model.on "change:round", (battleModel, newValue) =>
       @_setRound(battleModel, newValue)
 
-    state.battle.on "change:diceRolled", (model, newValue) =>
+    @model.on "change:diceRolled", (model, newValue) =>
       @_setDiceRolled(model, newValue)
 
-    state.battle.on "change:roundResolved", (model, newValue) =>
+    @model.on "change:roundResolved", (model, newValue) =>
       @_setRoundResolved(model, newValue)
+
+    @model.on "change:combatType", (model, newValue) =>
+      @_setCombatType(newValue)
 
     @attacker = new BattleForceView
       el: @$el.find('.attacker')
@@ -40,15 +41,15 @@ class BattleView extends Backbone.View
 
   rollDiceHandler: (e) ->
     e.preventDefault()
-    state.battle.rollDice()
+    @model.rollDice()
 
   resetDiceHandler: (e) ->
     e.preventDefault()
-    state.battle.resetDice()
+    @model.resetDice()
 
   resolveRoundHandler: (e) ->
     e.preventDefault()
-    state.battle.resolveDamage()
+    @model.resolveDamage()
 
   nextRoundHandler: (e) ->
     e.preventDefault()
@@ -56,7 +57,7 @@ class BattleView extends Backbone.View
 
 
   setPlayer: (side, player) ->
-    state.battle[side].player = player
+    @model[side].player = player
     @[side].setPlayer player
 
   setAttackingPlayer: (player) ->
@@ -66,7 +67,7 @@ class BattleView extends Backbone.View
     @setPlayer('defender', player)
 
   showRoundSummary: ->
-    @roundSummary ?= new RoundSummaryView(model: state.battle)
+    @roundSummary ?= new RoundSummaryView(model: @model)
     @roundSummary.show()
 
 
@@ -82,3 +83,12 @@ class BattleView extends Backbone.View
     @$el.toggleClass "round-resolved", isResolved
     @showRoundSummary()
 
+  _setCombatType: (combatType) ->
+    @render()
+
+  render: ->
+    @$el.removeClass "space ground"
+    @$el.addClass @model.getCombatType()
+    # redraw forces
+    @attacker.render()
+    @defender.render()

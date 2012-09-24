@@ -3,11 +3,11 @@ class RoundSummaryView extends Backbone.View
   el: $("#battle .round-summary")
 
   initialize: ->
-    forceEl = @$el.find(".force.template").removeClass("template").remove()
-    unitEl = forceEl.find(".unit.template").removeClass("template").remove()
-    @forceTemplate = _.template(forceEl[0].outerHTML)
-    @unitTemplate = _.template(unitEl[0].outerHTML)
+    elForce = @$el.find(".force.template").removeClass("template").remove()
+    elUnit = elForce.find(".unit.template").removeClass("template").remove()
 
+    @forceTemplate = _.template elForce[0].outerHTML
+    @unitTemplate = _.template elUnit[0].outerHTML
 
   events:
     "click a[href=#done]": "doneHandler"
@@ -29,53 +29,46 @@ class RoundSummaryView extends Backbone.View
       e.addClass "finished"
       if winner = @model.winner()
         e.addClass "win"
-        e.find("h2 strong").text winner.player.get("race").get("name")
+        e.find("h2 strong").text winner.player.race.getName()
       else
         e.addClass "draw"
 
     # Round number
-    e.find(".round .value").text @model.get("round")
+    e.find(".round .value").text @model.getRound()
 
     # Add attacking forces
     e.find(".forces").html ""
 
     for force in [@model.attacker, @model.defender]
-      forceEl = $ @forceTemplate
+      elForce = $ @forceTemplate
         player:
-          name: force.player.get("name")
+          name: force.player.getName()
         race:
-          name: force.player.get("race").get("name")
+          name: force.player.race.getName()
+        hits: force.hits()
+        damage: force.getDamage()
+        losses: force.totalUnitsLost()
 
-      forceEl.addClass "#{force.stance()} race-#{force.player.get("race").id} color-#{force.player.get("color")}"
-      e.find(".forces").append forceEl
-      # Summary sentence
-      totalHits = force.hits()
-      totalDamage = force.get("damage")
-      totalLosses = force.totalUnitsLost()
-      overview = "Inflicted #{totalHits} hit#{if totalHits is 1 then '' else 's'}" +
-        " to the other side and took #{totalDamage} damage" +
-        " losing #{totalLosses} ship#{if totalLosses is 1 then '' else 's'}."
-      forceEl.find(".overview").text overview
+      elForce.addClass "#{force.id} race-#{force.player.race.id} color-#{force.player.getColor()}"
+      e.find(".forces").append elForce
 
       # Display units in force
-      unitsEl = forceEl.find(".units")
+      elUnits = elForce.find(".units")
       units = _.filter force.units, (unit) ->
-        unit.get("quantityBefore") > 0
+        unit.getQuantityBefore() > 0
 
       for unit in units
         obj = unit.toJSON()
-        unitEl = $ @unitTemplate(obj)
-        unitsEl.append unitEl
+        elUnit = $ @unitTemplate(obj)
+        elUnits.append elUnit
         # insert formatted rolls
-        new DiceRollsView(hit: obj.battle, rolls: obj.rolls, el: unitEl.find(".rolls")).render()
-        # hide plural losses
-        unitEl.find(".losses .plural").toggleClass("hidden", obj.losses is 1)
+        new DiceRollsView(hit: obj.battle, rolls: obj.rolls, el: elUnit.find(".rolls")).render()
 
     # What buttons do we have available
     if battleFinished
       e.find(".next-round.btn").addClass "hidden"
       if winner? and winner.stance() is "attacker"
-        e.find(".start-invasion").removeClass "hidden"
+        e.find(".start-invasion-combat").removeClass "hidden"
 
     this
 
@@ -89,4 +82,5 @@ class RoundSummaryView extends Backbone.View
 
   startInvasionCombatHandler: (e) ->
     e.preventDefault()
-
+    @model.newBattle "ground"
+    @hide()

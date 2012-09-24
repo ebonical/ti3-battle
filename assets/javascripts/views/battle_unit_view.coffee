@@ -3,7 +3,7 @@ class BattleUnitView extends Backbone.View
   rollHitTemplate: _.template('<span class="hit">{{value}}</span>')
   rollMissTemplate: _.template('<span class="miss">{{value}}</span>')
 
-  template: _.template($(".order-of-battle .unit.template").html())
+  template: _.template $(".order-of-battle .unit.template").html()
 
   initialize: ->
     @model.on "change:quantity", (model, quantity) =>

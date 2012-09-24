@@ -1,7 +1,7 @@
 class BattleForceView extends Backbone.View
   initialize: ->
-    @playerEl = $('h3.name', @$el)
-    @playerTemplate = _.template(@playerEl.html())
+    @elPlayer = $('h3.name', @$el)
+    @playerTemplate = _.template @elPlayer.html()
 
     state.battle.on "change:diceRolled", (model, isRolled) =>
       @_setHitsFromOpponent(model, isRolled)
@@ -65,9 +65,9 @@ class BattleForceView extends Backbone.View
       _.filter $(this).attr('class').split(' '), (klass) ->
         /^(race|color)-/.test(klass)
 
-    @$el.addClass "race-#{@player.get("race").id} color-#{@player.get("color")}"
+    @$el.addClass "race-#{@player.race.id} color-#{@player.getColor()}"
 
-    @playerEl.html @playerTemplate(@player.toJSON())
+    @elPlayer.html @playerTemplate(@player.toJSON())
 
     # Units
     @units = []
