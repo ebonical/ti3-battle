@@ -7,7 +7,7 @@ class BattleForce extends Backbone.Model
 
   # attacker or defender
   stance: ->
-    @options.stance
+    @attributes.stance
 
   opponentStance: ->
     if @stance() is "defender" then "attacker" else "defender"

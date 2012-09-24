@@ -2,7 +2,7 @@
   %span.win
     Victory! <strong>{{race.name}}</strong> has won
   %span.draw
-    It's a draw. You both lose
+    It’s a draw. You both lose
   %span.continue
     The battle continues...
 
@@ -33,3 +33,8 @@
             Remove
             %span.value {{losses}}
             {{name}}<span class="plural">s</span>
+
+.actions
+  %a.done.btn{href:'#done'} Thanks, We’re Done
+  %a.next-round.btn{href:'#next-round'} Continue to Next Round
+  %a.start-invasion-combat.btn.hidden{href:'#start-invasion-combat'} Start Invasion Combat

@@ -13,6 +13,15 @@ class Battle extends Backbone.Model
     @defender = new BattleForce(stance: 'defender', battle: this)
     @setCombatType @get('combatType')
 
+
+  # start a fresh battle
+  newBattle: (combatType = "space") ->
+    @setDiceRolled false
+    @attacker.units = []
+    @defender.units = []
+    @setRound 1
+    @setCombatType combatType
+
   # Roll dice for each unit in a battle force
   # TODO check that at least one unit is on each side
   rollDice: ->
@@ -35,6 +44,7 @@ class Battle extends Backbone.Model
 
   setRound: (round) ->
     round = 0 if round < 0
+    @set "roundResolved", false
     @set "round", round
 
   setCombatType: (combatType) ->
@@ -52,6 +62,7 @@ class Battle extends Backbone.Model
   # Remember to carry damage for those that can sustain damage.
   nextRound: ->
     @setRound @get("round") + 1
+    @resetDice()
 
   # Reset all damage points, etc
   # Perhaps a history function to rollback to previous state?

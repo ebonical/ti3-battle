@@ -1,4 +1,4 @@
-# @model is a Battle class
+# @model is the Battle instance
 class RoundSummaryView extends Backbone.View
   el: $("#battle .round-summary")
 
@@ -8,14 +8,24 @@ class RoundSummaryView extends Backbone.View
     @forceTemplate = _.template(forceEl[0].outerHTML)
     @unitTemplate = _.template(unitEl[0].outerHTML)
 
+
+  events:
+    "click a[href=#done]": "doneHandler"
+    "click a[href=#next-round]": "nextRoundHandler"
+    "click a[href=#start-invasion-combat]": "startInvasionCombatHandler"
+
   show: ->
     @render()
     @$el.removeClass "hidden"
 
+  hide: ->
+    @$el.addClass "hidden"
+
   render: ->
     e = @$el
+    battleFinished = @model.finished()
     # Has the battle finished? I.e. one side has zero units left
-    if @model.finished()
+    if battleFinished
       e.addClass "finished"
       if winner = @model.winner()
         e.addClass "win"
@@ -26,7 +36,9 @@ class RoundSummaryView extends Backbone.View
     # Round number
     e.find(".round .value").text @model.get("round")
 
-    # Add attacking force
+    # Add attacking forces
+    e.find(".forces").html ""
+
     for force in [@model.attacker, @model.defender]
       forceEl = $ @forceTemplate
         player:
@@ -34,7 +46,7 @@ class RoundSummaryView extends Backbone.View
         race:
           name: force.player.get("race").get("name")
 
-      forceEl.addClass "attacker"
+      forceEl.addClass "#{force.stance()} race-#{force.player.get("race").id} color-#{force.player.get("color")}"
       e.find(".forces").append forceEl
       # Summary sentence
       totalHits = force.hits()
@@ -59,4 +71,22 @@ class RoundSummaryView extends Backbone.View
         # hide plural losses
         unitEl.find(".losses .plural").toggleClass("hidden", obj.losses is 1)
 
+    # What buttons do we have available
+    if battleFinished
+      e.find(".next-round.btn").addClass "hidden"
+      if winner? and winner.stance() is "attacker"
+        e.find(".start-invasion").removeClass "hidden"
+
     this
+
+  doneHandler: (e) ->
+    e.preventDefault()
+
+  nextRoundHandler: (e) ->
+    e.preventDefault()
+    @model.nextRound()
+    @hide()
+
+  startInvasionCombatHandler: (e) ->
+    e.preventDefault()
+

@@ -8,10 +8,6 @@ class DiceRollsView extends Backbone.View
   render: ->
     rolls = @options.rolls
     hit = @options.hit
-    console.log  rolls
-    console.log hit
-    console.log @$el
-
     results = []
     for roll in rolls
       if roll >= hit

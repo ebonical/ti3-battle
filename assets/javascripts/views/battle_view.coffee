@@ -66,8 +66,7 @@ class BattleView extends Backbone.View
     @setPlayer('defender', player)
 
   showRoundSummary: ->
-    return if @roundSummary?
-    @roundSummary = new RoundSummaryView(model: state.battle)
+    @roundSummary ?= new RoundSummaryView(model: state.battle)
     @roundSummary.show()
 
 
@@ -82,3 +81,4 @@ class BattleView extends Backbone.View
   _setRoundResolved: (battleModel, isResolved) ->
     @$el.toggleClass "round-resolved", isResolved
     @showRoundSummary()
+
