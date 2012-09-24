@@ -1,6 +1,16 @@
 # Battle has an attacking and defending player
-# It should track each round.
-# Space Battle phases: pre-battle anti-fighter (round 0)
+#
+# Space Battle sequence
+#   Set unit quantities and adjust any battle values and apply sustained damage
+#   Roll Dice
+#   Apply damage from any hits
+#   Resolve damage showing summary of round
+#
+# Invasion Combat sequence
+#   Set unit quantities and adjust battle values etc.
+#   Roll only for Ground Forces
+#   Follow Roll Dice above
+#
 class Battle extends Backbone.Model
   defaults:
     round: 1
@@ -37,10 +47,14 @@ class Battle extends Backbone.Model
       when 'space' then { inSpaceCombat: true }
       when 'ground' then { inGroundCombat: true }
 
+    @attacker.reset()
+    @defender.reset()
+
     for unit in Units.where(conditions)
       @attacker.addUnit unit, 0
       @defender.addUnit unit, 0
 
+    @set "newBattle", false
     @set "combatType", combatType
 
 
@@ -49,21 +63,67 @@ class Battle extends Backbone.Model
   # Clear both side's units and re-initialize them
   # Reset round number
   newBattle: (combatType = "space") ->
-    @attacker.units = []
-    @defender.units = []
+    @preCombatResolved = false
     @setRound 1
     @setDiceRolled false
     @setCombatType combatType
+    @set "newBattle", true
 
   # Roll dice for each unit in a battle force
   # TODO check that at least one unit is on each side
   rollDice: ->
     return if @get("diceRolled")
-    if @attacker.player? and @defender.player?
-      for force in [@attacker, @defender]
-        unit.rollDice() for unit in force.units
 
-      @setDiceRolled true
+    if @getCombatType() is "space"
+      @_rollSpaceCombatDice()
+
+    else if @getCombatType() is "ground"
+      if @getRound() is 0
+        @_rollPreGroundCombatDice()
+      else
+        @_rollGroundCombatDice()
+
+    @setDiceRolled true
+
+  # Standard Space Battle
+  # TODO automatically apply damage to ships when outcome is clear
+  _rollSpaceCombatDice: ->
+    for force in [@attacker, @defender]
+      unit.rollDice() for unit in force.units
+
+  # Standard Invasion Combat - only Ground Forces
+  # Automatically apply damage to each other's Ground Forces
+  _rollGroundCombatDice: ->
+    attackingGroundForce = @attacker.getUnit("ground")
+    defendingGroundForce = @defender.getUnit("ground")
+
+    attackingGroundForce.rollDice()
+    defendingGroundForce.rollDice()
+
+    attackingGroundForce.adjustDamageBy defendingGroundForce.getHits()
+    defendingGroundForce.adjustDamageBy attackingGroundForce.getHits()
+
+  # Pre-combat round for Invasion
+  # Bombardment applies damage to defending Ground Forces
+  # PDS fire from defender inflicts damage on invading Ground Forces
+  _rollPreGroundCombatDice: ->
+    # Bombardment - check if we need the ignore PDS ability
+    if @preCombatPhases.bombardment
+      mustIgnorePds = @preCombatPhases.pdsFire
+      units = _.filter @attacker.units, (unit) ->
+        unit.hasUnits() and unit.canBombard() and (not mustIgnorePds or unit.canIgnorePds())
+      # Roll dice for each ship that can bombard and apply any hits to defending Ground Forces
+      groundForces = @defender.getUnit("ground")
+      for unit in units
+        unit.rollDice()
+        groundForces.adjustDamageBy unit.getHits()
+
+    # PDS Fire - damages attacking Ground Forces
+    if @preCombatPhases.pdsFire
+      pds = @defender.getUnit("pds")
+      pds.rollDice()
+      @attacker.getUnit("ground").adjustDamageBy pds.getHits()
+
 
   # Reset all dice rolled and damage set in this round
   resetDice: ->
@@ -79,6 +139,8 @@ class Battle extends Backbone.Model
   # Remember to carry damage for those that can sustain damage.
   nextRound: ->
     @resetDice()
+    if @getRound() is 0
+      @preCombatResolved = true
     @setRound @getRound() + 1
 
   # Reset all damage points, etc
@@ -94,13 +156,26 @@ class Battle extends Backbone.Model
 
   # Are there any forces left in the battle?
   isFinished: ->
-    zeroAttackers = @attacker.totalNumberOfUnits() is 0
-    zeroDefenders = @defender.totalNumberOfUnits() is 0
-    @get("roundResolved") and (zeroAttackers or zeroDefenders)
+    return false unless @get("roundResolved")
+    switch @getCombatType()
+      when "space"
+        zeroAttackers = @attacker.totalNumberOfUnits() is 0
+        zeroDefenders = @defender.totalNumberOfUnits() is 0
+      when "ground"
+        zeroAttackers = not @attacker.getUnit("ground").hasUnits()
+        zeroDefenders = not @defender.getUnit("ground").hasUnits()
+
+    zeroAttackers or zeroDefenders
 
   winner: ->
-    attackersRemain = @attacker.totalNumberOfUnits() > 0
-    defendersRemain = @defender.totalNumberOfUnits() > 0
+    switch @getCombatType()
+      when "space"
+        attackersRemain = @attacker.totalNumberOfUnits() > 0
+        defendersRemain = @defender.totalNumberOfUnits() > 0
+      when "ground"
+        attackersRemain = @attacker.getUnit("ground").hasUnits()
+        defendersRemain = @defender.getUnit("ground").hasUnits()
+
     if attackersRemain and not defendersRemain
       @attacker
     else if defendersRemain and not attackersRemain
@@ -119,7 +194,7 @@ class Battle extends Backbone.Model
   # 1. Fighters exist and other side has "Anti-Fighter Barrage" ability
   hasPreSpaceCombat: ->
     doIt = false
-    return false if @getCombatType() != "space"
+    return false if @getCombatType() != "space" or @preCombatResolved
 
     test = attacker: {}, defender: {}
 
@@ -141,7 +216,7 @@ class Battle extends Backbone.Model
   # 2. Attacker has unit with Bombard ability and defender has Ground Forces
   hasPreGroundCombat: ->
     doIt = false
-    return false if @getCombatType() != "ground"
+    return false if @getCombatType() != "ground" or @preCombatResolved
 
     test = attacker: {}, defender: {}
 
@@ -152,16 +227,26 @@ class Battle extends Backbone.Model
       if force.id is "attacker"
         # 2. Bombard
         test[force.id].hasBombard = _.any force.units, (unit) ->
-          unit.get("bombard") and unit.hasUnits()
+          unit.canBombard() and unit.hasUnits()
+
+        if test[force.id].hasBombard
+          test[force.id].hasIgnorePds = _.any force.units, (unit) ->
+            unit.canIgnorePds() and unit.hasUnits()
 
       if force.id is "defender"
         # 1. PDS fire
         test[force.id].hasPds = _.any force.units, (unit) ->
           unit.id is "pds" and unit.hasUnits()
 
-    doIt or= test.defender.hasPds and test.attacker.hasGroundForces
-    doIt or= test.attacker.hasBombard and test.defender.hasGroundForces
+    # Check that if Defender has PDS then Attacker can still bombard
+    if test.defender.hasPds and test.attacker.hasBombard
+      test.attacker.hasBombard = test.attacker.hasIgnorePds
 
+    @preCombatPhases =
+      pdsFire: test.defender.hasPds and test.attacker.hasGroundForces
+      bombardment: test.attacker.hasBombard and test.defender.hasGroundForces
+
+    doIt or= value for key, value of @preCombatPhases
     doIt
 
   # Switch to pre-combat round 0 if...

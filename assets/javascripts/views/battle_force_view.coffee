@@ -67,7 +67,7 @@ class BattleForceView extends Backbone.View
 
     @$el.addClass "race-#{@player.race.id} color-#{@player.getColor()}"
 
-    @$el.find("h3.name").append @playerTemplate(@player.toJSON())
+    @$el.find("h3.name").html @playerTemplate(@player.toJSON())
 
     # Units
     @units = []

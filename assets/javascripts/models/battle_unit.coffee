@@ -34,10 +34,10 @@ class BattleUnit extends Backbone.Model
     @get("quantityBefore") or @getQuantity()
 
   getHits: ->
-    @get "hits"
+    @get("hits") or 0
 
   getDamage: ->
-    @get "damage"
+    @get("damage") or 0
 
   setDamage: (damage) ->
     if damage < 0 or @getQuantity() is 0
@@ -45,7 +45,14 @@ class BattleUnit extends Backbone.Model
     @set "damage", damage
 
   getDice: ->
-    @get "dice"
+    @get("dice")
+
+
+  canBombard: ->
+    @get("bombard") is true
+
+  canIgnorePds: ->
+    @get("ignorePds") is true
 
 
   hasUnits: ->

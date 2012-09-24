@@ -11,8 +11,9 @@ class BattleView extends Backbone.View
     @model.on "change:roundResolved", (model, newValue) =>
       @_setRoundResolved(model, newValue)
 
-    @model.on "change:combatType", (model, newValue) =>
-      @_setCombatType(newValue)
+    @model.on "change:newBattle", (model, isNewBattle) =>
+      @render() if isNewBattle
+
 
     @attacker = new BattleForceView
       el: @$el.find('.attacker')
@@ -82,9 +83,6 @@ class BattleView extends Backbone.View
   _setRoundResolved: (battleModel, isResolved) ->
     @$el.toggleClass "round-resolved", isResolved
     @showRoundSummary()
-
-  _setCombatType: (combatType) ->
-    @render()
 
   render: ->
     @$el.removeClass "space ground"

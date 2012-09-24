@@ -5,12 +5,14 @@ class RoundSummaryView extends Backbone.View
   forceTemplate: _.template $(".round-summary .force.template").html()
   unitTemplate: _.template $(".round-summary .unit.template").html()
 
-  # initialize: ->
-  #   elForce = @$el.find(".force.template").removeClass("template").remove()
-  #   elUnit = elForce.find(".unit.template").removeClass("template").remove()
+  initialize: ->
+    @model.on "change:roundResolved", (model, isResolved) =>
+      @hide() if not isResolved
 
-  #   @forceTemplate = _.template elForce[0].outerHTML
-  #   @unitTemplate = _.template elUnit[0].outerHTML
+    @conditionalButtons =
+      next: @$el.find(".next-round.btn")
+      invasion: @$el.find(".start-invasion-combat.btn")
+
 
   events:
     "click a[href=#done]": "doneHandler"
@@ -26,6 +28,7 @@ class RoundSummaryView extends Backbone.View
 
   render: ->
     e = @$el
+    e.removeClass("finished win draw")
     battleFinished = @model.isFinished()
     # Has the battle finished? I.e. one side has zero units left
     if battleFinished
@@ -68,15 +71,19 @@ class RoundSummaryView extends Backbone.View
         new DiceRollsView(hit: obj.battle, rolls: obj.rolls, el: elUnit.find(".rolls")).render()
 
     # What buttons do we have available
+    button.addClass("hidden") for key, button of @conditionalButtons
+
     if battleFinished
-      e.find(".next-round.btn").addClass "hidden"
-      if winner? and winner.stance() is "attacker"
-        e.find(".start-invasion-combat").removeClass "hidden"
+      if winner? and winner.stance() is "attacker" and @model.getCombatType() is "space"
+        @conditionalButtons.invasion.removeClass "hidden"
+    else
+      @conditionalButtons.next.removeClass "hidden"
 
     this
 
   doneHandler: (e) ->
     e.preventDefault()
+    @model.newBattle( @model.getCombatType() )
 
   nextRoundHandler: (e) ->
     e.preventDefault()
@@ -85,5 +92,5 @@ class RoundSummaryView extends Backbone.View
 
   startInvasionCombatHandler: (e) ->
     e.preventDefault()
-    @model.newBattle "ground"
+    @model.newBattle("ground")
     @hide()

@@ -6,6 +6,10 @@ class BattleForce extends Backbone.Model
   initialize: ->
     @units = []
 
+  reset: ->
+    @units = []
+    @sumQuantity()
+    @sumDamage()
 
   getDamage: ->
     @get("damage") or 0
@@ -44,6 +48,10 @@ class BattleForce extends Backbone.Model
   resolveDamage: ->
     unit.resolveDamage() for unit in @units
 
+  getUnit: (unitId) ->
+    found = unit for unit in @units when unit.id is unitId
+    found
+
   indexOfUnit: (theUnit) ->
     found = index for unit, index in @units when unit.id is theUnit.id
     found
@@ -68,5 +76,6 @@ class BattleForce extends Backbone.Model
       , 0)
 
   totalUnitsLost: ->
-    @totalNumberOfUnitsBefore() - @totalNumberOfUnits()
+    total = @totalNumberOfUnitsBefore() - @totalNumberOfUnits()
+    if total < 0 then 0 else total
 
