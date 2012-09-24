@@ -11,23 +11,28 @@
 
   .forces
     .force.template
-      %h4
-        %span.race {{race.name}}
-        %span.player {{player.name}}
+      .force
+        %h4
+          %span.race {{race.name}}
+          %span.player {{player.name}}
 
-      %p.overview
-        Inflicted {{hits}} {{"hit".pluralize(hits)}} to the other side and
-        took {{damage}} damage losing {{losses}} {{"unit".pluralize(losses)}}.
+        %p.overview
+          Inflicted {{hits}} {{"hit".pluralize(hits)}} to the other side and
+          took {{damage}} damage losing {{losses}} {{"unit".pluralize(losses)}}.
 
-      %ul.units
-        %li.unit.template
-          %span.name {{name}}
-          %span.battle {{battle}}
-          %span.rolls {{rolls}}
-          %span.losses
-            Remove
-            %span.value {{losses}}
-            {{name.pluralize(losses)}}
+        %ul.units
+          -# List of Units from template below
+
+    -# Extracted and inserted into %ul.units above
+    .unit.template
+      %li.unit
+        %span.name {{name}}
+        %span.battle {{battle}}
+        %span.rolls {{rolls}}
+        %span.losses
+          Remove
+          %span.value {{losses}}
+          {{name.pluralize(losses)}}
 
 .actions
   %a.done.btn{href:'#done'} Thanks, We’re Done

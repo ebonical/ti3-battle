@@ -1,8 +1,8 @@
 class BattleForceView extends Backbone.View
-  initialize: ->
-    @elPlayer = $('h3.name', @$el)
-    @playerTemplate = _.template @elPlayer.html()
 
+  playerTemplate: _.template $(".battle-board .force h3.name .template").html()
+
+  initialize: ->
     state.battle.on "change:diceRolled", (model, isRolled) =>
       @_setHitsFromOpponent(model, isRolled)
 
@@ -19,7 +19,7 @@ class BattleForceView extends Backbone.View
   stance: ->
     @options.stance
 
-  opponentStance: ->
+  oppositeStance: ->
     if @stance() is "defender" then "attacker" else "defender"
 
   battleForce: ->
@@ -50,7 +50,7 @@ class BattleForceView extends Backbone.View
 
 
   _setHitsFromOpponent: (model, isRolled) ->
-    @$el.find(".hits-from-opponent .value").text model[@opponentStance()].hits()
+    @$el.find(".hits-from-opponent .value").text model[@oppositeStance()].getHits()
 
   _setDamageApplied: (damage) ->
     el = @$el.find(".damage-applied")
@@ -67,11 +67,11 @@ class BattleForceView extends Backbone.View
 
     @$el.addClass "race-#{@player.race.id} color-#{@player.getColor()}"
 
-    @elPlayer.html @playerTemplate(@player.toJSON())
+    @$el.find("h3.name").append @playerTemplate(@player.toJSON())
 
     # Units
     @units = []
-    oob = @$el.find(".order-of-battle .units").html('')
+    oob = @$el.find(".order-of-battle .units").html("")
 
     for unit in @battleForce().units
       view = new BattleUnitView(model: unit, id: unit.cid, className: "unit zero #{unit.id}")

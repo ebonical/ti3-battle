@@ -21,13 +21,14 @@
   .actions
     %a.pre-battle{href:'#next-round'} Skip to Round 1
 
-.force.attacker{'data-player' => 0}
-  %h2 Attacker
-  = partial "battle_force"
+.battle-board
+  .force.attacker{'data-player' => 0}
+    %h2 Attacker
+    = partial "battle_force"
 
-.force.defender{'data-player' => 0}
-  %h2 Defender
-  = partial "battle_force"
+  .force.defender{'data-player' => 0}
+    %h2 Defender
+    = partial "battle_force"
 
 .round-summary.hidden
   = partial "round_summary"

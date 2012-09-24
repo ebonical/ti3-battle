@@ -49,10 +49,10 @@ class Battle extends Backbone.Model
   # Clear both side's units and re-initialize them
   # Reset round number
   newBattle: (combatType = "space") ->
-    @setDiceRolled false
     @attacker.units = []
     @defender.units = []
     @setRound 1
+    @setDiceRolled false
     @setCombatType combatType
 
   # Roll dice for each unit in a battle force
@@ -88,12 +88,12 @@ class Battle extends Backbone.Model
 
   hits: ->
     {
-      attacker: @attacker.hits()
-      defender: @defender.hits()
+      attacker: @attacker.getHits()
+      defender: @defender.getHits()
     }
 
   # Are there any forces left in the battle?
-  finished: ->
+  isFinished: ->
     zeroAttackers = @attacker.totalNumberOfUnits() is 0
     zeroDefenders = @defender.totalNumberOfUnits() is 0
     @get("roundResolved") and (zeroAttackers or zeroDefenders)

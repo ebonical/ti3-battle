@@ -2,12 +2,15 @@
 class RoundSummaryView extends Backbone.View
   el: $("#battle .round-summary")
 
-  initialize: ->
-    elForce = @$el.find(".force.template").removeClass("template").remove()
-    elUnit = elForce.find(".unit.template").removeClass("template").remove()
+  forceTemplate: _.template $(".round-summary .force.template").html()
+  unitTemplate: _.template $(".round-summary .unit.template").html()
 
-    @forceTemplate = _.template elForce[0].outerHTML
-    @unitTemplate = _.template elUnit[0].outerHTML
+  # initialize: ->
+  #   elForce = @$el.find(".force.template").removeClass("template").remove()
+  #   elUnit = elForce.find(".unit.template").removeClass("template").remove()
+
+  #   @forceTemplate = _.template elForce[0].outerHTML
+  #   @unitTemplate = _.template elUnit[0].outerHTML
 
   events:
     "click a[href=#done]": "doneHandler"
@@ -23,7 +26,7 @@ class RoundSummaryView extends Backbone.View
 
   render: ->
     e = @$el
-    battleFinished = @model.finished()
+    battleFinished = @model.isFinished()
     # Has the battle finished? I.e. one side has zero units left
     if battleFinished
       e.addClass "finished"
@@ -45,11 +48,11 @@ class RoundSummaryView extends Backbone.View
           name: force.player.getName()
         race:
           name: force.player.race.getName()
-        hits: force.hits()
+        hits: force.getHits()
         damage: force.getDamage()
         losses: force.totalUnitsLost()
 
-      elForce.addClass "#{force.id} race-#{force.player.race.id} color-#{force.player.getColor()}"
+      elForce.addClass "force #{force.id} race-#{force.player.race.id} color-#{force.player.getColor()}"
       e.find(".forces").append elForce
 
       # Display units in force

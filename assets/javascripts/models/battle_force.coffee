@@ -14,10 +14,10 @@ class BattleForce extends Backbone.Model
   stance: ->
     @id
 
-  opponentStance: ->
+  oppositeStance: ->
     if @stance() is "defender" then "attacker" else "defender"
 
-  hits: ->
+  getHits: ->
     _.reduce(@units, (total, unit) ->
         total + unit.getHits()
       , 0)
