@@ -74,14 +74,18 @@ class Battle extends Backbone.Model
   rollDice: ->
     return if @get("diceRolled")
 
-    if @getCombatType() is "space"
-      @_rollSpaceCombatDice()
+    switch @getCombatType()
+      when "space"
+        if @getRound() is 0
+          @_rollPreSpaceCombatDice()
+        else
+          @_rollSpaceCombatDice()
 
-    else if @getCombatType() is "ground"
-      if @getRound() is 0
-        @_rollPreGroundCombatDice()
-      else
-        @_rollGroundCombatDice()
+      when "ground"
+        if @getRound() is 0
+          @_rollPreGroundCombatDice()
+        else
+          @_rollGroundCombatDice()
 
     @setDiceRolled true
 
@@ -90,6 +94,27 @@ class Battle extends Backbone.Model
   _rollSpaceCombatDice: ->
     for force in [@attacker, @defender]
       unit.rollDice() for unit in force.units
+
+  # Pre-combat for Space Battles
+  # Currently only implements Anti-Fighter Barrage
+  _rollPreSpaceCombatDice: ->
+    # units with antifighter apply damage to opposing fighters
+    for force in [@attacker, @defender]
+      opposite = @[force.oppositeStance()]
+
+      ships = force.getUnitsWith
+        antifighter: true
+        hasUnits: true
+
+      fighters = opposite.getUnitsWith
+        id: "fighter"
+        hasUnits: true
+
+      if ships.length > 0 and fighters.length > 0
+        for ship in ships
+          # TODO apply anti-fighter barrage modifier
+          ship.rollDice()
+          fighters[0].adjustDamageBy ship.getHits()
 
   # Standard Invasion Combat - only Ground Forces
   # Automatically apply damage to each other's Ground Forces
@@ -199,12 +224,13 @@ class Battle extends Backbone.Model
     test = attacker: {}, defender: {}
 
     for force in [@attacker, @defender]
-      # Antifighter ability
-      test[force.id].hasAntiFighter = _.any force.units, (unit) ->
-        unit.get("antifighter") and unit.hasUnits()
+      test[force.id].hasAntiFighter = force.getUnitsWith(
+        antifighter: true
+        hasUnits: true).length > 0
 
-      test[force.id].hasFighters = _.any @attacker.units, (unit) ->
-        unit.id is "fighter" and unit.hasUnits()
+      test[force.id].hasFighters = force.getUnitsWith(
+        id: "fighter"
+        hasUnits: true).length > 0
 
     doIt or= test.attacker.hasAntiFighter and test.defender.hasFighters
     doIt or= test.defender.hasAntiFighter and test.attacker.hasFighters
@@ -259,6 +285,7 @@ class Battle extends Backbone.Model
   #   Quantity becomes zero
   #   or Test for pre-combat fails
   _togglePreRoundCombat: (force, quantity) ->
+    console.log quantity
     if @getRound() is 1
       doIt = not @get("preCombatResolved")
       doIt and= quantity > 0

@@ -49,8 +49,22 @@ class BattleForce extends Backbone.Model
     unit.resolveDamage() for unit in @units
 
   getUnit: (unitId) ->
-    found = unit for unit in @units when unit.id is unitId
-    found
+    @getUnits(unitId)[0]
+
+  getUnits: (unitIds...) ->
+    _.filter @units, (unit) ->
+      _.include(unitIds, unit.id)
+
+  getUnitsWith: (conditions) ->
+    _.filter @units, (unit) ->
+      results = for key, value of conditions
+        if key is "hasUnits"
+          if value then unit.hasUnits() else not unit.hasUnits()
+        else if typeof value is "object"
+          eval "#{unit.get(key)} #{value.operator} #{value.value}"
+        else
+          unit.get(key) is value
+      _.all(results, _.identity)
 
   indexOfUnit: (theUnit) ->
     found = index for unit, index in @units when unit.id is theUnit.id
