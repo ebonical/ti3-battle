@@ -39,6 +39,8 @@ class BattleView extends Backbone.View
     "click a[href=#reset-dice]": "resetDiceHandler"
     "click a[href=#resolve-round]": "resolveRoundHandler"
     "click a[href=#next-round]": "nextRoundHandler"
+    "click a[href=#new-space-combat]": "newSpaceCombatHandler"
+    "click a[href=#new-ground-combat]": "newGroundCombatHandler"
 
   rollDiceHandler: (e) ->
     e.preventDefault()
@@ -56,6 +58,13 @@ class BattleView extends Backbone.View
     e.preventDefault()
     # move battle to next round
 
+  newSpaceCombatHandler: (e) ->
+    e.preventDefault()
+    @model.newBattle("space")
+
+  newGroundCombatHandler: (e) ->
+    e.preventDefault()
+    @model.newBattle("ground")
 
   setPlayer: (side, player) ->
     @model[side].setPlayer player
