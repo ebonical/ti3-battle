@@ -356,6 +356,121 @@ Data =
         }
       ]
     }
+    {
+      id: "yssaril"
+      name: "The Yssaril Tribes"
+      shortName: "Yssaril"
+      abilities: [
+        "You are allowed to skip your action turn during the Action Phase. You may not skip two such action turns in a row."
+        "You draw 1 additional Action Card during every Status Phase. You are never limited to a hand-size of Action Cards, regardless of the game rules and any active Political Cards."
+        "Once during every Stratagy Phase, you may look at one other player's hand of Action Cards."
+      ]
+      units: [
+        { id: "dock", amount: 1 }
+        { id: "ground", amount: 5 }
+        { id: "pds", amount: 1 }
+        { id: "carrier", amount: 2 }
+        { id: "cruiser", amount: 1 }
+        { id: "fighter", amount: 2 }
+      ]
+      technologies: ["antimass-deflectors", "xrd-transporter"]
+      leaders: ["agent", "agent", "admiral"]
+      modifiers: []
+    }
+    {
+      id: "winnu"
+      expansion: "se"
+      name: "The Winnu"
+      shortName: "Winnu"
+      abilities: [
+        "You may always add the Influence value of your Home System planet to your votes, even if it is exhausted."
+        "Your planets that contain at least 1 Ground Force are immune to the Local Unrest Action Card."
+        "You do not need to spend a Command Counter to execute the secondary ability of the Technology Strategy."
+      ]
+      units: [
+        { id: "ground", amount: 3 }
+        { id: "carrier", amount: 1 }
+        { id: "cruiser", amount: 1 }
+        { id: "fighter", amount: 2 }
+        { id: "pds", amount: 1 }
+        { id: "dock", amount: 1 }
+      ]
+      technologies: ["antimass-deflectors", "enviro-compensator", "stasis-capsules"]
+      leaders: ["agent", "scientist", "admiral"]
+      modifiers: []
+    }
+    {
+      id: "muaat"
+      expansion: "se"
+      name: "Embers of Muaat"
+      shortName: "Muaat"
+      abilities: [
+        "Your War Suns have a base movement of 1 until you acquire the prerequisites at which point it becomes 2."
+        "As an Action, you may spend one Strategy Command Counter to place 2 free Fighters *or* 1 free Destroyer in any one System containing one of your War Suns."
+        "Your ships may move through, but not end their movement in Supernova systems."
+      ]
+      units: [
+        { id: "ground", amount: 4 }
+        { id: "fighter", amount: 2 }
+        { id: "warsun", amount: 1 }
+        { id: "dock", amount: 1 }
+      ]
+      technologies: ["enviro-compensator", "war-sun"]
+      leaders: ["general", "scientist", "diplomat"]
+      modifiers: []
+    }
+    {
+      id: "yin"
+      expansion: "se"
+      name: "The Yin Brotherhood"
+      shortName: "Yin"
+      abilities: [
+        "Before the beginning of an Invasion Combat in which you are the attacker, you may roll 1 die. On a 5+ your opponent loses 1 Ground Force and you gain 1 Ground Force."
+        "Immediately before the second round of a Space Battle, you may discard 1 of your participating Destroyers or Cruisers to immediately inflict 1 hit on an opposing ship."
+        "Once per game round, as an action, you may choose an unexhausted Planet you control and reverse its Resource and Influence values for the rest of the round."
+      ]
+      units: [
+        { id: "ground", amount: 4 }
+        { id: "carrier", amount: 2 }
+        { id: "destroyer", amount: 1 }
+        { id: "fighter", amount: 4 }
+        { id: "dock", amount: 1 }
+      ]
+      technologies: ["hylar-v-assault-laser", "automated-defense-turrets"]
+      leaders: ["general", "diplomat", "agent"]
+      modifiers: [
+        {
+          id: "race-yin-invasion-special"
+          scope: "ground"
+          stance: "attacker"
+          round: 0
+          duration: 1
+          special: "TBD"
+        }
+      ]
+    }
+    {
+      id: "saar"
+      expansion: "se"
+      name: "The Clan of Saar"
+      shortName: "Saar"
+      abilities: [
+        "Gain 1 Trade Good every time you acquire a new planet."
+        "Your Space Docks have a movement of 1, but may not build during the same activation in which they move."
+        "Your Space Docks are never placed on planets and have a production capacity of 4. Your Space Docks are destroyed if they are ever left alone with an enemy ship."
+        "You may fulfill Objectives even if you don't control your Home System."
+      ]
+      units: [
+        { id: "ground", amount: 4 }
+        { id: "carrier", amount: 2 }
+        { id: "fighter", amount: 2 }
+        { id: "cruiser", amount: 1 }
+        { id: "dock", amount: 1 }
+      ]
+      technologies: ["antimass-deflectors", "xrd-transporter"]
+      leaders: ["agent", "admiral", "general"]
+      modifiers: []
+    }
     # {
     #   id: ""
     #   name: ""
