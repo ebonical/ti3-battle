@@ -9,6 +9,12 @@ class window.Modifier extends Backbone.Model
   getModifiers: ->
     @get("modify") or {}
 
+  getOpponentModifiers: ->
+    @get("modifyOpponent")
+
+
+  modifiesOpponent: ->
+    @getOpponentModifiers()?
 
   isAutomatic: ->
     auto = @get("automatic")
@@ -38,6 +44,7 @@ class window.Modifier extends Backbone.Model
 
   # Match conditions of the unit
   isForUnit: (unit) ->
+    return false if @modifiesOpponent()
     isOk = true
     requires = @get("unitRequires")
     if requires?
@@ -51,4 +58,10 @@ class window.Modifier extends Backbone.Model
         else
           isOk and= unitValue is value
     isOk
+
+  cloneForOpponent: ->
+    newMod = @clone()
+    newMod.set "modify", @getOpponentModifiers()
+    newMod.set "modifyOpponent", null
+    newMod
 

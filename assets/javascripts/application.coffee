@@ -17,8 +17,8 @@ class ModifierCollection extends Backbone.Collection
 window.Units = new UnitCollection(Data.units)
 window.Races = new RaceCollection(Data.races)
 window.Players = new PlayerCollection [
-  {id: 1, name: 'Ebony', race: Races.get('mentak'), color: 'red'}
-  {id: 2, name: 'Aaron', race: Races.get('norr'), color: 'blue'}
+  {id: 1, name: 'Ebony', race: Races.get('xxcha'), color: 'red'}
+  {id: 2, name: 'Aaron', race: Races.get('mentak'), color: 'blue'}
   {id: 3, name: 'Mike', race: Races.get('jolnar'), color: 'green'}
   {id: 4, name: 'Chris', race: Races.get('letnev'), color: 'yellow'}
   {id: 5, name: 'Eric', race: Races.get('l1z1x'), color: 'orange'}

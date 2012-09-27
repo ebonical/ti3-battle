@@ -22,10 +22,12 @@ class window.Battle extends Backbone.Model
     @attacker = new BattleForce(id: "attacker", battle: this)
     @defender = new BattleForce(id: "defender", battle: this)
 
-    @attacker.on "change:totalNumberOfUnits", (model, newValue) =>
-      @_togglePreRoundCombat(model, newValue)
-    @defender.on "change:totalNumberOfUnits", (model, newValue) =>
-      @_togglePreRoundCombat(model, newValue)
+    for force in [@attacker, @defender]
+      force.on "change:totalNumberOfUnits", (model, newValue) =>
+        @_togglePreRoundCombat(model, newValue)
+
+      force.on "change:player", (model, newValue) =>
+        @_forcePlayerHasChanged(model, newValue)
 
 
   getRound: ->
@@ -147,6 +149,11 @@ class window.Battle extends Backbone.Model
       pds.rollDice()
       @attacker.getUnit("ground").adjustDamageBy pds.getHits()
 
+  # If player A changes then it sends its own modifiers to opponent
+  # they must also check if opponent has modifiers for them too
+  _forcePlayerHasChanged: (force, newPlayer) ->
+    force.applyModifiers()
+    @[force.oppositeStance()].applyModifiers()
 
   # Reset all dice rolled and damage set in this round
   resetDice: ->

@@ -34,6 +34,9 @@ class BattleForce extends Backbone.Model
   oppositeStance: ->
     if @stance() is "defender" then "attacker" else "defender"
 
+  opponent: ->
+    @attributes.battle[@oppositeStance()]
+
   getHits: ->
     _.reduce(@units, (total, unit) ->
         total + unit.getHits()
@@ -108,35 +111,29 @@ class BattleForce extends Backbone.Model
 
   # Retrieve all modifiers that could be relevant to player and current units
   fetchModifiers: (combatType) ->
+    @modifiers = []
     stance = @stance()
     # Start with global modifiers
-    @modifiers = _.filter GlobalModifiers.models, (mod) ->
-      mod.isForCombatType(combatType, stance)
+    @modifiers = @modifiers.concat GlobalModifiers.models
     # Race abilities
     if @player?
-      @modifiers = @modifiers.concat _.filter @player.race.getModifiers(), (mod) ->
-        mod.isForCombatType(combatType, stance)
+      @modifiers = @modifiers.concat @player.race.getModifiers()
     # Technologies
     # ...
 
-  # Manually adds a modifier that isn't applied automatically
-  addModifier: (modifier) ->
-    found = _.find @modifiers, (m) -> m.id is modifier.id
-    @modifiers.push(modifier) unless found?
-    @turnOnModifier modifier
+    # Get rid of modifiers that don't match combat type
+    @modifiers = _.filter @modifiers, (m) ->
+      m.isForCombatType(combatType, stance)
 
-  turnOnModifier: (modifier) ->
-    @optionalModifierIds ?= []
-    unless _.include(@optionalModifierIds, modifier.id)
-      @optionalModifierIds.push modifier.id
-      @applyModifiers()
-
-  isModifierOn: (modifier) ->
-    _.include(@optionalModifierIds, modifier.id)
+    # Send modifiers off to opponent if needed
+    @modifiersForOpponent = []
+    for m in @modifiers when m.modifiesOpponent()
+      @modifiersForOpponent.push m.cloneForOpponent()
 
   applyModifiers: ->
-    round = @attributes.battle.getRound()
     @activeModifiers ?= []
+    round = @attributes.battle.getRound()
+    @applyModifiersFromOpponent(@opponent())
     activeIds = _.map @activeModifiers, (obj) -> obj.id
 
     for mod in @modifiers.concat()
@@ -176,8 +173,42 @@ class BattleForce extends Backbone.Model
         unit.removeModifier(aMod) for unit in @units
         true
 
+  # Manually adds a modifier that isn't applied automatically
+  addModifier: (modifier) ->
+    found = _.find @modifiers, (m) -> m.id is modifier.id
+    @modifiers.push(modifier) unless found?
+    @turnOnModifier modifier
+
+  turnOnModifier: (modifier) ->
+    @optionalModifiersTurnedOn ?= []
+    unless _.include(@optionalModifiersTurnedOn, modifier.id)
+      @optionalModifiersTurnedOn.push modifier.id
+      @applyModifiers()
+
+  isModifierOn: (modifier) ->
+    _.include(@optionalModifiersTurnedOn, modifier.id)
+
+  hasModifiersForOpponent: ->
+    (@modifiersForOpponent or []).length > 0
+
+  applyModifiersFromOpponent: (opponent) ->
+    @modifiersFromOpponent ?= []
+    # Reverse effects of all existing modifiers from opponent
+    for mod in @modifiersFromOpponent
+      unit.removeModifier(mod) for unit in @units
+      ids = _.map @modifiersFromOpponent, (m) -> m.id
+      @modifiers = _.reject @modifiers, (m) -> _.include(ids, m.id)
+      @activeModifiers = _.reject @activeModifiers, (m) -> _.include(ids, m.id)
+    # Apply new modifiers
+    if opponent.hasModifiersForOpponent()
+      @modifiersFromOpponent = [].concat opponent.modifiersForOpponent
+      @modifiers = @modifiers.concat @modifiersFromOpponent
+      # @applyModifiers()
+
   resetModifiers: (combatType) ->
     @activeModifiers = []
+    @optionalModifiersTurnedOn = []
+    @modifiersFromOpponent = []
     unit.clearModifiers() for unit in @units
     @fetchModifiers(combatType)
     @applyModifiers()
