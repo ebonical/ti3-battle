@@ -185,11 +185,14 @@ class BattleUnit extends Backbone.Model
     quantity = @getQuantity()
 
     unless damage is 0 or quantity is 0
-      # can unit sustain damage? (hitpoints)
-      hitpoints = @getToughness() * quantity
-      remaining = (hitpoints - damage - @getSustainedDamage()) / @getToughness()
-      @setSustainedDamage Math.ceil(remaining) - Math.floor(remaining)
-      @setQuantity Math.ceil(remaining)
+      if @canSustainDamage()
+        sustainableDamage = quantity - @getSustainedDamage()
+        damageSustained = _.min [damage, sustainableDamage]
+        damage -= damageSustained
+        @setSustainedDamage @getSustainedDamage() + damageSustained
+
+      remaining = quantity - damage
+      @setQuantity remaining
 
     @set "quantityBefore", quantity
 
