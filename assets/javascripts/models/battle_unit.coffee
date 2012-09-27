@@ -11,8 +11,10 @@ class BattleUnit extends Backbone.Model
   initialize: ->
     @unit = @get "unit"
     @set(key, value) for key, value of @unit.attributes
+    @modifiers = []
 
     @on "change:battleValueAdjustment", => @applyModifiers
+    @on "change:quantity", => @_checkSustainedDamageValue
 
 
   getBattleValue: ->
@@ -21,13 +23,14 @@ class BattleUnit extends Backbone.Model
   setBattleValue: (value) ->
     value = 10 if value > 10
     value = 1 if value < 1
-    @set "battle", value
+    @set "battle", +value
 
   getQuantity: ->
     @get("quantity")
 
   setQuantity: (quantity) ->
     quantity = 0 if quantity < 0
+    quantity = 99 if quantity > 99
     @set "quantity", quantity
 
   getQuantityBefore: ->
@@ -42,7 +45,9 @@ class BattleUnit extends Backbone.Model
   setDamage: (damage) ->
     if damage < 0 or @getQuantity() is 0
       damage = 0
-    @set "damage", damage
+    if damage > @getMaxDamage()
+      damage = @getMaxDamage()
+    @set "damage", +damage
 
   getSustainedDamage: ->
     @get("sustainedDamage") or 0
@@ -55,11 +60,31 @@ class BattleUnit extends Backbone.Model
       damage = 0
     @set "sustainedDamage", damage
 
+  setSafeValue: (key, value) ->
+    switch key
+      when "battle" then @setBattleValue(value)
+      else
+        fn = eval("this.set" + key.charAt(0).toUpperCase() + key.slice(1))
+        if typeof fn is "function"
+          fn.call(this, value)
+        else
+          console.warn "setSafeValue: '#{key}' no safe setter defined"
+          @set(key, value)
+
+
   getDice: ->
     @get("dice")
 
+  setDice: (dice) ->
+    dice = 0 if dice < 0
+    @set "dice", +dice
+
   getToughness: ->
     @get("toughness") or 1
+
+  # Maximum level of damage this set of Units can take
+  getMaxDamage: ->
+    @getToughness() * @getQuantity() - @getSustainedDamage()
 
 
   canSustainDamage: ->
@@ -96,12 +121,35 @@ class BattleUnit extends Backbone.Model
     @set "damage", 0
     @set "rolls", []
 
+  addModifier: (modifier) ->
+    for key, value of modifier.getModifiers()
+      operator = String(value).charAt(0)
+      # Positive battle modifiers actually lower the battle value so invert it
+      if key is "battle" and /[-+]/.test(operator)
+        value = value.replace /[-+]/, (if operator is "+" then "-" else "+")
+      @modifiers.push {key, value}
+
+  # Resets all values back to base and clears modifiers array
+  clearModifiers: ->
+    for mod in @modifiers
+      @setSafeValue mod.key, @unit.get(mod.key)
+    @modifiers = []
+
   applyModifiers: ->
+    # Set up battle value from user defined modifier
     # Start with the original base value of the unit
     value = @unit.get("battle")
-    # Get user-defined mofifier (from interface)
     value -= (@get("battleValueAdjustment") || 0)
     @setBattleValue value
+    #
+    for mod in @modifiers
+      operator = String(mod.value).charAt(0)
+      value = mod.value
+      if /[-+]/.test(operator)
+        value = @get(mod.key) + +value
+      @setSafeValue(mod.key, value)
+
+
 
   rollDice: ->
     @setDiceRolls Dice.roll(@getQuantity() * @getDice())
@@ -130,6 +178,11 @@ class BattleUnit extends Backbone.Model
 
     @set "quantityBefore", quantity
 
+
+  # When quantity changes make sure sustained damage doesn't exceed limits
+  _checkSustainedDamageValue: ->
+    if (d = @getSustainedDamage()) > 0
+      @setSustainedDamage(d)
 
 
   toJSON: ->

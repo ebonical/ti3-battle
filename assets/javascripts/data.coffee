@@ -143,14 +143,10 @@ Data =
       leaders: ["general", "admiral", "diplomat"]
       modifiers: [
         {
-          scope: "space-combat"
-          modifier: 1
-          duration: 1
-          automatic: false
-        }
-        {
-          scope: "ground-combat"
-          modifier: 2
+          id: "race-letnev-combat"
+          scope: "combat"
+          modify:
+            battle: "+1"
           duration: 1
           automatic: false
         }
@@ -195,8 +191,10 @@ Data =
       leaders: ["admiral", "general", "general"]
       modifiers: [
         {
+          id: "race-norr-combat"
           scope: "combat"
-          modifier: 1
+          modify:
+            battle: "+1"
           duration: 0
           automatic: true
         }
@@ -223,8 +221,10 @@ Data =
       leaders: ["scientist", "scientist", "admiral"]
       modifiers: [
         {
+          id: "race-jolnar-combat"
           scope: "combat"
-          modifier: -1
+          modify:
+            battle: "-1"
           automatic: true
           duration: 0
         }
@@ -234,6 +234,20 @@ Data =
 
   technologies: [
 
+  ]
+
+  modifiers: [
+    {
+      id: "global-antifighter-barrage"
+      scope: "space-combat"
+      round: 0
+      duration: 1
+      automatic: true
+      requires:
+        antifighter: true
+      modify:
+        dice: 2
+    }
   ]
 
   colours: [

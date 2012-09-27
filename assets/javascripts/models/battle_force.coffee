@@ -1,3 +1,5 @@
+# gets passed id: and battle:
+# @attributes.battle
 class BattleForce extends Backbone.Model
   defaults:
     totalNumberOfUnits: 0
@@ -93,3 +95,34 @@ class BattleForce extends Backbone.Model
     total = @totalNumberOfUnitsBefore() - @totalNumberOfUnits()
     if total < 0 then 0 else total
 
+  # Retrieve all modifiers that could be relevant to player and current units
+  fetchModifiers: ->
+    @modifiers = []
+    combatType = @attributes.battle.getCombatType()
+    # Global modifiers
+    @modifiers = @modifiers.concat GlobalModifiers.models
+    # Race abilities
+    if @player?
+      @modifiers = @modifiers.concat _.filter @player.race.getModifiers(), (mod) ->
+        console.log mod
+        mod.isForCombatType(combatType)
+    # Technologies
+    # ...
+
+  applyModifiers: ->
+    round = @attributes.battle.getRound()
+    # include global modifiers
+    @activeModifiers ?= []
+    activeIds = _.invoke @activeModifiers, "get", "id"
+
+    for mod in @modifiers.concat()
+      modAdded = false
+      if not _.include(activeIds, mod.id) and mod.isAutomatic() and mod.isForRound(round)
+        for unit in @units
+          if mod.isForUnit(unit)
+            unit.addModifier(mod)
+            modAdded = true
+        if modAdded
+          @activeModifiers.push mod
+    # After all modifiers have been added then apply them
+    unit.applyModifiers() for unit in @units

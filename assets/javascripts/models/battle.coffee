@@ -11,7 +11,7 @@
 #   Roll only for Ground Forces
 #   Follow Roll Dice above
 #
-class Battle extends Backbone.Model
+class window.Battle extends Backbone.Model
   defaults:
     round: 1
     combatType: "space"
