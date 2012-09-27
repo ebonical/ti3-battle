@@ -16,8 +16,11 @@ class window.Modifier extends Backbone.Model
   isInfinite: ->
     (@get("duration") or 0) is 0
 
-  isForCombatType: (combatType) ->
-    @get("scope") is "#{combatType}-combat" or @get("scope") is "combat"
+  isForCombatType: (combatType, stance) ->
+    scope = @get("scope")
+    stanceRequired = @get("stance")
+    (scope is "combat" or scope is "#{combatType}-combat") and
+      ((not stanceRequired?) or stance is stanceRequired)
 
   isRestrictedToRound: ->
     @get("round")?
@@ -32,7 +35,7 @@ class window.Modifier extends Backbone.Model
   # Match conditions of the unit
   isForUnit: (unit) ->
     isOk = true
-    requires = @get("requires")
+    requires = @get("unitRequires")
     if requires?
       for key, value of requires
         isOk and= unit.get(key) is value

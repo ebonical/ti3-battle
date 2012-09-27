@@ -50,8 +50,7 @@ class window.Battle extends Backbone.Model
       for unit in Units.where(conditions)
         force.addUnit unit, 0
 
-      force.fetchModifiers()
-      force.applyModifiers()
+      force.resetModifiers(combatType)
 
     @set "newBattle", false
     @set "combatType", combatType

@@ -14,11 +14,9 @@ class BattleForce extends Backbone.Model
 
 
   setPlayer: (player) ->
-    @set "player", player
     @player = player
-    @fetchModifiers()
-    @applyModifiers()
-
+    @resetModifiers(@attributes.battle.getCombatType())
+    @set "player", player
 
   reset: ->
     @units = []
@@ -109,15 +107,15 @@ class BattleForce extends Backbone.Model
     if total < 0 then 0 else total
 
   # Retrieve all modifiers that could be relevant to player and current units
-  fetchModifiers: ->
-    combatType = @attributes.battle.getCombatType()
+  fetchModifiers: (combatType) ->
+    stance = @stance()
     # Start with global modifiers
     @modifiers = _.filter GlobalModifiers.models, (mod) ->
-      mod.isForCombatType(combatType)
+      mod.isForCombatType(combatType, stance)
     # Race abilities
     if @player?
       @modifiers = @modifiers.concat _.filter @player.race.getModifiers(), (mod) ->
-        mod.isForCombatType(combatType)
+        mod.isForCombatType(combatType, stance)
     # Technologies
     # ...
 
@@ -160,5 +158,11 @@ class BattleForce extends Backbone.Model
       if aMod.expired
         unit.removeModifier(aMod) for unit in @units
         true
+
+  resetModifiers: (combatType) ->
+    @activeModifiers = []
+    unit.clearModifiers() for unit in @units
+    @fetchModifiers(combatType)
+    @applyModifiers()
 
 

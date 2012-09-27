@@ -230,6 +230,59 @@ Data =
         }
       ]
     }
+    {
+      id: "l1z1x"
+      name: "The L1Z1X Mindnet"
+      shortName: "L1Z1X"
+      abilities: [
+        "The base cost of your Dreadnought units starts at 4."
+        "You start with one extra Command Counter in your Strategic Allocation area."
+        "Your Dreadnought units receive +1 during Space Battles, and your Ground Force units receive +1 when attacking during Invasion Combat."
+      ]
+      units: [
+        { id: "dock", amount: 1 }
+        { id: "carrier", amount: 1 }
+        { id: "ground", amount: 5 }
+        { id: "dreadnought", amount: 1 }
+        { id: "fighter", amount: 3 }
+        { id: "pds", amount: 1 }
+      ]
+      technologies: ["enviro-compensator", "stasis-capsules", "cybernetics", "hylar-v-assault-laser"]
+      leaders: ["agent", "scientist", "diplomat"]
+      modifiers: [
+        {
+          id: "race-l1z1x-dreadnought"
+          scope: "space-combat"
+          unitRequires:
+            id: "dreadnought"
+          modify:
+            battle: "+1"
+          automatic: true
+        }
+        {
+          id: "race-l1z1x-ground-force"
+          scope: "ground-combat"
+          stance: "attacker"
+          unitRequires:
+            id: "ground"
+          modify:
+            battle: "+1"
+          automatic: true
+        }
+      ]
+    }
+    # {
+    #   id: ""
+    #   name: ""
+    #   shortName: ""
+    #   abilities: []
+    #   units: [
+    #     { id: "", amount: 0 }
+    #   ]
+    #   technologies: []
+    #   leaders: ["", "", ""]
+    #   modifiers: []
+    # }
   ]
 
   technologies: [
@@ -243,7 +296,7 @@ Data =
       round: 0
       duration: 1
       automatic: true
-      requires:
+      unitRequires:
         antifighter: true
       modify:
         dice: 2

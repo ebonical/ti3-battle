@@ -135,14 +135,18 @@ class BattleUnit extends Backbone.Model
   removeModifier: (modifier) ->
     iterator = (m) -> m.id is modifier.id
     if _.find(@modifiers, iterator)?
-      @clearModifiers()
+      @undoModifiers()
       @modifiers = _.reject @modifiers, iterator
       @applyModifiers()
 
   # Resets all values back to base unit
-  clearModifiers: ->
+  undoModifiers: ->
     for mod in @modifiers
       @setSafeValue mod.key, @unit.get(mod.key)
+
+  clearModifiers: ->
+    @undoModifiers()
+    @modifiers = []
 
   applyModifiers: ->
     # Set up battle value from user defined modifier

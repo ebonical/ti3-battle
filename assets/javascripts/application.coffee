@@ -21,6 +21,7 @@ window.Players = new PlayerCollection [
   {id: 2, name: 'Aaron', race: Races.get('norr'), color: 'blue'}
   {id: 3, name: 'Mike', race: Races.get('jolnar'), color: 'green'}
   {id: 4, name: 'Chris', race: Races.get('letnev'), color: 'yellow'}
+  {id: 5, name: 'Eric', race: Races.get('l1z1x'), color: 'orange'}
 ]
 window.GlobalModifiers = new ModifierCollection(Data.modifiers)
 
