@@ -128,7 +128,7 @@ class BattleForce extends Backbone.Model
 
     for mod in @modifiers.concat()
       modAdded = false
-      if not _.include(activeIds, mod.id) and mod.isAutomatic() and mod.isForRound(round)
+      if (not _.include(activeIds, mod.id)) and mod.isAutomatic() and mod.isForRound(round)
         for unit in @units
           if mod.isForUnit(unit)
             unit.addModifier(mod)
