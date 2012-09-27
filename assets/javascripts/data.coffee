@@ -258,4 +258,5 @@ Data =
     'blue'
     'purple'
     'gray'
+    'black'
   ]

@@ -19,6 +19,8 @@ window.Races = new RaceCollection(Data.races)
 window.Players = new PlayerCollection [
   {id: 1, name: 'Ebony', race: Races.get('sol'), color: 'red'}
   {id: 2, name: 'Aaron', race: Races.get('norr'), color: 'blue'}
+  {id: 3, name: 'Mike', race: Races.get('jolnar'), color: 'green'}
+  {id: 4, name: 'Chris', race: Races.get('letnev'), color: 'yellow'}
 ]
 window.GlobalModifiers = new ModifierCollection(Data.modifiers)
 
