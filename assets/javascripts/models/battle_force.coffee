@@ -119,6 +119,21 @@ class BattleForce extends Backbone.Model
     # Technologies
     # ...
 
+  # Manually adds a modifier that isn't applied automatically
+  addModifier: (modifier) ->
+    found = _.find @modifiers, (m) -> m.id is modifier.id
+    @modifiers.push(modifier) unless found?
+    @turnOnModifier modifier
+
+  turnOnModifier: (modifier) ->
+    @optionalModifierIds ?= []
+    unless _.include(@optionalModifierIds, modifier.id)
+      @optionalModifierIds.push modifier.id
+      @applyModifiers()
+
+  isModifierOn: (modifier) ->
+    _.include(@optionalModifierIds, modifier.id)
+
   applyModifiers: ->
     round = @attributes.battle.getRound()
     @activeModifiers ?= []
@@ -126,7 +141,7 @@ class BattleForce extends Backbone.Model
 
     for mod in @modifiers.concat()
       modAdded = false
-      if (not _.include(activeIds, mod.id)) and mod.isAutomatic() and mod.isForRound(round)
+      if (not _.include(activeIds, mod.id)) and (mod.isAutomatic() or @isModifierOn(mod)) and mod.isForRound(round)
         for unit in @units
           if mod.isForUnit(unit)
             unit.addModifier(mod)
@@ -147,6 +162,8 @@ class BattleForce extends Backbone.Model
     for active in @activeModifiers
       mod = active.modifier
       if expireAll
+        active.expired = true
+      else if not mod.isForRound(round)
         active.expired = true
       else if not mod.isInfinite()
         # if it has a duration and that has passed : expire

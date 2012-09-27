@@ -21,7 +21,7 @@ class window.Modifier extends Backbone.Model
   isForCombatType: (combatType, stance) ->
     scope = @get("scope")
     stanceRequired = @get("stance")
-    isOk = scope is "combat" or scope is "#{combatType}-combat"
+    isOk = scope is "combat" or scope is combatType
     if stanceRequired?
       isOk and= stance is stanceRequired
     isOk

@@ -195,8 +195,6 @@ Data =
           scope: "combat"
           modify:
             battle: "+1"
-          duration: 0
-          automatic: true
         }
       ]
     }
@@ -225,8 +223,6 @@ Data =
           scope: "combat"
           modify:
             battle: "-1"
-          automatic: true
-          duration: 0
         }
       ]
     }
@@ -252,22 +248,111 @@ Data =
       modifiers: [
         {
           id: "race-l1z1x-dreadnought"
-          scope: "space-combat"
+          scope: "space"
           unitRequires:
             id: "dreadnought"
           modify:
             battle: "+1"
-          automatic: true
         }
         {
           id: "race-l1z1x-ground-force"
-          scope: "ground-combat"
+          scope: "ground"
           stance: "attacker"
           unitRequires:
             id: "ground"
           modify:
             battle: "+1"
-          automatic: true
+        }
+      ]
+    }
+    {
+      id: "mentak"
+      name: "The Mentak Coalition"
+      shortName: "Mentak"
+      abilities: [
+        "You start the game with one additional Command Counter in your Fleet Supply area."
+        "During the Strategy Phase, you may take one Trade Good token from up to two different players. Each target player must have at least 3 Trade Goods."
+        "Before your Space Battles begin, you may fire with up to 2 Cruisers or Destroyers (any mix). Enemy casualties are taken immediately, with no return fire allowed."
+      ]
+      units: [
+        { id: "carrier", amount: 1 }
+        { id: "cruiser", amount: 3 }
+        { id: "dock", amount: 1 }
+        { id: "pds", amount: 1 }
+        { id: "ground", amount: 4 }
+      ]
+      technologies: ["hylar-v-assault-laser", "enviro-compensator"]
+      leaders: ["agent", "diplomat", "admiral"]
+      modifiers: [
+        {
+          id: "race-mentak-pre-battle"
+          scope: "space"
+          round: 0
+          duration: 1
+          unitRequires:
+            id: ["cruiser", "destroyer"]
+          special: "TBD"
+        }
+      ]
+    }
+    {
+      id: "naalu"
+      name: "The Naalu Collective"
+      shortName: "Naalu"
+      abilities: [
+        "The initiative number on your chosen Stratagy Card is always \"0\" (replacing the normal initiative number of the Stratagy Card). You are always first in the order of play."
+        "If attacked, a Naalu fleet may retreat before the beginning of the Space Battle step of the Tactical Action sequence (following the normal retreat rules and restrictions)."
+        "Naalu Fighters receive +1 on combat rolls during Space Battles."
+      ]
+      units: [
+        { id: "dock", amount: 1 }
+        { id: "ground", amount: 4 }
+        { id: "pds", amount: 1 }
+        { id: "carrier", amount: 1 }
+        { id: "cruiser", amount: 1 }
+        { id: "destroyer", amount: 1 }
+        { id: "fighter", amount: 4 }
+      ]
+      technologies: ["antimass-deflectors", "enviro-compensator"]
+      leaders: ["admiral", "agent", "diplomat"]
+      modifiers: [
+        {
+          id: "race-naalu-fighters"
+          scope: "space"
+          unitRequires:
+            id: "fighter"
+          modify:
+            battle: "+1"
+        }
+      ]
+    }
+    {
+      id: "xxcha"
+      name: "The Xxcha Kingdom"
+      shortName: "Xxcha"
+      abilities: [
+        "When executing the Secondary Ability of the Diplomacy Strategy, you may execute the primary ability instead."
+        "Immediately after a Political Card has been drawn and read aloud, you may spend one Command Counter from your Strategy Allocation to cancel the card, and force another Political Card to be drawn."
+        "Your opponents receive -1 on all combat rolls against you during the first combat round of all Space Battles and Invasion Combat."
+      ]
+      units: [
+        { id: "dock", amount: 1 }
+        { id: "fighter", amount: 3 }
+        { id: "pds", amount: 1 }
+        { id: "carrier", amount: 1 }
+        { id: "ground", amount: 2 }
+        { id: "cruiser", amount: 2 }
+      ]
+      technologies: ["antimass-deflectors", "enviro-compensator"]
+      leaders: ["admiral", "diplomat", "diplomat"]
+      modifiers: [
+        {
+          id: "race-xxcha-first-round"
+          scope: "combat"
+          round: 1
+          duration: 1
+          modifyOpponent:
+            battle: "-1"
         }
       ]
     }
@@ -277,7 +362,7 @@ Data =
     #   shortName: ""
     #   abilities: []
     #   units: [
-    #     { id: "", amount: 0 }
+    #     { id: "", amount: 1 }
     #   ]
     #   technologies: []
     #   leaders: ["", "", ""]
@@ -292,14 +377,21 @@ Data =
   modifiers: [
     {
       id: "global-antifighter-barrage"
-      scope: "space-combat"
+      scope: "space"
       round: 0
       duration: 1
-      automatic: true
       unitRequires:
         antifighter: true
       modify:
         dice: 2
+    }
+    {
+      id: "global-high-alert"
+      scope: "space"
+      round: 1
+      modify:
+        battle: "+1"
+      automatic: false
     }
   ]
 
