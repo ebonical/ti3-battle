@@ -8,5 +8,6 @@ class AppView extends Backbone.View
     e.preventDefault()
     $('.section.active').removeClass('active')
     $('.section#battle').addClass('active')
-    state.battle = new Battle(combatType: "space")
+    state.battle = new Battle
+    state.battle.newBattle("space")
     @battle ?= new BattleView(model: state.battle)

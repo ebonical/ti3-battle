@@ -7,9 +7,22 @@ class BattleForce extends Backbone.Model
 
   initialize: ->
     @units = []
+    # When round changes we need to expire old modifiers and apply new ones
+    @attributes.battle.on "change:round", (model, newValue) =>
+      @expireModifiers()
+      @applyModifiers()
+
+
+  setPlayer: (player) ->
+    @set "player", player
+    @player = player
+    @fetchModifiers()
+    @applyModifiers()
+
 
   reset: ->
     @units = []
+    @activeModifiers = []
     @sumQuantity()
     @sumDamage()
 
@@ -97,23 +110,21 @@ class BattleForce extends Backbone.Model
 
   # Retrieve all modifiers that could be relevant to player and current units
   fetchModifiers: ->
-    @modifiers = []
     combatType = @attributes.battle.getCombatType()
-    # Global modifiers
-    @modifiers = @modifiers.concat GlobalModifiers.models
+    # Start with global modifiers
+    @modifiers = _.filter GlobalModifiers.models, (mod) ->
+      mod.isForCombatType(combatType)
     # Race abilities
     if @player?
       @modifiers = @modifiers.concat _.filter @player.race.getModifiers(), (mod) ->
-        console.log mod
         mod.isForCombatType(combatType)
     # Technologies
     # ...
 
   applyModifiers: ->
     round = @attributes.battle.getRound()
-    # include global modifiers
     @activeModifiers ?= []
-    activeIds = _.invoke @activeModifiers, "get", "id"
+    activeIds = _.map @activeModifiers, (obj) -> obj.id
 
     for mod in @modifiers.concat()
       modAdded = false
@@ -123,6 +134,31 @@ class BattleForce extends Backbone.Model
             unit.addModifier(mod)
             modAdded = true
         if modAdded
-          @activeModifiers.push mod
+          @activeModifiers.push
+            id: mod.id
+            round: round
+            modifier: mod
     # After all modifiers have been added then apply them
     unit.applyModifiers() for unit in @units
+
+  # Check active modifiers and remove if necessary
+  # Clear all unit modifiers and reapply
+  expireModifiers: (expireAll = false) ->
+    @activeModifiers ?= []
+    round = @attributes.battle.getRound()
+    for active in @activeModifiers
+      mod = active.modifier
+      if expireAll
+        active.expired = true
+      else if not mod.isInfinite()
+        # if it has a duration and that has passed : expire
+        roundDelta = Math.abs round - active.round
+        if roundDelta >= mod.getDuration()
+          active.expired = true
+    # Remove expired modifiers
+    @activeModifiers = _.reject @activeModifiers, (aMod) =>
+      if aMod.expired
+        unit.removeModifier(aMod) for unit in @units
+        true
+
+

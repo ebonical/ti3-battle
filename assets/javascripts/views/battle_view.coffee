@@ -58,8 +58,7 @@ class BattleView extends Backbone.View
 
 
   setPlayer: (side, player) ->
-    @model[side].player = player
-    @[side].setPlayer player
+    @model[side].setPlayer player
 
   setAttackingPlayer: (player) ->
     @setPlayer('attacker', player)

@@ -4,7 +4,7 @@ class window.Modifier extends Backbone.Model
     @get("round")
 
   getDuration: ->
-    @get("duration") or 0
+    @get("duration") or (if @isInfinite() then 999 else 1)
 
   getModifiers: ->
     @get("modify") or {}
@@ -14,16 +14,20 @@ class window.Modifier extends Backbone.Model
     @get("automatic") is true
 
   isInfinite: ->
-    @getDuration() is 0
+    (@get("duration") or 0) is 0
 
   isForCombatType: (combatType) ->
     @get("scope") is "#{combatType}-combat" or @get("scope") is "combat"
 
   isRestrictedToRound: ->
-    @getRound()?
+    @get("round")?
 
   isForRound: (roundNumber) ->
-    not @isRestrictedToRound() or @getRound() is roundNumber
+    return true unless @isRestrictedToRound()
+    startRound = @getRound()
+    endRound = startRound + @getDuration()
+    # within min/max bounds of duration
+    roundNumber >= startRound and roundNumber < endRound
 
   # Match conditions of the unit
   isForUnit: (unit) ->

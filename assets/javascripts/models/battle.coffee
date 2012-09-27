@@ -28,9 +28,6 @@ class window.Battle extends Backbone.Model
       @_togglePreRoundCombat(model, newValue)
 
 
-    @setCombatType @getCombatType()
-
-
   getRound: ->
     @get("round")
 
@@ -47,12 +44,14 @@ class window.Battle extends Backbone.Model
       when 'space' then { inSpaceCombat: true }
       when 'ground' then { inGroundCombat: true }
 
-    @attacker.reset()
-    @defender.reset()
+    for force in [@attacker, @defender]
+      force.reset()
 
-    for unit in Units.where(conditions)
-      @attacker.addUnit unit, 0
-      @defender.addUnit unit, 0
+      for unit in Units.where(conditions)
+        force.addUnit unit, 0
+
+      force.fetchModifiers()
+      force.applyModifiers()
 
     @set "newBattle", false
     @set "combatType", combatType
@@ -285,7 +284,6 @@ class window.Battle extends Backbone.Model
   #   Quantity becomes zero
   #   or Test for pre-combat fails
   _togglePreRoundCombat: (force, quantity) ->
-    console.log quantity
     if @getRound() is 1
       doIt = not @get("preCombatResolved")
       doIt and= quantity > 0

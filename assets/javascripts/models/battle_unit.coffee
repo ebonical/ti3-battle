@@ -127,13 +127,22 @@ class BattleUnit extends Backbone.Model
       # Positive battle modifiers actually lower the battle value so invert it
       if key is "battle" and /[-+]/.test(operator)
         value = value.replace /[-+]/, (if operator is "+" then "-" else "+")
-      @modifiers.push {key, value}
+      @modifiers.push
+        id: modifier.id
+        key: key
+        value: value
 
-  # Resets all values back to base and clears modifiers array
+  removeModifier: (modifier) ->
+    iterator = (m) -> m.id is modifier.id
+    if _.find(@modifiers, iterator)?
+      @clearModifiers()
+      @modifiers = _.reject @modifiers, iterator
+      @applyModifiers()
+
+  # Resets all values back to base unit
   clearModifiers: ->
     for mod in @modifiers
       @setSafeValue mod.key, @unit.get(mod.key)
-    @modifiers = []
 
   applyModifiers: ->
     # Set up battle value from user defined modifier
@@ -148,7 +157,6 @@ class BattleUnit extends Backbone.Model
       if /[-+]/.test(operator)
         value = @get(mod.key) + +value
       @setSafeValue(mod.key, value)
-
 
 
   rollDice: ->

@@ -13,7 +13,10 @@ class BattleUnitView extends Backbone.View
       @_setRolls(model, rolls)
 
     @model.on "change:battle", (model, newValue) =>
-      @_setBattleValue(model, newValue)
+      @_setBattleValue(newValue)
+
+    @model.on "change:dice", (model, newValue) =>
+      @_setDiceCount(newValue)
 
     @model.on "change:battleValueAdjustment", (model, newValue) =>
       @_setBattleValueAdjustment(model, newValue)
@@ -64,8 +67,16 @@ class BattleUnitView extends Backbone.View
         results.push @rollMissTemplate(value: roll)
     @$el.find('.rolls').html results.join(', ')
 
-  _setBattleValue: (model, value) ->
-    @$el.find(".battle-value .value").text(value)
+  _setBattleValue: (value) ->
+    @$el.find(".battle .value").text(value)
+
+  _setDiceCount: (value) ->
+    elDice = @$el.find(".dice")
+    elDice.removeClass ->
+      _.filter $(this).attr('class').split(' '), (klass) ->
+        /^dice-\d/.test(klass)
+    elDice.addClass "dice-#{value}"
+    elDice.find(".value").text(value)
 
   _setBattleValueAdjustment: (model, adjustment) ->
     text = adjustment

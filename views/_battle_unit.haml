@@ -1,4 +1,9 @@
-.battle-value (<span class="value">{{battle}}</span>)
+.battle
+  %strong.value> {{battle}}
+  %span +
+.dice{ class: "dice-{{dice}}" }
+  %span> x
+  %strong.value {{dice}}
 .image
 .name {{name}}
 .quantity

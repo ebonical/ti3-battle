@@ -6,6 +6,9 @@ class BattleForceView extends Backbone.View
     state.battle.on "change:diceRolled", (model, isRolled) =>
       @_setHitsFromOpponent(model, isRolled)
 
+    @battleForce().on "change:player", (model, player) =>
+      @setPlayer(player)
+
     @battleForce().on "change:damage", (model, newValue) =>
       @_setDamageApplied(newValue)
 
