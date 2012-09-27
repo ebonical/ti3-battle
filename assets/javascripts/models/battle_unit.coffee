@@ -13,7 +13,8 @@ class BattleUnit extends Backbone.Model
     @set(key, value) for key, value of @unit.attributes
     @modifiers = []
 
-    @on "change:battleValueAdjustment", => @applyModifiers
+    @on "change:battleValueAdjustment", =>
+      @applyModifiers()
     @on "change:quantity", => @_checkSustainedDamageValue
 
 
@@ -161,6 +162,8 @@ class BattleUnit extends Backbone.Model
       if /[-+]/.test(operator)
         value = @get(mod.key) + +value
       @setSafeValue(mod.key, value)
+    # Apply battle value modifier from user input
+
 
 
   rollDice: ->
