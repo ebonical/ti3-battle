@@ -14,6 +14,9 @@ class BattleBoard < Sinatra::Base
     begin
       if params[:splat].last == "all.js"
         coffee bundled_javascripts
+      elsif params[:splat].last == "all.coffee"
+        # Output raw coffee
+        bundled_javascripts
       else
         file = params[:splat].pop.sub(/\.js$/i, "")
         path = File.join("javascripts", params[:splat], file)

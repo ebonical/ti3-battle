@@ -119,14 +119,23 @@ class window.Battle extends Backbone.Model
   # Standard Invasion Combat - only Ground Forces
   # Automatically apply damage to each other's Ground Forces
   _rollGroundCombatDice: ->
-    attackingGroundForce = @attacker.getUnit("ground")
-    defendingGroundForce = @defender.getUnit("ground")
+    units = {}
+    for force in [@attacker, @defender]
+      units[force.id] = force.getUnitsWith
+        activeGroundCombatUnit: true
+        hasUnits: true
 
-    attackingGroundForce.rollDice()
-    defendingGroundForce.rollDice()
+      units[force.id].totalHits = 0
+      for unit in units[force.id]
+        unit.rollDice()
+        units[force.id].totalHits += unit.getHits()
 
-    attackingGroundForce.adjustDamageBy defendingGroundForce.getHits()
-    defendingGroundForce.adjustDamageBy attackingGroundForce.getHits()
+    # auto-apply damage when a side has only 1 unit type
+    if units.attacker.length == 1
+      units.attacker[0].adjustDamageBy units.defender.totalHits
+
+    if units.defender.length == 1
+      units.defender[0].adjustDamageBy units.attacker.totalHits
 
   # Pre-combat round for Invasion
   # Bombardment applies damage to defending Ground Forces
@@ -229,13 +238,11 @@ class window.Battle extends Backbone.Model
     test = attacker: {}, defender: {}
 
     for force in [@attacker, @defender]
-      test[force.id].hasAntiFighter = force.getUnitsWith(
-        antifighter: true
-        hasUnits: true).length > 0
+      units = force.getUnitsWith antifighter: true, hasUnits: true
+      test[force.id].hasAntiFighter = units.length > 0
 
-      test[force.id].hasFighters = force.getUnitsWith(
-        id: "fighter"
-        hasUnits: true).length > 0
+      units = force.getUnitsWith id: "fighter", hasUnits: true
+      test[force.id].hasFighters = units.length > 0
 
     doIt or= test.attacker.hasAntiFighter and test.defender.hasFighters
     doIt or= test.defender.hasAntiFighter and test.attacker.hasFighters

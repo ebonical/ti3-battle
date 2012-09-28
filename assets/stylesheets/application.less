@@ -1,28 +1,47 @@
 @import "bootstrap/reset";
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "mixins";
+
+@baseFontSize: 14px;
+@textColor: #333;
+@bodyBackground: #FAFAFA;
+@headingsColor: #1F1F1F;
 
 body {
-  margin: 0;
-  font-family: @baseFontFamily;
-  font-size: @baseFontSize;
-  line-height: @baseLineHeight;
+  .reset;
+  #font > .sans-serif;
   color: @textColor;
   background-color: @bodyBackground;
+}
+
+h1, h2, h3 {
+  color: @headingsColor;
+}
+
+p {
+  margin: 0;
 }
 
 .hidden {
   display: none;
 }
 
-.gamenav {
+// Top-level navigation
+.main-nav {
+  width: 1024px;
+  margin:auto;
 
+  ul {
+    .horizontal-list;
+  }
 }
-
+// Main area for content
 .container {
   width: 1024px;
+  margin:auto;
 }
-
+// Sections navigated to from main nav
 .section {
   .hidden;
 
@@ -35,7 +54,113 @@ body {
   .hidden;
 }
 
+
 #battle {
+  .round {
+    text-align: center;
+    h2 {
+      font-weight: 200;
+      font-size: 42px;
+      .text-inset;
+    }
+    .pre-combat {
+      .hidden;
+    }
+    .actions {
+      .hidden
+    }
+    &.zero {
+      .default {
+        .hidden;
+      }
+      .pre-combat {
+        display: inline;
+      }
+    }
+  }
+
+  .phase-message {
+    .serif(16px);
+    color: #286386;
+    background-color: #D9EDF7;
+    border-top:1px solid #BCE8F1;
+    border-bottom:1px solid #BCE8F1;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+  }
+
+  .force {
+    position: relative;
+    margin: 25px 50px 0;
+
+    & > h2 {
+      font-size: 12px;
+      line-height: 16px;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: bold;
+      border-bottom: 1px dashed #e0e0e0;
+    }
+
+    h3.name {
+      font-weight: normal;
+      margin: 12px 0;
+      .race {
+        font-size: 26px;
+        margin-right: 4px;
+      }
+      .player {
+        .serif;
+        color: @gray;
+        font-size: 20px;
+      }
+    }
+
+    .order-of-battle {
+      margin: 0 -13px;
+      height: 165px;
+      .clearfix;
+    }
+
+    .unit {
+      // .clearfix;
+      position: relative;
+      width: 135px;
+      height: 165px;
+      float:left;
+
+      .image {
+        border: 1px solid #CCC;
+        width: 77px;
+        height: 77px;
+      }
+
+      .rolls {
+        .hit {
+          color: #F00;
+        }
+        .miss {
+          color: #666;
+        }
+      }
+
+      .adjust-battle-values {
+        .hidden;
+      }
+    } //.unit
+
+
+    .hits-from-opponent {
+      .hidden;
+    }
+
+    .damage {
+      .hidden;
+    }
+
+  } //.force
+
   .round-summary {
 
     h2 .win, h2 .draw {
@@ -61,66 +186,6 @@ body {
     }
   }
 
-  .round {
-    .pre-battle {
-      .hidden;
-    }
-
-    &.zero {
-      .default {
-        .hidden;
-      }
-      .pre-battle {
-        display: inline;
-      }
-    }
-  }
-
-  .force {
-    .clearfix;
-
-    .name {
-      .player {
-        color: lighten(@textColor, 25%);
-        font-size: @baseFontSize * 0.9;
-      }
-    }
-
-    .hits-from-opponent {
-      .hidden;
-    }
-
-    .damage {
-      .hidden;
-    }
-
-    .unit {
-      .clearfix;
-      position: relative;
-      width: 150px;
-      height: 150px;
-      float:left;
-
-      .image {
-        border: 1px solid #CCC;
-        width: 98px;
-        height: 98px;
-      }
-
-      .rolls {
-        .hit {
-          color: #F00;
-        }
-        .miss {
-          color: #666;
-        }
-      }
-
-      .adjust-battle-values {
-        .hidden;
-      }
-    } //.unit
-  } //.force
 
   .reset-dice.btn {
     .hidden;

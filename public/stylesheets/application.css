@@ -20,30 +20,36 @@ textarea{overflow:auto;vertical-align:top;}
 .clearfix:after{clear:both;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
 .input-block-level{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
-body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#333333;background-color:#ffffff;}
+body{padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;font-weight:normal;line-height:20px;color:#333333;background-color:#fafafa;}
+h1,h2,h3{color:#1f1f1f;}
+p{margin:0;}
 .hidden{display:none;}
-.container{width:1024px;}
+.main-nav{width:1024px;margin:auto;}.main-nav ul{padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
+.container{width:1024px;margin:auto;}
 .section{display:none;}.section.active{display:block;}
 .template{display:none;}
+#battle .round{text-align:center;}#battle .round h2{font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;}
+#battle .round .pre-combat{display:none;}
+#battle .round .actions{display:none;}
+#battle .round.zero .default{display:none;}
+#battle .round.zero .pre-combat{display:inline;}
+#battle .phase-message{font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:20px;font-style:italic;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:35px;line-height:35px;text-align:center;}
+#battle .force{position:relative;margin:25px 50px 0;}#battle .force >h2{font-size:12px;line-height:16px;text-transform:uppercase;color:#666;font-weight:bold;border-bottom:1px dashed #e0e0e0;}
+#battle .force h3.name{font-weight:normal;margin:12px 0;}#battle .force h3.name .race{font-size:26px;margin-right:4px;}
+#battle .force h3.name .player{font-family:Georgia,"Times New Roman",Times,serif;font-size:14px;font-weight:normal;line-height:20px;font-style:italic;color:#555555;font-size:20px;}
+#battle .force .order-of-battle{margin:0 -13px;height:165px;*zoom:1;}#battle .force .order-of-battle:before,#battle .force .order-of-battle:after{display:table;content:"";line-height:0;}
+#battle .force .order-of-battle:after{clear:both;}
+#battle .force .unit{position:relative;width:135px;height:165px;float:left;}#battle .force .unit .image{border:1px solid #CCC;width:77px;height:77px;}
+#battle .force .unit .rolls .hit{color:#F00;}
+#battle .force .unit .rolls .miss{color:#666;}
+#battle .force .unit .adjust-battle-values{display:none;}
+#battle .force .hits-from-opponent{display:none;}
+#battle .force .damage{display:none;}
 #battle .round-summary h2 .win,#battle .round-summary h2 .draw{display:none;}
 #battle .round-summary.win h2 .win{display:inline;}
 #battle .round-summary.win h2 .continue{display:none;}
 #battle .round-summary.draw h2 .draw{display:inline;}
 #battle .round-summary.draw h2 .continue{display:none;}
-#battle .round .pre-battle{display:none;}
-#battle .round.zero .default{display:none;}
-#battle .round.zero .pre-battle{display:inline;}
-#battle .force{*zoom:1;}#battle .force:before,#battle .force:after{display:table;content:"";line-height:0;}
-#battle .force:after{clear:both;}
-#battle .force .name .player{color:#737373;font-size:12.6px;}
-#battle .force .hits-from-opponent{display:none;}
-#battle .force .damage{display:none;}
-#battle .force .unit{*zoom:1;position:relative;width:150px;height:150px;float:left;}#battle .force .unit:before,#battle .force .unit:after{display:table;content:"";line-height:0;}
-#battle .force .unit:after{clear:both;}
-#battle .force .unit .image{border:1px solid #CCC;width:98px;height:98px;}
-#battle .force .unit .rolls .hit{color:#F00;}
-#battle .force .unit .rolls .miss{color:#666;}
-#battle .force .unit .adjust-battle-values{display:none;}
 #battle .reset-dice.btn{display:none;}
 #battle .resolve-round.btn{display:none;}
 #battle .adjusting-battle-values .unit .adjust-battle-values{display:block;}

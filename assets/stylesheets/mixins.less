@@ -1,0 +1,23 @@
+
+.reset() {
+  padding:0;
+  margin:0;
+}
+
+.horizontal-list() {
+  .reset;
+  li {
+    list-style:none;
+    display: inline-block;
+    .reset;
+  }
+}
+
+.text-inset(@shadowColor: #FFF) {
+  text-shadow: 1px 1px @shadowColor;
+}
+
+.serif(@size: @baseFontSize, @style: italic) {
+  #font > .serif(@size);
+  font-style: @style;
+}

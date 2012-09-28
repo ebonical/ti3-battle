@@ -83,7 +83,7 @@ class BattleView extends Backbone.View
   _setRound: (battleModel, round) ->
     el = @$el.find(".round")
     el.toggleClass("zero", round is 0)
-    el.find(".round-number .value").text(round)
+    el.find(".default .value").text(round)
 
   _setDiceRolled: (battleModel, isRolled) ->
     @$el.toggleClass "dice-rolled", isRolled

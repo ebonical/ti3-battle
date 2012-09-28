@@ -1,25 +1,22 @@
-.combat-type-selection
+.combat-type-selection.hidden
   %ul.nav.nav-pills
     %li
       %a{href:'#new-space-combat'} Space Battle
     %li
       %a{href:'#new-ground-combat'} Invasion Combat
 
-.actions
-  %a.new-battle.btn{href:'#new-battle'} New Battle
-  %a.roll-dice.btn{href:'#roll-dice'} Roll Dice!
-  %a.reset-dice.btn{href:'#reset-dice'} Reset Dice
-  %a.resolve-round.btn{href:'#resolve-round'} Resolve Round
-
 .round
   %h2
-    %span.default.round-number
+    %span.default
       Round
       %span.value 1
-    %span.pre-battle Pre-Battle Round
+    %span.pre-combat Pre-Combat Round
 
   .actions
     %a.pre-battle{href:'#next-round'} Skip to Round 1
+
+.phase-message
+  %p Pshaw
 
 .battle-board
   .force.attacker{'data-player' => 0}
@@ -32,3 +29,9 @@
 
 .round-summary.hidden
   = partial "round_summary"
+
+.actions
+  %a.new-battle.btn{href:'#new-battle'} New Battle
+  %a.roll-dice.btn{href:'#roll-dice'} Roll Dice!
+  %a.reset-dice.btn{href:'#reset-dice'} Reset Dice
+  %a.resolve-round.btn{href:'#resolve-round'} Resolve Round

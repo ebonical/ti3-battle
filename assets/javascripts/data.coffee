@@ -61,7 +61,7 @@ Data =
       battle: 9
       move: 0
       inSpaceCombat: true
-      inGroundCombat: false
+      inGroundCombat: true
     }
     {
       id: "carrier"
@@ -82,6 +82,7 @@ Data =
       move: 0
       inSpaceCombat: false
       inGroundCombat: true
+      activeGroundCombatUnit: true
     }
     {
       id: "pds"
@@ -373,7 +374,7 @@ Data =
         { id: "cruiser", amount: 1 }
         { id: "fighter", amount: 2 }
       ]
-      technologies: ["antimass-deflectors", "xrd-transporter"]
+      technologies: ["antimass-deflectors", "xrd-transporters"]
       leaders: ["agent", "agent", "admiral"]
       modifiers: []
     }
@@ -467,7 +468,7 @@ Data =
         { id: "cruiser", amount: 1 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["antimass-deflectors", "xrd-transporter"]
+      technologies: ["antimass-deflectors", "xrd-transporters"]
       leaders: ["agent", "admiral", "general"]
       modifiers: []
     }
@@ -486,7 +487,367 @@ Data =
   ]
 
   technologies: [
-
+    {
+      id: "hylar-v-assault-laser"
+      name: "Hylar V Assault Laser"
+      description: "Cruisers and Destroyers receive +1 in all combat rolls."
+      color: "red"
+      modifiers: [
+        {
+          id: "tech-hylar"
+          scope: "combat"
+          unitRequires:
+            id: ["cruiser", "destroyer"]
+          modify:
+            battle: "+1"
+        }
+      ]
+    }
+    {
+      id: "automated-defense-turrets"
+      name: "Automated Defense Turrets"
+      description: "During all Anti-Fighter Barrage rolls Destroyers receive +2 and an additional die."
+      color: "red"
+      expansion: "se"
+      prerequisites: ["hylar-v-assault-laser"]
+      andor: "and"
+      modifiers: [
+        {
+          id: "tech-defense-turrets"
+          scope: "space"
+          round: 0
+          duration: 1
+          unitRequires:
+            id: "destroyer"
+          modify:
+            battle: "+2"
+            dice: "+1"
+        }
+      ]
+    }
+    {
+      id: "deep-space-cannon"
+      name: "Deep Space Cannon"
+      description: "Enemy fleets in adjacent systems are now in range of your PDS."
+      color: "red"
+      prerequisites: ["hylar-v-assault-laser"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "enviro-compensator"
+      name: "Enviro Compensator"
+      description: "Production capacity of your Space Docks is increased by 1."
+      color: "yellow"
+      prerequisites: []
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "antimass-deflectors"
+      name: "Antimass Deflectors"
+      description: "Your ships may pass through, but not stop in, Asteroid Fields."
+      color: "blue"
+      prerequisites: []
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "sarween-tools"
+      name: "Sarween Tools"
+      description: "Whenever you produce units at any Space Dock, you now receive +1 resource with which to build units."
+      color: "yellow"
+      prerequisites: ["enviro-compensator"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "stasis-capsules"
+      name: "Stasis Capsules"
+      description: "Cruisers and Dreadnoughts can now carry one Ground Force unit."
+      color: "green"
+      prerequisites: ["enviro-compensator"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "micro-technology"
+      name: "Micro Technology"
+      description: "When you receive Trade Goods from your Trade Agreements, you now receive +1 Trade Good for each of your active Trade Agreements."
+      color: "yellow"
+      prerequisites: ["sarween-tools", "stasis-capsules"]
+      andor: "or"
+      modifiers: []
+    }
+    {
+      id: "cybernetics"
+      name: "Cybernetics"
+      description: "Fighters receive +1 on all combat rolls."
+      color: "green"
+      prerequisites: ["stasis-capsules","antimass-deflectors"]
+      andor: "or"
+      modifiers: [
+        {
+          id: "tech-cybernetics"
+          scope: "combat"
+          unitRequires:
+            id: "fighter"
+          modify:
+            battle: "+1"
+        }
+      ]
+    }
+    {
+      id: "xrd-transporters"
+      name: "Xrd Transporters"
+      description: "Carriers now receive +1 movement."
+      color: "blue"
+      prerequisites: ["antimass-deflectors"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "graviton-laser-system"
+      name: "Graviton Laser System"
+      description: "PDS get one re-roll for each missed combat roll."
+      color: "yellow"
+      prerequisites: ["deep-space-cannon"]
+      andor: "and"
+      modifiers: [
+        {
+          id: "tech-graviton-laser"
+          scope: "combat"
+          unitRequires:
+            id: "pds"
+          modify:
+            rerolls: 1
+        }
+      ]
+    }
+    {
+      id: "magen-defense-grid"
+      name: "Magen Defense Grid"
+      description: "Your PDS units receive +1 on all combat rolls. Defending Ground Forces with a PDS get +1 on all combat rolls during Invasion Combat."
+      color: "red"
+      prerequisites: ["deep-space-cannon"]
+      andor: "and"
+      modifiers: [
+        {
+          id: "tech-magen-ground-forces"
+          scope: "ground"
+          unitRequires:
+            id: "ground"
+          modify:
+            battle: "+1"
+          supportRequires:
+            id: "pds"
+        }
+        {
+          id: "tech-magen-pds"
+          scope: "combat"
+          unitRequires:
+            id: "pds"
+          modify:
+            battle: "+1"
+        }
+      ]
+    }
+    {
+      id: "integrated-economy"
+      name: "Integrated Economy"
+      description: "When producing units at your Space Docks you may place them in any activated adjacent system that is empty or friendly. You may place PDS and Ground Force units on any friendly planet within this range."
+      color: "yellow"
+      prerequisites: ["micro-technology","cybernetics"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "neural-motivator"
+      name: "Neural Motivator"
+      description: "Draw one extra Action Card during each Status Phase."
+      color: "green"
+      prerequisites: ["stasis-capsules","micro-technology"]
+      andor: "or"
+      modifiers: []
+    }
+    {
+      id: "gen-synthesis"
+      name: "Gen Synthesis"
+      description: "All of your Ground Forces receive +1 during Invasion Combat. When destroyed, roll one die. On a result of 5+ return the unit to your Home System."
+      color: "green"
+      prerequisites: ["cybernetics"]
+      andor: "and"
+      modifiers: [
+        {
+          id: "tech-gen-synthesis"
+          scope: "ground"
+          unitRequires:
+            id: "ground"
+          modify:
+            battle: "+1"
+        }
+      ]
+    }
+    {
+      id: "maneuvering-jets"
+      name: "Maneuvering Jets"
+      description: "Opponent receives -1 on all PDS rolls targeting your ships (or -2 if firing from an adjacent system). Additionally you receive -1 to all your Space Mine rolls and ships don't have to stop for Ion Storms."
+      color: "blue"
+      expansion: "se"
+      prerequisites: ["xrd-transporters"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "war-sun"
+      name: "War Sun"
+      description: "You are now allowed to produce War Sun units."
+      color: "red"
+      prerequisites: ["deep-space-cannon","sarween-tools"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "assault-cannon"
+      name: "Assault Cannon"
+      description: "Dreadnoughts get one free shot before any Space Battle begins. Casualties are removed immediately with no return fire."
+      color: "red"
+      prerequisites: ["cybernetics","automated-defense-turrets"]
+      andor: "and"
+      modifiers: [
+        {
+          id: "tech-assault-cannon"
+          scope: "space"
+          round: 0
+          duration: 1
+          unitRequires:
+            id: "dreadnought"
+          special: "TBD"
+        }
+      ]
+    }
+    {
+      id: "nano-technology"
+      name: "Nano Technology"
+      description: "Your Dreadnoughts and War Suns may not be targeted by Action Cards. When you claim a planet, you gain its planet card refreshed."
+      color: "yellow"
+      expansion: "se"
+      prerequisites: ["micro-technology"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "dacxive-animators"
+      name: "Dacxive Animators"
+      description: "If you win an Invasion Combat, roll one die for every Ground Force unit killed (yours and your opponent's). Every roll of 6+ gains you one free Ground Force to be placed on that planet."
+      color: "green"
+      prerequisites: ["neural-motivator"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "type-iv-drive"
+      name: "Type IV Drive"
+      description: "Youre Cruisers and Dreadnoughts now receive +1 movement."
+      color: "blue"
+      prerequisites: ["neural-motivator","xrd-transporters"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "hyper-metabolism"
+      name: "Hyper Metabolism"
+      description: "During each Status Phase you gain 1 additional Command Counter. Also, before drawing Action Cards you may discard 1 from your hand to draw 1 additional card."
+      color: "green"
+      expansion: "se"
+      prerequisites: ["gen-synthesis"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "light-wave-deflector"
+      name: "Light/Wave Deflector"
+      description: "Your ships may move through systems containing enemy ships and continue their movement to the activated system."
+      color: "blue"
+      prerequisites: ["magen-defense-grid","xrd-transporters"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "graviton-negator"
+      name: "Graviton Negator"
+      description: "Dreadnoughts may bombard planets containing PDS units. Your Fighters may participate in Invasion Combat. Surviving Fighters return to space after combat and may never establish control of a planet."
+      color: "red"
+      prerequisites: ["assault-cannon"]
+      andor: "and"
+      modifiers: [
+        {
+          id: "tech-graviton-negator-dreadnought"
+          scope: "ground"
+          round: 0
+          duration: 1
+          unitRequires:
+            id: "dreadnought"
+          modify:
+            ignorePds: true
+        }
+        {
+          id: "tech-graviton-negator-fighter"
+          scope: "ground"
+          stance: "attacker"
+          round: 1
+          unitRequires:
+            id: "fighter"
+          modify:
+            activeGroundCombatUnit: true
+        }
+      ]
+    }
+    {
+      id: "advanced-fighters"
+      name: "Advanced Fighters"
+      description: "Your Fighters receive +1 to all combat rolls. Also, they no longer need the support of a Carrier or Space Dock and may move independently with a movement rate of 2. Fighters in excess of a sytem's normal capacity will count towards your Fleet Supply limit."
+      color: "blue"
+      prerequisites: ["type-iv-drive"]
+      andor: "and"
+      modifiers: [
+        {
+          id: "tech-advanced-fighters"
+          scope: "combat"
+          unitRequires:
+            id: "fighter"
+          modify:
+            battle: "+1"
+        }
+      ]
+    }
+    {
+      id: "transit-diodes"
+      name: "Transit Diodes"
+      description: "As an action you may spend 1 Strategic Command Counter to immediately move up to 4 of your Ground Forces from one planet to any other planet you control."
+      color: "yellow"
+      prerequisites: ["light-wave-deflector"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "fleet-logistics"
+      name: "Fleet Logistics"
+      description: "When taking a Tactical Action, you may now take 2 Tactical Actions, one after the other, before your turn ends."
+      color: "blue"
+      prerequisites: ["graviton-negator"]
+      andor: "and"
+      modifiers: []
+    }
+    {
+      id: "x-89-bacterial-weapon"
+      name: "X-89 Bacterial Weapon"
+      description: "Instead of normal bombardment your Dreadnought or War Sun units may now immediately destroy all enemy Ground Forces on the planet. Then discard all of your Action Cards."
+      color: "red"
+      prerequisites: ["transit-diodes", "assault-cannon"]
+      andor: "and"
+      modifiers: []
+    }
   ]
 
   modifiers: [
