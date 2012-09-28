@@ -66,7 +66,7 @@ class BattleUnit extends Backbone.Model
       when "battle" then @setBattleValue(value)
       else
         fn = eval("this.set" + key.charAt(0).toUpperCase() + key.slice(1))
-        if typeof fn is "function"
+        if _.isFunction(fn)
           fn.call(this, value)
         else
           console.warn "setSafeValue: '#{key}' no safe setter defined"

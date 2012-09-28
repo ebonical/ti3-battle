@@ -56,16 +56,12 @@ class BattleUnitView extends Backbone.View
 
   _setQuantity: (quantity) ->
     @$el.toggleClass("zero", quantity is 0)
-    @$el.find('.quantity .value').text(quantity)
+    elQty = @$el.find(".quantity")
+    elQty.find(".value").text quantity
+    elQty.toggleClass "double", quantity > 9
 
   _setRolls: (model, rolls) ->
-    results = []
-    for roll in rolls
-      if model.hitTest(roll)
-        results.push @rollHitTemplate(value: roll)
-      else
-        results.push @rollMissTemplate(value: roll)
-    @$el.find('.rolls').html results.join(', ')
+    new DiceRollsView(hit: model.getBattleValue(), rolls: rolls, el: @$el.find(".rolls")).render()
 
   _setBattleValue: (value) ->
     @$el.find(".battle .value").text(value)
@@ -81,7 +77,10 @@ class BattleUnitView extends Backbone.View
   _setBattleValueAdjustment: (model, adjustment) ->
     text = adjustment
     text = "+" + adjustment if adjustment >= 0
-    $('.adjust-battle-values .value', @$el).text(text)
+    el = @$el.find(".adjust-battle-values")
+    el.toggleClass "positive", adjustment > 0
+    el.toggleClass "negative", adjustment < 0
+    el.find(".value").text text
 
   _setDamageValue: (model, value) ->
     el = @$el.find(".damage")

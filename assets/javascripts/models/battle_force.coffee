@@ -76,7 +76,7 @@ class BattleForce extends Backbone.Model
       results = for key, value of conditions
         if key is "hasUnits"
           if value then unit.hasUnits() else not unit.hasUnits()
-        else if typeof value is "object"
+        else if _.isObject(value)
           eval "#{unit.get(key)} #{value.operator} #{value.value}"
         else
           unit.get(key) is value
@@ -111,15 +111,15 @@ class BattleForce extends Backbone.Model
 
   # Retrieve all modifiers that could be relevant to player and current units
   fetchModifiers: (combatType) ->
-    @modifiers = []
     stance = @stance()
     # Start with global modifiers
-    @modifiers = @modifiers.concat GlobalModifiers.models
-    # Race abilities
+    @modifiers = [].concat GlobalModifiers.models
+
     if @player?
+      # Racial abilities
       @modifiers = @modifiers.concat @player.race.getModifiers()
-    # Technologies
-    # ...
+      # Technologies
+      @modifiers = @modifiers.concat @player.getTechnologyModifiers()
 
     # Get rid of modifiers that don't match combat type
     @modifiers = _.filter @modifiers, (m) ->

@@ -36,16 +36,20 @@ class BattleForceView extends Backbone.View
 
   clearUnitsHandler: (e) ->
     e.preventDefault()
-    @battleForce().clearUnits()
+    unless $(e.target).hasClass("disabled")
+      @battleForce().clearUnits()
 
   adjustBattleValuesHandler: (e) ->
     e.preventDefault()
-    # toggle class
-    @$el.toggleClass 'adjusting-battle-values'
+    @$el.toggleClass "adjusting-battle-values"
+    isOn = @$el.hasClass "adjusting-battle-values"
+    @$el.find(".actions .clear-units a, .actions .adjust-damage-values a").toggleClass "disabled", isOn
+    @$el.find(".actions .adjust-battle-values a").text(if isOn then "Done" else "Battle Values")
 
   adjustDamageValuesHandler: (e) ->
     e.preventDefault()
-    console.warn "adjustDamageValuesHandler: not yet implemented"
+    unless $(e.target).hasClass "disabled"
+      console.warn "adjustDamageValuesHandler: not yet implemented"
 
   clearDamageHandler: (e) ->
     e.preventDefault()

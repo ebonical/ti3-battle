@@ -50,7 +50,7 @@ class window.Modifier extends Backbone.Model
     if requires?
       for key, value of requires
         unitValue = unit.get(key)
-        if typeof value is "object"
+        if _.isObject(value)
           anyMatch = false
           for value2 in value
             anyMatch or= unitValue is value2

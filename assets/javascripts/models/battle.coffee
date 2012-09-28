@@ -54,7 +54,6 @@ class window.Battle extends Backbone.Model
 
       force.resetModifiers(combatType)
 
-    @set "newBattle", false
     @set "combatType", combatType
 
 
@@ -68,6 +67,9 @@ class window.Battle extends Backbone.Model
     @setDiceRolled false
     @setCombatType combatType
     @set "newBattle", true
+    _.delay(() =>
+        @set "newBattle", false
+      , 1000)
 
   # Roll dice for each unit in a battle force
   # TODO check that at least one unit is on each side
