@@ -1,6 +1,8 @@
 @import "bootstrap/reset";
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "bootstrap/component-animations";
+@import "bootstrap/modals";
 @import "mixins";
 
 @baseFontSize: 14px;
@@ -8,6 +10,7 @@
 @bodyBackground: #FAFAFA;
 @headingsColor: #1F1F1F;
 @baseLineHeight: 1;
+@gray:#666;
 
 body {
   .reset;
@@ -16,8 +19,9 @@ body {
   background-color: @bodyBackground;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   color: @headingsColor;
+  margin: 0;
 }
 
 p {
@@ -61,9 +65,6 @@ a {
   display: inline-block;
   padding: 0 18px;
 }
-.hidden {
-  display: none;
-}
 .template {
   display: none;
 }
@@ -88,14 +89,14 @@ a.disabled {
       line-height: 1;
     }
     .pre-combat {
-      .hidden;
+      display: none;
     }
     .actions {
-      .hidden
+      display: none;
     }
     &.zero {
       .default {
-        .hidden;
+        display: none;
       }
       .pre-combat {
         display: inline;
@@ -180,7 +181,7 @@ a.disabled {
       }
     }
     .damage {
-      .hidden;
+      display: none;
     }
     .order-of-battle {
       margin: 0 -12px;
@@ -229,7 +230,7 @@ a.disabled {
         background-position-y:-616px;
       }
       .name {
-        .hidden;
+        display: none;
       }
       .battle {
         z-index: 2;
@@ -247,11 +248,11 @@ a.disabled {
           text-align: center;
         }
         span {
-          .hidden;
+          display: none;
         }
       }
       .dice {
-        .hidden;
+        display: none;
       }
       .quantity {
         position: absolute;
@@ -280,7 +281,7 @@ a.disabled {
         }
       }
       .adjust-battle-values {
-        .hidden;
+        display: none;
         #battle > .force > .unit > .quantity;
         .value {
           font-size: 35px;
@@ -329,16 +330,16 @@ a.disabled {
         }
         &.zero {
           .value {
-            .hidden;
+            display: none;
           }
         }
       }
       .rolls {
         position: absolute;
-        top: 150px;
-        #font > .monospace(14px, normal, 15px);
-        margin-left: 5px;
+        top: 125px;
+        margin-left: 10px;
         margin-right: 15px;
+        #font > .serif(16px);
         .hit {
           color: #080;
         }
@@ -430,47 +431,148 @@ a.disabled {
         font-size: 24px;
       }
     }
-
   } //.force
+  &.ground {
+    .force.attacker {
+      .unit.fighter, .unit.pds {
+        visibility: hidden;
+      }
+    }
+    .force.defender {
+      .unit.warsun, .unit.dreadnought, .unit.fighter {
+        visibility: hidden;
+      }
+    }
+  }
 
   .round-summary {
+    @summaryWidth: 940px;
+    width: (@summaryWidth - (22 * 2)) !important;
+    margin-left: (@summaryWidth / -2);
 
     h2 .win, h2 .draw {
-      .hidden;
+      display: none;
     }
-
+    h3.round {
+      display: none;
+    }
+    // Battle states: someone has won, or it's a draw. default is 'continue'
     &.win {
       h2 .win {
         display: inline;
       }
       h2 .continue {
-        .hidden;
+        display: none;
       }
     }
-
     &.draw {
       h2 .draw {
         display: inline;
       }
       h2 .continue {
-        .hidden;
+        display: none;
+      }
+    }
+    .force {
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      margin: 25px 0;
+      &:first-child {
+        padding-right: 20px;
+      }
+      .stance {
+        text-transform: capitalize;
+        font-size: 14px;
+        font-weight: 200;
+      }
+      h4 {
+        font-size: 18px;
+        font-weight: normal;
+      }
+      .overview {
+        .serif;
+        margin:8px 0;
+        color: @gray;
+      }
+      .units {
+        margin: 0;
+        padding: 0;
+      }
+      .unit {
+        display: block;
+        width: auto;
+        height: auto;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        float:none;
+        span {
+          position: static;
+        }
+        .name {
+          display: none;
+        }
+        .battle {
+          display: none;
+        }
+        .image {
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+        }
+        .rolls {
+          margin: 0 3px;
+        }
+        .losses {
+          color: #C00;
+          .serif;
+          &.zero {
+            display: none;
+          }
+        }
+      }
+    }
+    .summary-actions {
+      clear: both;
+      text-align: right;
+      .btn {
+        margin-left: 12px;
+      }
+      .done {
+        color: @grayLight;
+        border-color: @grayLight;
+      }
+      .next-round {
+        color: #09C;
+        border-color: #09C;
+      }
+      .start-invasion-combat {
+        color: #B18B65;
+        border-color: #B18B65;
+      }
+    }
+    &.finished {
+      .done {
+        color: #09C;
+        border-color: #09C;
       }
     }
   }
 
 
   .reset-dice.btn {
-    .hidden;
+    display: none;
   }
 
   .resolve-round.btn {
-    .hidden;
+    display: none;
   }
 
   .adjusting-battle-values {
     .unit {
       .quantity {
-        .hidden;
+        display: none;
       }
       .adjust-battle-values {
         display: block;
@@ -491,7 +593,7 @@ a.disabled {
     }
 
     .roll-dice.btn {
-      .hidden;
+      display: none;
     }
     .reset-dice.btn {
       display: inline-block;
@@ -500,15 +602,42 @@ a.disabled {
       display: inline-block;
     }
     .before-dice {
-      .hidden;
+      display: none;
+    }
+    .order-of-battle .unit.zero {
+      .opacity(50);
     }
   }
 
   &.round-resolved {
     .reset-dice.btn {
-      .hidden;
+      display: none;
     }
   }
 
 }
 
+.hidden, .hide {
+  display: none;
+}
+.invisible {
+  visibility: hidden;
+}
+.modal {
+  border-color: #aaa;
+  padding: 22px;
+  background: #f4f4f4;
+  h2.heading {
+    font-weight: 200;
+    font-size: 42px;
+    text-shadow: 1px 1px #fff;
+    text-align: center;
+    strong {
+      font-weight: normal;
+    }
+  }
+}
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  .opacity(50);
+}

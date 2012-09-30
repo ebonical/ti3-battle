@@ -8,3 +8,6 @@ _.mixin
 
 String.prototype.pluralize = (count, plural) ->
   _.pluralize(count, @toString(), plural)
+
+window.zeroCss = (n) ->
+  if n is 0 then "zero" else ""

@@ -21,10 +21,12 @@ class RoundSummaryView extends Backbone.View
 
   show: ->
     @render()
-    @$el.removeClass "hidden"
+    @$el.modal
+      keyboard: false
+      backdrop: "static"
 
   hide: ->
-    @$el.addClass "hidden"
+    @$el.modal("hide")
 
   render: ->
     e = @$el
@@ -47,6 +49,7 @@ class RoundSummaryView extends Backbone.View
 
     for force in [@model.attacker, @model.defender]
       elForce = $ @forceTemplate
+        stance: force.stance()
         player:
           name: force.player.getName()
         race:

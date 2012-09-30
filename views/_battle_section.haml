@@ -20,9 +20,6 @@
     %h2 Defender
     = partial "battle_force"
 
-.round-summary.hidden
-  = partial "round_summary"
-
 .battle-actions
   %span.new-battle-action>
     %a.new-battle.btn{href:'#new-battle'}> New Battle
@@ -32,3 +29,6 @@
   %a.roll-dice.btn{href:'#roll-dice'}> Roll Dice!
   %a.reset-dice.btn{href:'#reset-dice'}> Reset Dice
   %a.resolve-round.btn{href:'#resolve-round'}> Resolve Round
+
+
+= partial "round_summary"

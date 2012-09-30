@@ -1,40 +1,43 @@
-%h2.heading
-  %span.win
-    Victory! <strong>{{race.name}}</strong> has won
-  %span.draw
-    It’s a draw. You both lose
-  %span.continue
-    The battle continues...
+.round-summary.modal.hide.fade{ role: "dialog" }
+  %h2.heading
+    %span.win
+      Victory! <strong>{{race.name}}</strong> has won
+    %span.draw
+      It’s a draw. You both lose
+    %span.continue
+      The battle continues...
 
-.summary
-  %h3.round Summary of Round <span class="value">1</span>
+  .summary
+    %h3.round Summary of Round <span class="value">1</span>
 
-  .forces
-    .force.template
-      .force
-        %h4
-          %span.race {{race.name}}
-          %span.player {{player.name}}
+    .forces
+      .force.template
+        .force
+          .stance {{stance}}
+          %h4
+            %span.race {{race.name}}
+            %span.player {{player.name}}
 
-        %p.overview
-          Inflicted {{hits}} {{"hit".pluralize(hits)}} to the other side and
-          took {{damage}} damage losing {{losses}} {{"unit".pluralize(losses)}}.
+          %p.overview
+            Inflicted {{hits}} {{"hit".pluralize(hits)}} to the other side and
+            took {{damage}} damage losing {{losses}} {{"unit".pluralize(losses)}}.
 
-        %ul.units
-          -# List of Units from template below
+          %ul.units
+            -# List of Units from template below
 
-    -# Extracted and inserted into %ul.units above
-    .unit.template
-      %li.unit
-        %span.name {{name}}
-        %span.battle {{battle}}
-        %span.rolls {{rolls}}
-        %span.losses
-          Remove
-          %span.value {{losses}}
-          {{name.pluralize(losses)}}
+      -# Extracted and inserted into %ul.units above
+      .unit.template
+        %li.unit
+          %span.image
+          %span.name {{name}}
+          %span.battle {{battle}}
+          %span.rolls {{rolls}}
+          %span.losses{ class: "{{zeroCss(losses)}}" }
+            Remove
+            %span.value {{losses}}
+            {{name.pluralize(losses)}}
 
-.actions
-  %a.done.btn{href:'#done'} Thanks, We’re Done
-  %a.next-round.btn{href:'#next-round'} Continue to Next Round
-  %a.start-invasion-combat.btn.hidden{href:'#start-invasion-combat'} Start Invasion Combat
+  .summary-actions
+    %a.done.btn{href:'#done'}> Thanks, We’re Done
+    %a.next-round.btn{href:'#next-round'}> Continue...
+    %a.start-invasion-combat.btn.hidden{href:'#start-invasion-combat'}> Start Invasion Combat
