@@ -27,10 +27,6 @@ a {
   text-decoration: none;
 }
 
-.hidden {
-  display: none;
-}
-
 // Top-level navigation
 .main-nav {
   position: relative;
@@ -50,18 +46,11 @@ a {
 // Sections navigated to from main nav
 .section {
   position: relative;
-  .hidden;
+  display: none;
 
   &.active {
     display: block;
   }
-}
-
-.template {
-  .hidden;
-}
-a.disabled {
-  .opacity(20);
 }
 .btn {
   font-weight: bold;
@@ -71,6 +60,15 @@ a.disabled {
   border: 1px solid #CCC;
   display: inline-block;
   padding: 0 18px;
+}
+.hidden {
+  display: none;
+}
+.template {
+  display: none;
+}
+a.disabled {
+  .opacity(20);
 }
 #index {
   .game-options {
@@ -207,28 +205,28 @@ a.disabled {
         background: url("/images/units.png") no-repeat;
       }
       &.dreadnought .image {
-        background-position: 0 -77px;
+        background-position-y:-77px;
       }
       &.cruiser .image {
-        background-position: 0 -154px;
+        background-position-y:-154px;
       }
       &.destroyer .image {
-        background-position: 0 -231px;
+        background-position-y:-231px;
       }
       &.fighter .image {
-        background-position: 0 -308px;
+        background-position-y:-308px;
       }
       &.carrier .image {
-        background-position: 0 -385px;
+        background-position-y:-385px;
       }
       &.ground .image {
-        background-position: 0 -462px;
+        background-position-y:-462px;
       }
       &.pds .image {
-        background-position: 0 -539px;
+        background-position-y:-539px;
       }
       &.dock .image {
-        background-position: 0 -616px;
+        background-position-y:-616px;
       }
       .name {
         .hidden;
@@ -349,6 +347,29 @@ a.disabled {
         }
       }
     } //.unit
+    &.color-red .unit .image {
+    }
+    &.color-orange .unit .image {
+      background-position-x: -77px;
+    }
+    &.color-yellow .unit .image {
+      background-position-x: -154px;
+    }
+    &.color-green .unit .image {
+      background-position-x: -231px;
+    }
+    &.color-blue .unit .image {
+      background-position-x: -308px;
+    }
+    &.color-purple .unit .image {
+      background-position-x: -385px;
+    }
+    &.color-gray .unit .image {
+      background-position-x: -462px;
+    }
+    &.color-black .unit .image {
+      background-position-x: -539px;
+    }
     .force-actions {
       position: absolute;
       top: 115px;
@@ -390,6 +411,10 @@ a.disabled {
         padding-right: 8px;
         text-align: right;
         right: 50%;
+        color: #C00;
+        &.zero {
+          color: inherit;
+        }
       }
       .damage-applied {
         display: inline-block;
@@ -458,7 +483,9 @@ a.disabled {
     .hits-from-opponent {
       display: block;
     }
-
+    .unit .quantity a {
+      visibility: hidden;
+    }
     .damage {
       display: block;
     }

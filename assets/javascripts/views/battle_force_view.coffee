@@ -55,7 +55,10 @@ class BattleForceView extends Backbone.View
 
   _setDiceHaveBeenRolled: (battleModel, isRolled) ->
     @$el.removeClass "adjusting-battle-values"
-    @$el.find(".hits-from-opponent .value").text battleModel[@oppositeStance()].getHits()
+    totalHits = battleModel[@oppositeStance()].getHits()
+    elHits = @$el.find(".hits-from-opponent")
+    elHits.toggleClass "zero", totalHits is 0
+    elHits.find(".value").text totalHits
     @_toggleAdjustingBattleValues false
 
   _setDamageApplied: (damage) ->
