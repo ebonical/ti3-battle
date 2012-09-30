@@ -73,8 +73,9 @@ class BattleUnitView extends Backbone.View
   _setDiceCount: (value) ->
     elDice = @$el.find(".dice")
     elDice.removeClass ->
-      _.filter $(this).attr('class').split(' '), (klass) ->
+      results = _.filter $(this).attr('class').split(' '), (klass) ->
         /^dice-\d/.test(klass)
+      results.join(" ")
     elDice.addClass "dice-#{value}"
     elDice.find(".value").text(value)
 

@@ -42,13 +42,15 @@ body{padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 h1,h2,h3,h4{color:#1f1f1f;margin:0;}
 p{margin:0;}
 a{text-decoration:none;}
-.main-nav{position:relative;width:1024px;margin:auto;}.main-nav ul{position:absolute;padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
+.main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
 .container{width:1024px;margin:auto;}
-.section{position:relative;display:none;}.section.active{display:block;}
+.section{height:748px;position:relative;display:none;}.section.active{display:block;}
 .btn{font-weight:bold;font-size:30px;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;}
 .template{display:none;}
 a.disabled{opacity:0.2;filter:alpha(opacity=20);}
-#index .game-options{position:absolute;top:50px;}
+#index .game-options{text-align:center;padding-top:180px;}#index .game-options .btn{width:180px;margin-bottom:12px;}
+#index .game-options .new-game a{color:#0088cc;border-color:#0088cc;}
+#index .game-options .join-game a{color:#ff9900;border-color:#ff9900;}
 #battle .round{text-align:center;}#battle .round h2{font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
 #battle .round .pre-combat{display:none;}
 #battle .round small{position:absolute;top:45px;margin-left:22px;font-style:italic;font-size:14px;}
@@ -57,10 +59,10 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .round.zero .pre-combat{display:inline;}
 #battle .round.zero .skip-pre-combat{display:inline-block;}
 #battle .phase-message{font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:1;font-style:italic;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:35px;line-height:35px;text-align:center;}
-#battle .battle-actions{position:relative;margin:60px 40px 0;text-align:right;}#battle .battle-actions .btn{margin-left:12px;}
-#battle .battle-actions .roll-dice{color:#09C;border-color:#09C;}
-#battle .battle-actions .reset-dice{color:#F90;border-color:#F90;}
-#battle .battle-actions .resolve-round{color:#09C;border-color:#09C;}
+#battle .battle-actions{position:relative;margin:45px 40px 0;text-align:right;}#battle .battle-actions .btn{margin-left:12px;}
+#battle .battle-actions .roll-dice{color:#0088cc;border-color:#0088cc;}
+#battle .battle-actions .reset-dice{color:#ff9900;border-color:#ff9900;}
+#battle .battle-actions .resolve-round{color:#0088cc;border-color:#0088cc;}
 #battle .battle-actions .new-battle-action{position:absolute;}#battle .battle-actions .new-battle-action .btn{margin-left:0;margin-right:-1px;}
 #battle .battle-actions .new-battle{color:#BCB;border-color:#BCB;}
 #battle .battle-actions .new-space-combat{color:#9F3F9F;border-color:#9F3F9F;}
@@ -83,7 +85,12 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit .name{display:none;}
 #battle .force .unit .battle{z-index:2;position:absolute;top:34px;left:-3px;font-size:16px;font-weight:bold;background:url("/images/battle-value.png") no-repeat;height:30px;width:30px;}#battle .force .unit .battle .value{display:block;line-height:30px;text-align:center;}
 #battle .force .unit .battle span{display:none;}
-#battle .force .unit .dice{display:none;}
+#battle .force .unit .dice{position:absolute;top:29px;height:3px;width:35px;background:url("/images/dice.png") no-repeat;}#battle .force .unit .dice strong,#battle .force .unit .dice span{display:none;}
+#battle .force .unit .dice.dice-1{display:none;}
+#battle .force .unit .dice.dice-2{background-position-x:-24px;}
+#battle .force .unit .dice.dice-3{background-position-x:-18px;}
+#battle .force .unit .dice.dice-4{background-position-x:-12px;}
+#battle .force .unit .dice.dice-5{background-position-x:-6px;}
 #battle .force .unit .quantity{position:absolute;top:0px;right:5px;width:40px;text-align:center;font-weight:bold;line-height:1;}#battle .force .unit .quantity .value{color:#454F60;font-size:57px;line-height:63px;}
 #battle .force .unit .quantity.double .value{font-size:40px;}
 #battle .force .unit .quantity a{display:block;font-size:48px;color:#9FA4C0;}#battle .force .unit .quantity a.decrease{line-height:35px;}
@@ -105,7 +112,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force.color-purple .unit .image{background-position-x:-385px;}
 #battle .force.color-gray .unit .image{background-position-x:-462px;}
 #battle .force.color-black .unit .image{background-position-x:-539px;}
-#battle .force .force-actions{position:absolute;top:115px;right:-25px;line-height:22px;font-size:12px;width:95px;}#battle .force .force-actions a{color:#333333;padding-left:21px;display:inline-block;}
+#battle .force .force-actions{position:absolute;top:115px;right:-25px;line-height:22px;font-size:12px;width:110px;}#battle .force .force-actions a{color:#333333;padding-left:21px;display:inline-block;}
 #battle .force .force-actions .clear-units a{background:url("/images/btn-clear-units.png") no-repeat left center;}
 #battle .force .force-actions .adjust-battle-values a{background:url("/images/btn-adjust-battle.png") no-repeat left center;}
 #battle .force .force-actions .adjust-damage-values a{background:url("/images/btn-adjust-damage.png") no-repeat left center;}
@@ -151,9 +158,9 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .round-summary .force.color-black .unit .image{background-position-x:-280px;}
 #battle .round-summary .summary-actions{clear:both;text-align:right;}#battle .round-summary .summary-actions .btn{margin-left:12px;}
 #battle .round-summary .summary-actions .done{color:#999999;border-color:#999999;}
-#battle .round-summary .summary-actions .next-round{color:#09C;border-color:#09C;}
+#battle .round-summary .summary-actions .next-round{color:#0088cc;border-color:#0088cc;}
 #battle .round-summary .summary-actions .start-invasion-combat{color:#B18B65;border-color:#B18B65;}
-#battle .round-summary.finished .done{color:#09C;border-color:#09C;}
+#battle .round-summary.finished .done{color:#0088cc;border-color:#0088cc;}
 #battle .reset-dice.btn{display:none;}
 #battle .resolve-round.btn{display:none;}
 #battle .adjusting-battle-values .unit .quantity{display:none;}

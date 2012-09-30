@@ -12,6 +12,9 @@
 @baseLineHeight: 1;
 @gray:#666;
 
+@primaryBtnColor: #08C;
+@cautionBtnColor: #F90;
+
 body {
   .reset;
   #font > .sans-serif;
@@ -36,7 +39,7 @@ a {
   position: relative;
   width: 1024px;
   margin:auto;
-
+  z-index: 2;
   ul {
     position: absolute;
     .horizontal-list;
@@ -49,9 +52,9 @@ a {
 }
 // Sections navigated to from main nav
 .section {
+  height: 768px - 20px;
   position: relative;
   display: none;
-
   &.active {
     display: block;
   }
@@ -73,8 +76,20 @@ a.disabled {
 }
 #index {
   .game-options {
-    position: absolute;
-    top: 50px;
+    text-align: center;
+    padding-top: 180px;
+    .btn {
+      width: 180px;
+      margin-bottom: 12px;
+    }
+    .new-game a {
+      color: @primaryBtnColor;
+      border-color: @primaryBtnColor;
+    }
+    .join-game a {
+      color: @cautionBtnColor;
+      border-color: @cautionBtnColor;
+    }
   }
 }
 #battle {
@@ -127,22 +142,22 @@ a.disabled {
   }
   .battle-actions {
     position: relative;
-    margin: 60px 40px 0;
+    margin: 45px 40px 0;
     text-align: right;
     .btn {
       margin-left: 12px;
     }
     .roll-dice {
-      color: #09C;
-      border-color: #09C;
+      color: @primaryBtnColor;
+      border-color: @primaryBtnColor;
     }
     .reset-dice {
-      color: #F90;
-      border-color: #F90;
+      color: @cautionBtnColor;
+      border-color: @cautionBtnColor;
     }
     .resolve-round {
-      color: #09C;
-      border-color: #09C;
+      color: @primaryBtnColor;
+      border-color: @primaryBtnColor;
     }
     .new-battle-action {
       position: absolute;
@@ -263,7 +278,32 @@ a.disabled {
         }
       }
       .dice {
-        display: none;
+        position: absolute;
+        top:29px;
+        height: 3px;
+        width: 35px;
+        background: url("/images/dice.png") no-repeat;
+        strong, span {
+          display: none;
+        }
+        &.dice-1 {
+          display: none;
+        }
+        &.dice-2 {
+          background-position-x:-24px;
+        }
+        &.dice-3 {
+          background-position-x:-18px;
+        }
+        &.dice-4 {
+          background-position-x:-12px;
+        }
+        &.dice-5 {
+          background-position-x:-6px;
+        }
+        &.dice-6 {
+          // background-position-x:0px;
+        }
       }
       .quantity {
         position: absolute;
@@ -388,7 +428,7 @@ a.disabled {
       right: -25px;
       line-height: 22px;
       font-size: 12px;
-      width: 95px;
+      width: 110px;
       a {
         color: @grayDark;
         padding-left: 21px;
@@ -608,8 +648,8 @@ a.disabled {
         border-color: @grayLight;
       }
       .next-round {
-        color: #09C;
-        border-color: #09C;
+        color: @primaryBtnColor;
+        border-color: @primaryBtnColor;
       }
       .start-invasion-combat {
         color: #B18B65;
@@ -618,8 +658,8 @@ a.disabled {
     }
     &.finished {
       .done {
-        color: #09C;
-        border-color: #09C;
+        color: @primaryBtnColor;
+        border-color: @primaryBtnColor;
       }
     }
   }
