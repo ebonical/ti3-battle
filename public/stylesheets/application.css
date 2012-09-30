@@ -27,21 +27,40 @@ a{text-decoration:none;}
 .hidden{display:none;}
 .main-nav{position:relative;width:1024px;margin:auto;}.main-nav ul{position:absolute;padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
 .container{width:1024px;margin:auto;}
-.section{display:none;}.section.active{display:block;}
+.section{position:relative;display:none;}.section.active{display:block;}
 .template{display:none;}
-a.disabled,.disabled a{opacity:0.2;filter:alpha(opacity=20);}
+a.disabled{opacity:0.2;filter:alpha(opacity=20);}
+.btn{font-weight:bold;font-size:30px;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;}
+#index .game-options{position:absolute;top:50px;}
 #battle .round{text-align:center;}#battle .round h2{font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
 #battle .round .pre-combat{display:none;}
 #battle .round .actions{display:none;}
 #battle .round.zero .default{display:none;}
 #battle .round.zero .pre-combat{display:inline;}
 #battle .phase-message{font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:1;font-style:italic;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:35px;line-height:35px;text-align:center;}
+#battle .battle-actions{position:relative;margin:60px 40px 0;text-align:right;}#battle .battle-actions .btn{margin-left:12px;}
+#battle .battle-actions .roll-dice{color:#09C;border-color:#09C;}
+#battle .battle-actions .reset-dice{color:#F90;border-color:#F90;}
+#battle .battle-actions .resolve-round{color:#09C;border-color:#09C;}
+#battle .battle-actions .new-battle-action{position:absolute;}#battle .battle-actions .new-battle-action .btn{margin-left:0;margin-right:-1px;}
+#battle .battle-actions .new-battle{color:#BCB;border-color:#BCB;}
+#battle .battle-actions .new-space-combat{color:#9F3F9F;border-color:#9F3F9F;}
+#battle .battle-actions .new-ground-combat{color:#B18B65;border-color:#B18B65;}
 #battle .force{position:relative;margin:25px 50px 0;}#battle .force >h2{font-size:12px;font-weight:300;line-height:16px;text-transform:uppercase;color:#666;font-weight:bold;border-bottom:1px dashed #e0e0e0;}
 #battle .force h3.name{font-weight:normal;margin:12px 0;}#battle .force h3.name .race{font-size:26px;margin-right:4px;}
 #battle .force h3.name .player{font-family:Georgia,"Times New Roman",Times,serif;font-size:14px;font-weight:normal;line-height:1;font-style:italic;color:#555555;font-size:20px;}
+#battle .force .damage{display:none;}
 #battle .force .order-of-battle{margin:0 -12px;height:165px;*zoom:1;}#battle .force .order-of-battle:before,#battle .force .order-of-battle:after{display:table;content:"";line-height:0;}
 #battle .force .order-of-battle:after{clear:both;}
-#battle .force .unit{position:relative;width:135px;height:165px;float:left;}#battle .force .unit .image{position:absolute;top:42px;left:3px;border:1px dotted #EEE;width:77px;height:77px;z-index:1;}
+#battle .force .unit{position:relative;width:135px;height:165px;float:left;}#battle .force .unit .image{position:absolute;top:42px;left:3px;width:77px;height:77px;z-index:1;overflow:hidden;background:url("/images/units.png") no-repeat;}
+#battle .force .unit.dreadnought .image{background-position:0 -77px;}
+#battle .force .unit.cruiser .image{background-position:0 -154px;}
+#battle .force .unit.destroyer .image{background-position:0 -231px;}
+#battle .force .unit.fighter .image{background-position:0 -308px;}
+#battle .force .unit.carrier .image{background-position:0 -385px;}
+#battle .force .unit.ground .image{background-position:0 -462px;}
+#battle .force .unit.pds .image{background-position:0 -539px;}
+#battle .force .unit.dock .image{background-position:0 -616px;}
 #battle .force .unit .name{display:none;}
 #battle .force .unit .battle{z-index:2;position:absolute;top:34px;left:-3px;font-size:16px;font-weight:bold;background:url("/images/battle-value.png") no-repeat;height:30px;width:30px;}#battle .force .unit .battle .value{display:block;line-height:30px;text-align:center;}
 #battle .force .unit .battle span{display:none;}
@@ -58,13 +77,18 @@ a.disabled,.disabled a{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit .damage{position:relative;z-index:10;width:100%;height:100%;}#battle .force .unit .damage a{position:absolute;top:0;left:0;display:block;width:100%;height:100%;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;z-index:2;}
 #battle .force .unit .damage .value{position:absolute;top:17px;right:28px;background:url("/images/unit-damage.png") no-repeat;width:66px;height:66px;display:block;text-align:center;font-weight:bold;font-size:28px;line-height:66px;color:#FFF;text-shadow:1px 1px #222222;z-index:1;}
 #battle .force .unit .damage.zero .value{display:none;}
-#battle .force .unit .rolls{position:absolute;top:150px;font-family:Monaco,Menlo,Consolas,"Courier New",monospace;font-size:13px;font-weight:normal;line-height:15px;margin-left:5px;margin-right:15px;}#battle .force .unit .rolls .hit{color:#080;}
+#battle .force .unit .rolls{position:absolute;top:150px;font-family:Monaco,Menlo,Consolas,"Courier New",monospace;font-size:14px;font-weight:normal;line-height:15px;margin-left:5px;margin-right:15px;}#battle .force .unit .rolls .hit{color:#080;}
 #battle .force .unit .rolls .miss{color:#999999;}
-#battle .force .actions{position:absolute;top:115px;right:-25px;line-height:22px;font-size:12px;width:95px;}#battle .force .actions a{color:#333333;padding-left:21px;display:inline-block;}
-#battle .force .actions .clear-units a{background:url("/images/btn-clear-units.png") no-repeat left center;}
-#battle .force .actions .adjust-battle-values a{background:url("/images/btn-adjust-battle.png") no-repeat left center;}
-#battle .force .actions .adjust-damage-values a{background:url("/images/btn-adjust-damage.png") no-repeat left center;}
-#battle .force .damage{display:none;}
+#battle .force .force-actions{position:absolute;top:115px;right:-25px;line-height:22px;font-size:12px;width:95px;}#battle .force .force-actions a{color:#333333;padding-left:21px;display:inline-block;}
+#battle .force .force-actions .clear-units a{background:url("/images/btn-clear-units.png") no-repeat left center;}
+#battle .force .force-actions .adjust-battle-values a{background:url("/images/btn-adjust-battle.png") no-repeat left center;}
+#battle .force .force-actions .adjust-damage-values a{background:url("/images/btn-adjust-damage.png") no-repeat left center;}
+#battle .force .force-actions .clear-damage a{background:url("/images/btn-clear-damage.png") no-repeat left center;}
+#battle .force >.damage{position:absolute;top:31px;right:-25px;font-size:14px;font-weight:lighter;width:220px;}#battle .force >.damage div{display:inline-block;position:absolute;}
+#battle .force >.damage .hits-from-opponent{border-right:1px solid #CCC;padding-right:8px;text-align:right;right:50%;}
+#battle .force >.damage .damage-applied{display:inline-block;border-left:1px solid #FFF;padding-left:5px;left:50%;}
+#battle .force >.damage .label{display:block;}
+#battle .force >.damage .value{font-weight:bold;font-size:24px;}
 #battle .round-summary h2 .win,#battle .round-summary h2 .draw{display:none;}
 #battle .round-summary.win h2 .win{display:inline;}
 #battle .round-summary.win h2 .continue{display:none;}
@@ -79,4 +103,5 @@ a.disabled,.disabled a{opacity:0.2;filter:alpha(opacity=20);}
 #battle.dice-rolled .roll-dice.btn{display:none;}
 #battle.dice-rolled .reset-dice.btn{display:inline-block;}
 #battle.dice-rolled .resolve-round.btn{display:inline-block;}
+#battle.dice-rolled .before-dice{display:none;}
 #battle.round-resolved .reset-dice.btn{display:none;}

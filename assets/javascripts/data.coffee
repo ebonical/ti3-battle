@@ -17,6 +17,7 @@ Data =
       bombard: true
       capacity: 6
       toughness: 2
+      maxQuantity: 2
       notes: "Bombardment*, Capacity: 6, Sustain Damage"
       inSpaceCombat: true
       inGroundCombat: true
@@ -30,6 +31,7 @@ Data =
       move: 1
       bombard: true
       toughness: 2
+      maxQuantity: 5
       notes: "Bombardment, Sustain Damage"
       inSpaceCombat: true
       inGroundCombat: true
@@ -40,6 +42,7 @@ Data =
       cost: 2
       battle: 7
       move: 2
+      maxQuantity: 8
       inSpaceCombat: true
       inGroundCombat: false
     }
@@ -50,6 +53,7 @@ Data =
       battle: 9
       move: 2
       antifighter: true
+      maxQuantity: 8
       notes: "Anti-Fighter Barrage"
       inSpaceCombat: true
       inGroundCombat: false
@@ -70,6 +74,7 @@ Data =
       battle: 9
       move: 1
       capacity: 6
+      maxQuantity: 4
       notes: "Capacity: 6"
       inSpaceCombat: true
       inGroundCombat: false
@@ -90,6 +95,7 @@ Data =
       cost: 2
       battle: 6
       move: 0
+      maxQuantity: 6
       notes: "Planetary Shield, Space Cannon"
       inSpaceCombat: false
       inGroundCombat: true
@@ -100,6 +106,7 @@ Data =
       cost: 4
       battle: 0
       move: 0
+      maxQuantity: 3
       notes: "Produce Units, Fighter Capacity: 3"
       inSpaceCombat: false
       inGroundCombat: false

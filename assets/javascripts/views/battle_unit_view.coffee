@@ -24,6 +24,10 @@ class BattleUnitView extends Backbone.View
     @model.on "change:damage", (model, newValue) =>
       @_setDamageValue(model, newValue)
 
+    state.battle.on "change:diceRolled", (model, newValue) =>
+      @_setDiceHaveBeenRolled(newValue)
+
+
 
   events:
     "click a[href=#increase-quantity]": "increaseQuantityHandler"
@@ -86,6 +90,9 @@ class BattleUnitView extends Backbone.View
     el = @$el.find(".damage")
     el.find(".value").text value
     el.toggleClass "zero", value is 0
+
+  _setDiceHaveBeenRolled: (isRolled) ->
+    @$el.find(".quantity a").toggleClass "disabled", isRolled
 
 
   render: ->

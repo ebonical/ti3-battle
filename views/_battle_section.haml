@@ -1,10 +1,3 @@
-.combat-type-selection.hidden
-  %ul.nav.nav-pills
-    %li
-      %a{href:'#new-space-combat'} Space Battle
-    %li
-      %a{href:'#new-ground-combat'} Invasion Combat
-
 .round
   %h2
     %span.default
@@ -31,7 +24,11 @@
   = partial "round_summary"
 
 .battle-actions
-  %a.new-battle.btn{href:'#new-battle'} New Battle
-  %a.roll-dice.btn{href:'#roll-dice'} Roll Dice!
-  %a.reset-dice.btn{href:'#reset-dice'} Reset Dice
-  %a.resolve-round.btn{href:'#resolve-round'} Resolve Round
+  %span.new-battle-action>
+    %a.new-battle.btn{href:'#new-battle'}> New Battle
+    %span.options.hidden>
+      %a.new-space-combat.btn{href:'#new-space-combat'}> Space
+      %a.new-ground-combat.btn{href:'#new-ground-combat'}> Ground
+  %a.roll-dice.btn{href:'#roll-dice'}> Roll Dice!
+  %a.reset-dice.btn{href:'#reset-dice'}> Reset Dice
+  %a.resolve-round.btn{href:'#resolve-round'}> Resolve Round

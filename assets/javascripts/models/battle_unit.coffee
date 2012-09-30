@@ -29,9 +29,12 @@ class BattleUnit extends Backbone.Model
   getQuantity: ->
     @get("quantity")
 
+  getMaxQuantity: ->
+    @get("maxQuantity") or 99
+
   setQuantity: (quantity) ->
     quantity = 0 if quantity < 0
-    quantity = 99 if quantity > 99
+    quantity = @getMaxQuantity() if quantity > @getMaxQuantity()
     @set "quantity", quantity
 
   getQuantityBefore: ->

@@ -49,6 +49,7 @@ a {
 }
 // Sections navigated to from main nav
 .section {
+  position: relative;
   .hidden;
 
   &.active {
@@ -59,11 +60,24 @@ a {
 .template {
   .hidden;
 }
-a.disabled, .disabled a {
+a.disabled {
   .opacity(20);
 }
-
-
+.btn {
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 45px;
+  color: #CCC;
+  border: 1px solid #CCC;
+  display: inline-block;
+  padding: 0 18px;
+}
+#index {
+  .game-options {
+    position: absolute;
+    top: 50px;
+  }
+}
 #battle {
   .round {
     text-align: center;
@@ -101,7 +115,45 @@ a.disabled, .disabled a {
     line-height: 35px;
     text-align: center;
   }
-
+  .battle-actions {
+    position: relative;
+    margin: 60px 40px 0;
+    text-align: right;
+    .btn {
+      margin-left: 12px;
+    }
+    .roll-dice {
+      color: #09C;
+      border-color: #09C;
+    }
+    .reset-dice {
+      color: #F90;
+      border-color: #F90;
+    }
+    .resolve-round {
+      color: #09C;
+      border-color: #09C;
+    }
+    .new-battle-action {
+      position: absolute;
+      .btn {
+        margin-left: 0;
+        margin-right: -1px;
+      }
+    }
+    .new-battle {
+      color: #BCB;
+      border-color: #BCB;
+    }
+    .new-space-combat {
+      color: #9F3F9F;
+      border-color: #9F3F9F;
+    }
+    .new-ground-combat {
+      color: #B18B65;
+      border-color: #B18B65;
+    }
+  }
   .force {
     position: relative;
     margin: 25px 50px 0;
@@ -129,7 +181,9 @@ a.disabled, .disabled a {
         font-size: 20px;
       }
     }
-
+    .damage {
+      .hidden;
+    }
     .order-of-battle {
       margin: 0 -12px;
       height: 165px;
@@ -146,10 +200,35 @@ a.disabled, .disabled a {
         position: absolute;
         top: 42px;
         left: 3px;
-        border: 1px dotted #EEE;
         width: 77px;
         height: 77px;
         z-index: 1;
+        overflow: hidden;
+        background: url("/images/units.png") no-repeat;
+      }
+      &.dreadnought .image {
+        background-position: 0 -77px;
+      }
+      &.cruiser .image {
+        background-position: 0 -154px;
+      }
+      &.destroyer .image {
+        background-position: 0 -231px;
+      }
+      &.fighter .image {
+        background-position: 0 -308px;
+      }
+      &.carrier .image {
+        background-position: 0 -385px;
+      }
+      &.ground .image {
+        background-position: 0 -462px;
+      }
+      &.pds .image {
+        background-position: 0 -539px;
+      }
+      &.dock .image {
+        background-position: 0 -616px;
       }
       .name {
         .hidden;
@@ -259,7 +338,7 @@ a.disabled, .disabled a {
       .rolls {
         position: absolute;
         top: 150px;
-        #font > .monospace(13px, normal, 15px);
+        #font > .monospace(14px, normal, 15px);
         margin-left: 5px;
         margin-right: 15px;
         .hit {
@@ -270,7 +349,7 @@ a.disabled, .disabled a {
         }
       }
     } //.unit
-    .actions {
+    .force-actions {
       position: absolute;
       top: 115px;
       right: -25px;
@@ -291,9 +370,40 @@ a.disabled, .disabled a {
       .adjust-damage-values a {
         background: url("/images/btn-adjust-damage.png") no-repeat left center;
       }
+      .clear-damage a {
+        background: url("/images/btn-clear-damage.png") no-repeat left center;
+      }
     }
-    .damage {
-      .hidden;
+    & > .damage {
+      position: absolute;
+      top: 31px;
+      right: -25px;
+      font-size: 14px;
+      font-weight: lighter;
+      width: 220px;
+      div {
+        display: inline-block;
+        position: absolute;
+      }
+      .hits-from-opponent {
+        border-right: 1px solid #CCC;
+        padding-right: 8px;
+        text-align: right;
+        right: 50%;
+      }
+      .damage-applied {
+        display: inline-block;
+        border-left: 1px solid #FFF;
+        padding-left: 5px;
+        left: 50%;
+      }
+      .label {
+        display: block;
+      }
+      .value {
+        font-weight: bold;
+        font-size: 24px;
+      }
     }
 
   } //.force
@@ -361,6 +471,9 @@ a.disabled, .disabled a {
     }
     .resolve-round.btn {
       display: inline-block;
+    }
+    .before-dice {
+      .hidden;
     }
   }
 

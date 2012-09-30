@@ -39,6 +39,7 @@ class BattleView extends Backbone.View
     "click a[href=#reset-dice]": "resetDiceHandler"
     "click a[href=#resolve-round]": "resolveRoundHandler"
     "click a[href=#next-round]": "nextRoundHandler"
+    "click a[href=#new-battle]": "newBattleHandler"
     "click a[href=#new-space-combat]": "newSpaceCombatHandler"
     "click a[href=#new-ground-combat]": "newGroundCombatHandler"
 
@@ -58,13 +59,19 @@ class BattleView extends Backbone.View
     e.preventDefault()
     # move battle to next round
 
+  newBattleHandler: (e) ->
+    e.preventDefault()
+    @_toggleNewBattleOptions()
+
   newSpaceCombatHandler: (e) ->
     e.preventDefault()
     @model.newBattle("space")
+    @_toggleNewBattleOptions(false)
 
   newGroundCombatHandler: (e) ->
     e.preventDefault()
     @model.newBattle("ground")
+    @_toggleNewBattleOptions(false)
 
   setPlayer: (side, player) ->
     @model[side].setPlayer player
@@ -78,6 +85,13 @@ class BattleView extends Backbone.View
   showRoundSummary: ->
     @roundSummary ?= new RoundSummaryView(model: @model)
     @roundSummary.show()
+
+
+  _toggleNewBattleOptions: (showOptions) ->
+    options = @$el.find(".new-battle-action .options")
+    showOptions ?= options.hasClass "hidden"
+    @$el.find(".new-battle.btn").text(if showOptions then "X" else "New Battle")
+    options.toggleClass("hidden", not showOptions)
 
 
   _setRound: (battleModel, round) ->

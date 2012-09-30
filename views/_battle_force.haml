@@ -9,20 +9,20 @@
       = partial "battle_unit"
 
 .damage
-  .hits-from-opponent.zero
+  .hits-from-opponent.zero>
     %span.label Hits Received
     %span.value 0
 
-  .damage-applied.zero
+  .damage-applied.zero>
     %span.label Damage Applied
     %span.value 0
 
-.actions
-  .clear-units
+.force-actions
+  .clear-units.before-dice
     %a{href:'#clear-units'} Clear Units
-  .adjust-battle-values
+  .adjust-battle-values.before-dice
     %a{href:'#adjust-battle-values'} Battle Values
-  .adjust-damage-values
+  .adjust-damage-values.before-dice
     %a{href:'#adjust-damage-values'} Add Damage
   .clear-damage.damage
     %a{href:'#clear-damage'} Clear Damage

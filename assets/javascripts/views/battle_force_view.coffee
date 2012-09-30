@@ -4,7 +4,7 @@ class BattleForceView extends Backbone.View
 
   initialize: ->
     state.battle.on "change:diceRolled", (model, isRolled) =>
-      @_setHitsFromOpponent(model, isRolled)
+      @_setDiceHaveBeenRolled(model, isRolled)
 
     @battleForce().on "change:player", (model, player) =>
       @setPlayer(player)
@@ -41,10 +41,7 @@ class BattleForceView extends Backbone.View
 
   adjustBattleValuesHandler: (e) ->
     e.preventDefault()
-    @$el.toggleClass "adjusting-battle-values"
-    isOn = @$el.hasClass "adjusting-battle-values"
-    @$el.find(".actions .clear-units a, .actions .adjust-damage-values a").toggleClass "disabled", isOn
-    @$el.find(".actions .adjust-battle-values a").text(if isOn then "Done" else "Battle Values")
+    @_toggleAdjustingBattleValues()
 
   adjustDamageValuesHandler: (e) ->
     e.preventDefault()
@@ -56,13 +53,22 @@ class BattleForceView extends Backbone.View
     unit.clearDamage() for unit in @battleForce().units
 
 
-  _setHitsFromOpponent: (model, isRolled) ->
-    @$el.find(".hits-from-opponent .value").text model[@oppositeStance()].getHits()
+  _setDiceHaveBeenRolled: (battleModel, isRolled) ->
+    @$el.removeClass "adjusting-battle-values"
+    @$el.find(".hits-from-opponent .value").text battleModel[@oppositeStance()].getHits()
+    @_toggleAdjustingBattleValues false
 
   _setDamageApplied: (damage) ->
     el = @$el.find(".damage-applied")
     el.toggleClass "zero", damage is 0
     el.find(".value").text damage
+
+  _toggleAdjustingBattleValues: (turnOn) ->
+    e = @$el
+    turnOn ?= not e.hasClass("adjusting-battle-values")
+    e.toggleClass "adjusting-battle-values", turnOn
+    e.find(".force-actions .clear-units a, .force-actions .adjust-damage-values a").toggleClass "disabled", turnOn
+    e.find(".force-actions .adjust-battle-values a").text(if turnOn then "Done" else "Battle Values")
 
 
 
