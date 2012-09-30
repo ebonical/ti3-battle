@@ -91,8 +91,16 @@ a.disabled {
     .pre-combat {
       display: none;
     }
-    .actions {
+    small {
+      position: absolute;
+      top:45px;
+      margin-left: 22px;
+      font-style: italic;
+      font-size: 14px;
+    }
+    .skip-pre-combat {
       display: none;
+      color: #08c;
     }
     &.zero {
       .default {
@@ -100,6 +108,9 @@ a.disabled {
       }
       .pre-combat {
         display: inline;
+      }
+      .skip-pre-combat {
+        display: inline-block;
       }
     }
   }

@@ -38,6 +38,7 @@ class BattleView extends Backbone.View
     "click a[href=#roll-dice]": "rollDiceHandler"
     "click a[href=#reset-dice]": "resetDiceHandler"
     "click a[href=#resolve-round]": "resolveRoundHandler"
+    "click a[href=#skip-pre-combat]": "skipPreCombatHandler"
     "click a[href=#next-round]": "nextRoundHandler"
     "click a[href=#new-battle]": "newBattleHandler"
     "click a[href=#new-space-combat]": "newSpaceCombatHandler"
@@ -54,6 +55,10 @@ class BattleView extends Backbone.View
   resolveRoundHandler: (e) ->
     e.preventDefault()
     @model.resolveDamage()
+
+  skipPreCombatHandler: (e) ->
+    e.preventDefault()
+    @model.nextRound()
 
   nextRoundHandler: (e) ->
     e.preventDefault()
