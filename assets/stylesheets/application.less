@@ -489,10 +489,14 @@ a.disabled {
       h4 {
         font-size: 18px;
         font-weight: normal;
+        .player {
+          .serif(14px);
+          color: @gray;
+        }
       }
       .overview {
         .serif;
-        margin:8px 0;
+        margin: 12px 0;
         color: @gray;
       }
       .units {
@@ -520,6 +524,32 @@ a.disabled {
           display: inline-block;
           width: 40px;
           height: 40px;
+          background-image: url("/images/units-sm.png");
+          vertical-align: middle;
+        }
+        &.dreadnought .image {
+          background-position-y:-40px;
+        }
+        &.cruiser .image {
+          background-position-y:-80px;
+        }
+        &.destroyer .image {
+          background-position-y:-120px;
+        }
+        &.fighter .image {
+          background-position-y:-160px;
+        }
+        &.carrier .image {
+          background-position-y:-200px;
+        }
+        &.ground .image {
+          background-position-y:-240px;
+        }
+        &.pds .image {
+          background-position-y:-280px;
+        }
+        &.dock .image {
+          background-position-y:-320px;
         }
         .rolls {
           margin: 0 3px;
@@ -532,7 +562,30 @@ a.disabled {
           }
         }
       }
-    }
+      &.color-red .unit .image {
+      }
+      &.color-orange .unit .image {
+        background-position-x: -40px;
+      }
+      &.color-yellow .unit .image {
+        background-position-x: -80px;
+      }
+      &.color-green .unit .image {
+        background-position-x: -120px;
+      }
+      &.color-blue .unit .image {
+        background-position-x: -160px;
+      }
+      &.color-purple .unit .image {
+        background-position-x: -200px;
+      }
+      &.color-gray .unit .image {
+        background-position-x: -240px;
+      }
+      &.color-black .unit .image {
+        background-position-x: -280px;
+      }
+    } //.force
     .summary-actions {
       clear: both;
       text-align: right;
