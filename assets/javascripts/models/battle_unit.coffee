@@ -3,6 +3,7 @@ class BattleUnit extends Backbone.Model
   defaults:
     hits: 0
     damage: 0
+    sustainedDamage: 0
     quantity: 0
     toughness: 1
     rolls: []

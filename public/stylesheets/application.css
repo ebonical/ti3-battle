@@ -103,6 +103,8 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit .damage{position:relative;z-index:10;width:100%;height:100%;}#battle .force .unit .damage a{position:absolute;top:0;left:0;display:block;width:100%;height:100%;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;z-index:2;}
 #battle .force .unit .damage .value{position:absolute;top:17px;right:28px;background:url("/images/unit-damage.png") no-repeat;width:66px;height:66px;display:block;text-align:center;font-weight:bold;font-size:28px;line-height:66px;color:#FFF;text-shadow:1px 1px #222222;z-index:1;}
 #battle .force .unit .damage.zero .value{display:none;}
+#battle .force .unit .sustained-damage{position:absolute;top:120px;height:17px;}#battle .force .unit .sustained-damage.zero,#battle .force .unit .sustained-damage span.label,#battle .force .unit .sustained-damage span.value,#battle .force .unit .sustained-damage a{display:none;}
+#battle .force .unit .sustained-damage .sustained{display:inline-block;width:17px;height:17px;background:url("/images/sustained-damage.png") no-repeat;overflow:hidden;}
 #battle .force .unit .rolls{position:absolute;top:125px;margin-left:10px;margin-right:15px;font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:1;}#battle .force .unit .rolls .hit{color:#080;}
 #battle .force .unit .rolls .miss{color:#999999;}
 #battle .force.color-orange .unit .image{background-position-x:-77px;}

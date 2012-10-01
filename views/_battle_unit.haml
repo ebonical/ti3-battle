@@ -6,6 +6,10 @@
   %strong.value {{dice}}
 .image
 .name {{name}}
+.sustained-damage{ class: "{{zeroCss(sustainedDamage)}}" }
+  %span.label Sustained Damage
+  %span.value {{sustainedDamage}}
+  %a.add-sustained-damage{href: '#add-sustained-damage'} +
 .quantity
   %a.increase{href:'#increase-quantity'} +
   %span.value {{quantity}}

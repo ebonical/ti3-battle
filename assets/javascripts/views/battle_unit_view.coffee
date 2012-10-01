@@ -24,8 +24,13 @@ class BattleUnitView extends Backbone.View
     @model.on "change:damage", (model, newValue) =>
       @_setDamageValue(model, newValue)
 
+    @model.on "change:sustainedDamage", (model, newValue) =>
+      @_setSustainedDamage(newValue)
+
     state.battle.on "change:diceRolled", (model, newValue) =>
       @_setDiceHaveBeenRolled(newValue)
+
+    @_setSustainedDamage @model.getSustainedDamage()
 
 
 
@@ -95,6 +100,14 @@ class BattleUnitView extends Backbone.View
   _setDiceHaveBeenRolled: (isRolled) ->
     @$el.find(".quantity a").toggleClass "disabled", isRolled
 
+  _setSustainedDamage: (damage) ->
+    e = @$el
+    elDamage = e.find(".sustained-damage")
+    html = ""
+    for num in [1..damage]
+      html += '<span class="sustained"></span>'
+    elDamage.html html
+    elDamage.toggleClass "zero", damage is 0
 
   render: ->
     @$el.html @template(@model.toJSON())

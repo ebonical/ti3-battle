@@ -385,6 +385,21 @@ a.disabled {
           }
         }
       }
+      .sustained-damage {
+        position: absolute;
+        top: 120px;
+        height: 17px;
+        &.zero, span.label, span.value, a {
+          display: none;
+        }
+        .sustained {
+          display: inline-block;
+          width: 17px;
+          height: 17px;
+          background: url("/images/sustained-damage.png") no-repeat;
+          overflow: hidden;
+        }
+      }
       .rolls {
         position: absolute;
         top: 125px;
