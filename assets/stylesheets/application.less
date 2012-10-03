@@ -9,6 +9,7 @@
 @textColor: #333;
 @bodyBackground: #FAFAFA;
 @headingsColor: #1F1F1F;
+@placeholderText: #CCC;
 @baseLineHeight: 1;
 @gray:#666;
 
@@ -59,7 +60,7 @@ a {
     display: block;
   }
 }
-.btn {
+.btn, button {
   font-weight: bold;
   font-size: 30px;
   line-height: 45px;
@@ -67,6 +68,7 @@ a {
   border: 1px solid #CCC;
   display: inline-block;
   padding: 0 18px;
+  background: none;
 }
 .template {
   display: none;
@@ -89,6 +91,71 @@ a.disabled {
     .join-game a {
       color: @cautionBtnColor;
       border-color: @cautionBtnColor;
+    }
+  }
+  .new-game-form {
+    .back {
+      .btn {
+        color: @gray;
+        border-color: @gray;
+      }
+    }
+    button {
+      color: @primaryBtnColor;
+      border-color: @primaryBtnColor;
+    }
+    form {
+      width: 940px;
+      margin: auto;
+    }
+    .player {
+      clear:both;
+      .clearfix;
+      font-size: 36px;
+      font-weight: 200;
+      margin-bottom: 18px;
+      .name {
+        float: left;
+        width: 365px;
+        input {
+          width: 100%;
+          border: none;
+          padding: 0;
+          margin: 0;
+          #font > .sans-serif(36px);
+          font-weight: 200;
+          background: none;
+          text-align: right;
+          .placeholder();
+        }
+      }
+      .color {
+        float: left;
+        width: 36px;
+        height: 36px;
+        margin: 0 20px;
+        border: 1px solid #CCC;
+        font-weight: bold;
+        font-size: 34px;
+        line-height: 36px;
+        a {
+          color: #CCC;
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+        }
+      }
+      .race {
+        float: left;
+        a {
+          color: @gray;
+        }
+      }
+    } //.player
+    .form-actions {
+      clear:both;
+      text-align: center;
+      padding-top: 25px;
     }
   }
 }
@@ -542,7 +609,7 @@ a.disabled {
     .force {
       float: left;
       width: 50%;
-      box-sizing: border-box;
+      .box-sizing(border-box);
       margin: 25px 0;
       &:first-child {
         padding-right: 20px;

@@ -1,0 +1,19 @@
+.new-game-form.hide
+  .back
+    %a.close-new-game.btn{ href:'#close-new-game' } Back
+
+  %form{ action: "/new_game", method: :post }
+    .players
+      .player.template
+        .player{ class: "player-{{number-1}}" }
+          .name>
+            %input{ type: "text", name: "player[{{number-1}}][name]", placeholder: "Player {{number}}" }
+          .color{ class: "{{color}}" }>
+            %input{ type: "hidden", name: "player[{{number-1}}][color]", value: "{{color || 'random'}}" }>
+            %a{ href:'#pick-color' }>
+              %span> ?
+          .race{ class: "{{raceId}}" }>
+            %input{ type: "hidden", name: "player[{{number-1}}][raceId]", value: "{{raceId || 'random'}}" }
+            %a{ href:'#pick-race' } Random race
+    .form-actions
+      %button{ type:'submit' } Start Game

@@ -45,12 +45,23 @@ a{text-decoration:none;}
 .main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
 .container{width:1024px;margin:auto;}
 .section{height:748px;position:relative;display:none;}.section.active{display:block;}
-.btn{font-weight:bold;font-size:30px;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;}
+.btn,button{font-weight:bold;font-size:30px;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;background:none;}
 .template{display:none;}
 a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #index .game-options{text-align:center;padding-top:180px;}#index .game-options .btn{width:180px;margin-bottom:12px;}
 #index .game-options .new-game a{color:#0088cc;border-color:#0088cc;}
 #index .game-options .join-game a{color:#ff9900;border-color:#ff9900;}
+#index .new-game-form .back .btn{color:#666666;border-color:#666666;}
+#index .new-game-form button{color:#0088cc;border-color:#0088cc;}
+#index .new-game-form form{width:940px;margin:auto;}
+#index .new-game-form .player{clear:both;*zoom:1;font-size:36px;font-weight:200;margin-bottom:18px;}#index .new-game-form .player:before,#index .new-game-form .player:after{display:table;content:"";line-height:0;}
+#index .new-game-form .player:after{clear:both;}
+#index .new-game-form .player .name{float:left;width:365px;}#index .new-game-form .player .name input{width:100%;border:none;padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:36px;font-weight:normal;line-height:1;font-weight:200;background:none;text-align:right;}#index .new-game-form .player .name input:-moz-placeholder{color:#cccccc;}
+#index .new-game-form .player .name input:-ms-input-placeholder{color:#cccccc;}
+#index .new-game-form .player .name input::-webkit-input-placeholder{color:#cccccc;}
+#index .new-game-form .player .color{float:left;width:36px;height:36px;margin:0 20px;border:1px solid #CCC;font-weight:bold;font-size:34px;line-height:36px;}#index .new-game-form .player .color a{color:#CCC;display:inline-block;width:100%;text-align:center;}
+#index .new-game-form .player .race{float:left;}#index .new-game-form .player .race a{color:#666666;}
+#index .new-game-form .form-actions{clear:both;text-align:center;padding-top:25px;}
 #battle .round{text-align:center;}#battle .round h2{font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
 #battle .round .pre-combat{display:none;}
 #battle .round small{position:absolute;top:45px;margin-left:22px;font-style:italic;font-size:14px;}
@@ -132,7 +143,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .round-summary.win h2 .continue{display:none;}
 #battle .round-summary.draw h2 .draw{display:inline;}
 #battle .round-summary.draw h2 .continue{display:none;}
-#battle .round-summary .force{float:left;width:50%;box-sizing:border-box;margin:25px 0;}#battle .round-summary .force:first-child{padding-right:20px;}
+#battle .round-summary .force{float:left;width:50%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:25px 0;}#battle .round-summary .force:first-child{padding-right:20px;}
 #battle .round-summary .force .stance{text-transform:capitalize;font-size:14px;font-weight:200;}
 #battle .round-summary .force h4{font-size:18px;font-weight:normal;}#battle .round-summary .force h4 .player{font-family:Georgia,"Times New Roman",Times,serif;font-size:14px;font-weight:normal;line-height:1;font-style:italic;color:#666666;}
 #battle .round-summary .force .overview{font-family:Georgia,"Times New Roman",Times,serif;font-size:14px;font-weight:normal;line-height:1;font-style:italic;margin:12px 0;color:#666666;}

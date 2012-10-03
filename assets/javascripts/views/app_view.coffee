@@ -1,6 +1,10 @@
 class AppView extends Backbone.View
   el: "body"
 
+  initialize: ->
+    @index = new IndexView
+    @index.render()
+
   events:
     "click .main-nav a[href=#battle]": "openBattleBoard"
 

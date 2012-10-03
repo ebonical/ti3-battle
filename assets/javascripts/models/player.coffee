@@ -1,17 +1,39 @@
 class Player extends Backbone.Model
   defaults:
-    color: 'default'
+    raceId: null
+    color: null
+    number: 0
 
   initialize: ->
-    @race = @get("race")
     @technologies = []
-
+    if (rId = @get("raceId"))?
+      @setRace(rId)
 
   getName: ->
     @get("name") or "Unnamed Player"
 
   getColor: ->
     @get("color")
+
+  setColor: (value) ->
+    @set("color", value)
+
+  getNumber: ->
+    @get("number")
+
+  getRaceId: ->
+    @get("raceId")
+
+  getRace: ->
+    @get("race")
+
+  setRace: (race) ->
+    if _.isString(race)
+      race = Races.get(race)
+    if race?
+      @race = race
+      @set("raceId", race.id)
+      @set("race", race)
 
   getTechnologyIds: ->
     _.map @technologies, (t) -> t.id
@@ -31,5 +53,6 @@ class Player extends Backbone.Model
 
   toJSON: ->
     obj = super
-    obj.race = @get('race').toJSON()
+    if @race?
+      obj.race = @race.toJSON()
     obj

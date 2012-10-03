@@ -878,7 +878,7 @@ Data =
     }
   ]
 
-  colours: [
+  colors: [
     'red'
     'orange'
     'yellow'

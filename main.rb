@@ -10,6 +10,9 @@ class BattleBoard < Sinatra::Base
     haml :index
   end
 
+  post "/new_game" do
+  end
+
   get "/javascripts/*" do
     begin
       if params[:splat].last == "all.js"
@@ -31,7 +34,7 @@ class BattleBoard < Sinatra::Base
   private
 
   def bundled_javascripts
-    out = ""
+    out = []
     config = nil
     application = nil
     Dir[settings.root + "/assets/javascripts/**/*.coffee"].each do |file|
@@ -42,6 +45,6 @@ class BattleBoard < Sinatra::Base
         else out << src
       end
     end
-    config + out + application
+    config + out.join("\n") + application
   end
 end

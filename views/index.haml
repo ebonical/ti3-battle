@@ -5,10 +5,7 @@
     .join-game
       %a.btn{href:'#join-game'} Join Game
 
-.section#new-game
-  %form
-    %label{ for: "game_name" } Name
-    %input#game_name{ name: "name" }
+  = partial "new_game"
 
 .section#battle
   = partial "battle_section"
