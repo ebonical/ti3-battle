@@ -23,7 +23,18 @@ class IndexView extends Backbone.View
 
   submitFormHandler: (e) ->
     e.preventDefault()
-    @_serializeNewGameForm()
+    players = @_serializeNewGameForm()
+    if players.length > 1
+      data =
+        game:
+          players_attributes: _.map(players, (p) -> p.toDbAttributes())
+      $.ajax
+        url: "/games"
+        dataType: "json"
+        data: data
+        type: "POST"
+        success: (data, textStatus, jqXHR) ->
+          console.log data
 
   _toggleNewGameForm: (show) ->
     elForm = @$el.find(".new-game-form")
@@ -49,7 +60,7 @@ class IndexView extends Backbone.View
         player.setRace races.shift()
       if player.getColor() is "random"
         player.setColor colors.shift()
-    console.log players
+    players
 
   render: ->
     html = ""

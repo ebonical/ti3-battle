@@ -32,6 +32,8 @@ class Player extends Backbone.Model
       race = Races.get(race)
     if race?
       @race = race
+      # Add racial technologies
+      @technologies = [].concat @race.technologies
       @set("raceId", race.id)
       @set("race", race)
 
@@ -44,12 +46,21 @@ class Player extends Backbone.Model
 
 
   addTechnology: (technology) ->
-    unless _.include(@technologies, technology.id)
+    unless _.include(@getTechnologyIds(), technology.id)
       @technologies.push technology
 
   removeTechnology: (technology) ->
     @technologies = _.reject @technologies, (t) ->
       t.id is technology.id
+
+  toDbAttributes: ->
+    {
+      number: @getNumber()
+      name: @getName()
+      color: @getColor()
+      race: @getRaceId()
+      technologies: @getTechnologyIds().join(',')
+    }
 
   toJSON: ->
     obj = super

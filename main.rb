@@ -1,6 +1,9 @@
 class BattleBoard < Sinatra::Base
+  load "db/config.rb"
+  Dir['./app/models/**/*.rb'].each { |file| require file }
   Dir['./helpers/*.rb'].each { |file| require file }
   Dir['./lib/*.rb'].each { |file| require file }
+  DataMapper.finalize
 
   helpers do
     include ApplicationHelper
@@ -10,7 +13,22 @@ class BattleBoard < Sinatra::Base
     haml :index
   end
 
-  post "/new_game" do
+  get "/g/:token" do
+    @game = Game.first(token: params[:token])
+    haml :index
+  end
+
+  get "/g/:token.json" do
+    content_type :json
+    @game = Game.first(token: params[:token])
+    @game.to_json
+  end
+
+  # Create a new game
+  post "/games" do
+    content_type :json
+    @game = Game.new(params[:game])
+    { success: @game.save, game: @game }.to_json
   end
 
   get "/javascripts/*" do

@@ -14,9 +14,9 @@ class ModifierCollection extends Backbone.Collection
   model: Modifier
 
 # init collections
+window.Technologies = new TechnologyCollection(Data.technologies)
 window.Units = new UnitCollection(Data.units)
 window.Races = new RaceCollection(Data.races)
-window.Technologies = new TechnologyCollection(Data.technologies)
 window.Players = new PlayerCollection
 for num in [1..8]
   Players.add
@@ -24,8 +24,11 @@ for num in [1..8]
     name: "Player #{num}"
 window.GlobalModifiers = new ModifierCollection(Data.modifiers)
 
+# Values available for current state of play
 window.state =
-  player: Players.first()
+  gameId: null
+  gameToken: null
+  player: null
   battle: null
 
 # init app
