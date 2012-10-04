@@ -40,6 +40,7 @@ textarea{overflow:auto;vertical-align:top;}
 .modal-footer .btn-group .btn+.btn{margin-left:-1px;}
 body{padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;font-weight:normal;line-height:1;color:#333333;background-color:#fafafa;}
 h1,h2,h3,h4{color:#1f1f1f;margin:0;}
+h1{text-align:center;font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
 p{margin:0;}
 a{text-decoration:none;}
 .main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
@@ -51,18 +52,21 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #index .game-options{text-align:center;padding-top:180px;}#index .game-options .btn{width:180px;margin-bottom:12px;}
 #index .game-options .new-game a{color:#0088cc;border-color:#0088cc;}
 #index .game-options .join-game a{color:#ff9900;border-color:#ff9900;}
-#index .new-game-form .back .btn{color:#666666;border-color:#666666;}
-#index .new-game-form button{color:#0088cc;border-color:#0088cc;}
-#index .new-game-form form{width:940px;margin:auto;}
-#index .new-game-form .player{clear:both;*zoom:1;font-size:36px;font-weight:200;margin-bottom:18px;}#index .new-game-form .player:before,#index .new-game-form .player:after{display:table;content:"";line-height:0;}
-#index .new-game-form .player:after{clear:both;}
-#index .new-game-form .player .name{float:left;width:365px;}#index .new-game-form .player .name input{width:100%;border:none;padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:36px;font-weight:normal;line-height:1;font-weight:200;background:none;text-align:right;}#index .new-game-form .player .name input:-moz-placeholder{color:#cccccc;}
-#index .new-game-form .player .name input:-ms-input-placeholder{color:#cccccc;}
-#index .new-game-form .player .name input::-webkit-input-placeholder{color:#cccccc;}
-#index .new-game-form .player .color{float:left;width:36px;height:36px;margin:0 20px;border:1px solid #CCC;font-weight:bold;font-size:34px;line-height:36px;}#index .new-game-form .player .color a{color:#CCC;display:inline-block;width:100%;text-align:center;}
-#index .new-game-form .player .race{float:left;}#index .new-game-form .player .race a{color:#666666;}
-#index .new-game-form .form-actions{clear:both;text-align:center;padding-top:25px;}
-#battle .round{text-align:center;}#battle .round h2{font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
+#index .new-game-view .back{margin:25px;}#index .new-game-view .back .btn{color:#666666;border-color:#666666;}
+#index .new-game-view button{color:#0088cc;border-color:#0088cc;}
+#index .new-game-view form{width:940px;margin:auto;}
+#index .new-game-view .player{clear:both;*zoom:1;font-size:36px;font-weight:200;margin-bottom:18px;}#index .new-game-view .player:before,#index .new-game-view .player:after{display:table;content:"";line-height:0;}
+#index .new-game-view .player:after{clear:both;}
+#index .new-game-view .player .name{float:left;width:365px;}#index .new-game-view .player .name input{width:100%;border:none;padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:36px;font-weight:normal;line-height:1;font-weight:200;background:none;text-align:right;}#index .new-game-view .player .name input:-moz-placeholder{color:#cccccc;}
+#index .new-game-view .player .name input:-ms-input-placeholder{color:#cccccc;}
+#index .new-game-view .player .name input::-webkit-input-placeholder{color:#cccccc;}
+#index .new-game-view .player .color{float:left;width:36px;height:36px;margin:0 20px;border:1px solid #CCC;font-weight:bold;font-size:34px;line-height:36px;}#index .new-game-view .player .color a{color:#CCC;display:inline-block;width:100%;text-align:center;}
+#index .new-game-view .player .race{float:left;}#index .new-game-view .player .race a{color:#666666;}
+#index .new-game-view .form-actions{clear:both;text-align:center;padding-top:25px;}
+#index .game-created-view{text-align:center;}#index .game-created-view .message{font-family:Georgia,"Times New Roman",Times,serif;font-size:18px;font-weight:normal;line-height:1;font-style:italic;}
+#index .game-created-view .game-token{font-weight:bold;font-size:48px;text-transform:uppercase;margin:50px 0;}
+#index .game-created-view .game-start .btn{color:#0088cc;border-color:#0088cc;}
+#battle .round{text-align:center;}#battle .round h1{text-align:center;font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
 #battle .round .pre-combat{display:none;}
 #battle .round small{position:absolute;top:45px;margin-left:22px;font-style:italic;font-size:14px;}
 #battle .round .skip-pre-combat{display:none;color:#08c;}

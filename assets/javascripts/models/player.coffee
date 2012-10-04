@@ -6,8 +6,16 @@ class Player extends Backbone.Model
 
   initialize: ->
     @technologies = []
-    if (rId = @get("raceId"))?
-      @setRace(rId)
+    rId = @get("raceId") or @get("race")
+    @setRace(rId) if rId?
+    # Add technologies from attributes
+    if @get("technologies")?
+      techs = @get("technologies").split(",")
+      for tech in techs
+        ''
+
+  url: ->
+    "/g/#{@getGameToken()}/players/#{id}"
 
   getName: ->
     @get("name") or "Unnamed Player"
@@ -43,6 +51,9 @@ class Player extends Backbone.Model
   getTechnologyModifiers: ->
     tech = _.filter(@technologies, (t) -> t.hasModifiers())
     _.flatten _.map(tech, (t) -> t.modifiers)
+
+  getGameToken: ->
+    @get("gameToken")
 
 
   addTechnology: (technology) ->

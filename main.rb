@@ -13,15 +13,16 @@ class BattleBoard < Sinatra::Base
     haml :index
   end
 
-  get "/g/:token" do
-    @game = Game.first(token: params[:token])
-    haml :index
-  end
-
-  get "/g/:token.json" do
-    content_type :json
-    @game = Game.first(token: params[:token])
-    @game.to_json
+  get %r{/g/([a-zA-Z]+)\.?(json)?} do
+    captures = params[:captures].dup
+    token = captures.shift.to_s
+    @game = Game.first(token: token.downcase)
+    if captures.size > 0 && captures.first == 'json'
+      content_type :json
+      @game.to_json
+    else
+      haml :index
+    end
   end
 
   # Create a new game

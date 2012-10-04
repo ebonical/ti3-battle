@@ -1,4 +1,4 @@
-.section#index.active
+.section#index
   .game-options
     .new-game
       %a.btn{href:'#new-game'} New Game
@@ -6,6 +6,10 @@
       %a.btn{href:'#join-game'} Join Game
 
   = partial "new_game"
+  = partial "game_created"
+
+.section#start
+  = partial "start_section"
 
 .section#battle
   = partial "battle_section"

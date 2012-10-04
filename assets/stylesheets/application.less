@@ -27,6 +27,15 @@ h1, h2, h3, h4 {
   color: @headingsColor;
   margin: 0;
 }
+h1 {
+  text-align: center;
+  font-weight: 200;
+  font-size: 42px;
+  .text-inset;
+  margin: 0;
+  padding: 20px 0;
+  line-height: 1;
+}
 
 p {
   margin: 0;
@@ -93,8 +102,9 @@ a.disabled {
       border-color: @cautionBtnColor;
     }
   }
-  .new-game-form {
+  .new-game-view {
     .back {
+      margin: 25px;
       .btn {
         color: @gray;
         border-color: @gray;
@@ -157,12 +167,31 @@ a.disabled {
       text-align: center;
       padding-top: 25px;
     }
+  } //.new-game-view
+  .game-created-view {
+    text-align: center;
+    .message {
+      .serif(18px);
+    }
+    .game-token {
+      font-weight: bold;
+      font-size: 48px;
+      text-transform: uppercase;
+      margin: 50px 0;
+    }
+    .game-start {
+      .btn {
+        color:@primaryBtnColor;
+        border-color:@primaryBtnColor;
+      }
+    }
   }
 }
 #battle {
   .round {
     text-align: center;
-    h2 {
+    h1 {
+      text-align: center;
       font-weight: 200;
       font-size: 42px;
       .text-inset;

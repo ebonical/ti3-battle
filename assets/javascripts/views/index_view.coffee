@@ -1,29 +1,48 @@
 class IndexView extends Backbone.View
   el: ".section#index"
 
-  playerTemplate: _.template $(".section#index .new-game-form .player.template").html()
+  playerTemplate: _.template $(".section#index .new-game-view .player.template").html()
 
   events:
-    "click a[href=#new-game]": "newGameHandler"
-    "click a[href=#join-game]": "joinGameHandler"
-    "click a[href=#close-new-game]": "closeNewGameHandler"
-    "click .form-actions button": "submitFormHandler"
+    "click a[href=#new-game]": "_newGameHandler"
+    "click a[href=#join-game]": "_joinGameHandler"
+    "click a[href=#close-new-game]": "_closeNewGameHandler"
+    "click .form-actions button": "_submitFormHandler"
+    "click a[href=#start-game]": "_startGameHandler"
+
+  initialize: ->
+    @elNewGame = @$el.find(".new-game-view")
+    @elGameCreated = @$el.find(".game-created-view")
+
+  reset: ->
+    @_initNewGameForm()
+    @render()
 
 
-  newGameHandler: (e) ->
+  _newGameHandler: (e) ->
     e.preventDefault()
-    @_toggleNewGameForm()
+    @toggleNewGameForm()
 
-  joinGameHandler: (e) ->
+  _joinGameHandler: (e) ->
     e.preventDefault()
 
-  closeNewGameHandler: (e) ->
+  _closeNewGameHandler: (e) ->
     e.preventDefault()
-    @_toggleNewGameForm(false)
+    @toggleNewGameForm(false)
 
-  submitFormHandler: (e) ->
+
+  _initNewGameForm: ->
+    html = ""
+    for num in [1..8]
+      html += @playerTemplate
+        number: num
+        color: 'random'
+        raceId: 'random'
+    @$el.find(".players").html html
+
+  _submitFormHandler: (e) ->
     e.preventDefault()
-    players = @_serializeNewGameForm()
+    players = @serializeNewGameForm()
     if players.length > 1
       data =
         game:
@@ -33,17 +52,30 @@ class IndexView extends Backbone.View
         dataType: "json"
         data: data
         type: "POST"
-        success: (data, textStatus, jqXHR) ->
-          console.log data
+        success: (data, textStatus, jqXHR) =>
+          @_gameCreated(data)
 
-  _toggleNewGameForm: (show) ->
-    elForm = @$el.find(".new-game-form")
-    show ?= elForm.hasClass("hide")
+  _startGameHandler: (e) ->
+    e.preventDefault()
+    App.openStartGame()
+
+  _gameCreated: (data) ->
+    @_setGame data.game
+    @elNewGame.addClass "hide"
+    @elGameCreated.removeClass "hide"
+    @elGameCreated.find(".game-token").text state.game.getToken()
+
+  _setGame: (gameData) ->
+    state.game = new Game(gameData)
+
+
+  toggleNewGameForm: (show) ->
+    show ?= @elNewGame.hasClass("hide")
     @$el.find(".game-options").toggleClass "hide", show
-    elForm.toggleClass "hide", not show
+    @elNewGame.toggleClass "hide", not show
 
-  _serializeNewGameForm: ->
-    data = $.deparam @$el.find(".new-game-form form").serialize()
+  serializeNewGameForm: ->
+    data = $.deparam @$el.find(".new-game-view form").serialize()
     players = []
     for playerData in data.player
       if playerData.name.trim().length > 0
@@ -62,9 +94,6 @@ class IndexView extends Backbone.View
         player.setColor colors.shift()
     players
 
+
   render: ->
-    html = ""
-    for player in Players.models
-      html += @playerTemplate(player.toJSON())
-    @$el.find(".players").html html
     this

@@ -31,8 +31,9 @@ class BattleView extends Backbone.View
       @setAttackingPlayer state.player
 
     if @defender.$el.data('player') is 0
-      id = state.player.id + 1
-      @setDefendingPlayer(Players.get(id) || Players.get(1))
+      number = state.player.getNumber() + 1
+      player = state.game.getPlayer(number) or state.game.getPlayer(1)
+      @setDefendingPlayer player
 
   events:
     "click a[href=#roll-dice]": "rollDiceHandler"
