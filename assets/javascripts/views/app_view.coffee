@@ -28,11 +28,10 @@ class AppView extends Backbone.View
     @index.reset()
 
   openStartGame: (e) ->
-    console.log "opening start game..."
     e.preventDefault() if e?
     $('.section.active').removeClass 'active'
     $('.section#start').addClass 'active'
-    # @start ?= new StartGameView(model: state.game)
+    @start ?= new StartGameView(model: state.game)
 
   openBattleBoard: (e) ->
     e.preventDefault() if e?

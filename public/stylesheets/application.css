@@ -49,6 +49,7 @@ a{text-decoration:none;}
 .btn,button{font-weight:bold;font-size:30px;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;background:none;}
 .template{display:none;}
 a.disabled{opacity:0.2;filter:alpha(opacity=20);}
+.message{font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:1;font-style:italic;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:35px;line-height:35px;text-align:center;}
 #index .game-options{text-align:center;padding-top:180px;}#index .game-options .btn{width:180px;margin-bottom:12px;}
 #index .game-options .new-game a{color:#0088cc;border-color:#0088cc;}
 #index .game-options .join-game a{color:#ff9900;border-color:#ff9900;}
@@ -63,8 +64,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #index .new-game-view .player .color{float:left;width:36px;height:36px;margin:0 20px;border:1px solid #CCC;font-weight:bold;font-size:34px;line-height:36px;}#index .new-game-view .player .color a{color:#CCC;display:inline-block;width:100%;text-align:center;}
 #index .new-game-view .player .race{float:left;}#index .new-game-view .player .race a{color:#666666;}
 #index .new-game-view .form-actions{clear:both;text-align:center;padding-top:25px;}
-#index .game-created-view{text-align:center;}#index .game-created-view .message{font-family:Georgia,"Times New Roman",Times,serif;font-size:18px;font-weight:normal;line-height:1;font-style:italic;}
-#index .game-created-view .game-token{font-weight:bold;font-size:48px;text-transform:uppercase;margin:50px 0;}
+#index .game-created-view{text-align:center;}#index .game-created-view .game-token{font-weight:bold;font-size:48px;text-transform:uppercase;margin:50px 0;}
 #index .game-created-view .game-start .btn{color:#0088cc;border-color:#0088cc;}
 #battle .round{text-align:center;}#battle .round h1{text-align:center;font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
 #battle .round .pre-combat{display:none;}
@@ -73,7 +73,6 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .round.zero .default{display:none;}
 #battle .round.zero .pre-combat{display:inline;}
 #battle .round.zero .skip-pre-combat{display:inline-block;}
-#battle .phase-message{font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:1;font-style:italic;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:35px;line-height:35px;text-align:center;}
 #battle .battle-actions{position:relative;margin:45px 40px 0;text-align:right;}#battle .battle-actions .btn{margin-left:12px;}
 #battle .battle-actions .roll-dice{color:#0088cc;border-color:#0088cc;}
 #battle .battle-actions .reset-dice{color:#ff9900;border-color:#ff9900;}

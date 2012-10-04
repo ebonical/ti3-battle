@@ -15,7 +15,7 @@ class IndexView extends Backbone.View
     @elGameCreated = @$el.find(".game-created-view")
 
   reset: ->
-    @_initNewGameForm()
+    @_renderNewGameForm()
     @render()
 
 
@@ -31,7 +31,7 @@ class IndexView extends Backbone.View
     @toggleNewGameForm(false)
 
 
-  _initNewGameForm: ->
+  _renderNewGameForm: ->
     html = ""
     for num in [1..8]
       html += @playerTemplate

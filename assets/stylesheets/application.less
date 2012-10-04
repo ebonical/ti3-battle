@@ -85,6 +85,17 @@ a {
 a.disabled {
   .opacity(20);
 }
+.message {
+  .serif(16px);
+  color: #286386;
+  background-color: #D9EDF7;
+  border-top:1px solid #BCE8F1;
+  border-bottom:1px solid #BCE8F1;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+
 #index {
   .game-options {
     text-align: center;
@@ -170,9 +181,6 @@ a.disabled {
   } //.new-game-view
   .game-created-view {
     text-align: center;
-    .message {
-      .serif(18px);
-    }
     .game-token {
       font-weight: bold;
       font-size: 48px;
@@ -224,18 +232,7 @@ a.disabled {
         display: inline-block;
       }
     }
-  }
-
-  .phase-message {
-    .serif(16px);
-    color: #286386;
-    background-color: #D9EDF7;
-    border-top:1px solid #BCE8F1;
-    border-bottom:1px solid #BCE8F1;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-  }
+  } //.round
   .battle-actions {
     position: relative;
     margin: 45px 40px 0;
@@ -274,7 +271,7 @@ a.disabled {
       color: #B18B65;
       border-color: #B18B65;
     }
-  }
+  } //.battle-actions
   .force {
     position: relative;
     margin: 25px 50px 0;

@@ -10,9 +10,8 @@ class Player extends Backbone.Model
     @setRace(rId) if rId?
     # Add technologies from attributes
     if @get("technologies")?
-      techs = @get("technologies").split(",")
-      for tech in techs
-        ''
+      techIds = @get("technologies").split(",")
+      @technologies = _.map techIds, (tId) -> Technologies.get(tId)
 
   url: ->
     "/g/#{@getGameToken()}/players/#{id}"
