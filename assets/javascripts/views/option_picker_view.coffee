@@ -20,16 +20,16 @@ class OptionPickerView extends Backbone.View
   _selectOptionHandler: (e) ->
     e.preventDefault()
     value = $(e.target).closest('.option').data('value')
-    @options.callback.call this, +value
+    @options.callback.call this, value, @options.callbackArgs
     @hide()
 
   render: ->
     html = ''
-    for label, index in @options.labels
-      value = @options.values[index]
+    for option in @options.options
+      value = option[0]
       isSelected = if value is @options.selected then 'selected' else ''
       html += @optionTemplate
-        label: label
+        label: option[1]
         value: value
         isSelected: isSelected
     @$el.html html

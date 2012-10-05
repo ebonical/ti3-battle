@@ -55,14 +55,17 @@ class BattleForceView extends Backbone.View
 
   _changePlayerHandler: (e) ->
     e.preventDefault()
-    picker = new OptionPickerView
-      labels: _.map(state.game.players, (p)-> "#{p.race.getName()} : #{p.getName()}")
-      values: _.map(state.game.players, (p)-> p.getNumber())
+    new OptionPickerView
+      title: 'Select Player'
+      options: _.map(state.game.players, (p) ->
+                label = "#{p.race.getName()} : #{p.getName()}"
+                [p.getNumber(), label]
+              )
       selected: @player.getNumber()
       callback: @_selectOptionPlayer
 
   _selectOptionPlayer: (selectedPlayerNumber) =>
-    player = state.game.getPlayer(selectedPlayerNumber)
+    player = state.game.getPlayer(+selectedPlayerNumber)
     @battleForce().setPlayer player
 
 

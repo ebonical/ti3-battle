@@ -88,7 +88,8 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #index .new-game-view .player .name input:-ms-input-placeholder{color:#cccccc;}
 #index .new-game-view .player .name input::-webkit-input-placeholder{color:#cccccc;}
 #index .new-game-view .player .color{float:left;width:36px;height:36px;margin:0 20px;font-size:34px;}#index .new-game-view .player .color a{color:#CCC;}
-#index .new-game-view .player .race{float:left;}#index .new-game-view .player .race a{color:#666666;}
+#index .new-game-view .player .race{float:left;}#index .new-game-view .player .race a{color:#333333;}
+#index .new-game-view .player .race.random a{color:#CCC;}
 #index .new-game-view .form-actions{clear:both;text-align:center;padding-top:25px;}
 #index .game-created-view{text-align:center;}#index .game-created-view .game-token{font-weight:bold;font-size:48px;text-transform:uppercase;margin:50px 0;}
 #index .game-created-view .game-start .btn{color:#0088cc;border-color:#0088cc;}
