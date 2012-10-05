@@ -231,7 +231,6 @@ class window.Battle extends Backbone.Model
     @set "roundResolved", true
 
   hasPreCombat: (combatType) ->
-    return false if @resolvingDamage
     if combatType is "ground" then @hasPreGroundCombat() else @hasPreSpaceCombat()
 
   # Determine if we need a round 0 of pre-combat in Space Battle.
@@ -302,6 +301,7 @@ class window.Battle extends Backbone.Model
   #   Quantity becomes zero
   #   or Test for pre-combat fails
   _togglePreRoundCombat: (force, quantity) ->
+    return if @resolvingDamage
     if @getRound() is 1
       doIt = not @get("preCombatResolved")
       doIt and= quantity > 0
