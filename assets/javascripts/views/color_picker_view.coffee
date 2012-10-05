@@ -1,6 +1,6 @@
 # @options = {swatch, selected}
 class ColorPickerView extends Backbone.View
-  className: "color-picker"
+  className: "color-picker fade"
 
   wrapperTemplate: _.template "<div class='swatches'>{{swatches}}</div>"
 
@@ -15,9 +15,13 @@ class ColorPickerView extends Backbone.View
     @swatch = @options.swatch
     @colors = _.difference Data.colors.concat('random'), @getSelected()
     @render()
+    @show()
 
   getSelected: ->
     @options.selected
+
+  show: ->
+    @$el.addClass "in"
 
   hide: ->
     @$el.remove()
