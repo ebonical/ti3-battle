@@ -50,6 +50,29 @@ a{text-decoration:none;}
 .template{display:none;}
 a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 .message{font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:1;font-style:italic;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:35px;line-height:35px;text-align:center;}
+.color.swatch{border:1px solid #CCC;text-align:center;line-height:100%;}.color.swatch.red{background-color:#F90000;}
+.color.swatch.orange{background-color:#F90;}
+.color.swatch.yellow{background-color:#FFEA00;}
+.color.swatch.green{background-color:#080;}
+.color.swatch.blue{background-color:#00F;}
+.color.swatch.purple{background-color:#800080;}
+.color.swatch.gray{background-color:#999;}
+.color.swatch.black{background-color:#000;}
+.color.swatch .random{display:none;}
+.color.swatch.random .random{display:inline-block;font-weight:bold;font-size:96%;}
+.color.swatch a{display:inline-block;width:100%;height:100%;}
+.color-picker{position:absolute;z-index:10;}.color-picker .swatches{position:absolute;left:-37px;top:-37px;width:112px;height:112px;-webkit-box-shadow:0 0 5px #333333;-moz-box-shadow:0 0 5px #333333;box-shadow:0 0 5px #333333;}
+.color-picker .swatch{width:36px !important;height:36px !important;margin:0 !important;}
+.color-picker .color{position:absolute;float:none !important;}.color-picker .color.random{background-color:#FFF;}
+.color-picker .color.color0{left:0;top:0;}
+.color-picker .color.color1{left:50%;margin-left:-19px !important;top:0;}
+.color-picker .color.color2{right:0;top:0;}
+.color-picker .color.color3{left:0;top:50%;margin-top:-19px !important;}
+.color-picker .color.color4{right:0;bottom:50%;margin-bottom:-19px !important;}
+.color-picker .color.color5{left:0;bottom:0;}
+.color-picker .color.color6{right:50%;margin-right:-19px !important;bottom:0;}
+.color-picker .color.color7{right:0;bottom:0;}
+.color-picker .color.color8{left:50%;top:50%;margin:-19px 0 0 -19px !important;}
 #index .game-options{text-align:center;padding-top:180px;}#index .game-options .btn{width:180px;margin-bottom:12px;}
 #index .game-options .new-game a{color:#0088cc;border-color:#0088cc;}
 #index .game-options .join-game a{color:#ff9900;border-color:#ff9900;}
@@ -61,11 +84,14 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #index .new-game-view .player .name{float:left;width:365px;}#index .new-game-view .player .name input{width:100%;border:none;padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:36px;font-weight:normal;line-height:1;font-weight:200;background:none;text-align:right;}#index .new-game-view .player .name input:-moz-placeholder{color:#cccccc;}
 #index .new-game-view .player .name input:-ms-input-placeholder{color:#cccccc;}
 #index .new-game-view .player .name input::-webkit-input-placeholder{color:#cccccc;}
-#index .new-game-view .player .color{float:left;width:36px;height:36px;margin:0 20px;border:1px solid #CCC;font-weight:bold;font-size:34px;line-height:36px;}#index .new-game-view .player .color a{color:#CCC;display:inline-block;width:100%;text-align:center;}
+#index .new-game-view .player .color{float:left;width:36px;height:36px;margin:0 20px;font-size:34px;}#index .new-game-view .player .color a{color:#CCC;}
 #index .new-game-view .player .race{float:left;}#index .new-game-view .player .race a{color:#666666;}
 #index .new-game-view .form-actions{clear:both;text-align:center;padding-top:25px;}
 #index .game-created-view{text-align:center;}#index .game-created-view .game-token{font-weight:bold;font-size:48px;text-transform:uppercase;margin:50px 0;}
 #index .game-created-view .game-start .btn{color:#0088cc;border-color:#0088cc;}
+#start .player{clear:both;font-size:36px;margin-top:22px;}#start .player a{display:block;color:#333333;}#start .player a span{display:inline-block;vertical-align:middle;}
+#start .player .name{width:365px;text-align:right;}
+#start .player .color{width:36px;height:36px;margin:0 20px;}#start .player .color span{display:none;}
 #battle .round{text-align:center;}#battle .round h1{text-align:center;font-weight:200;font-size:42px;text-shadow:1px 1px #ffffff;margin:0;padding:20px 0;line-height:1;}
 #battle .round .pre-combat{display:none;}
 #battle .round small{position:absolute;top:45px;margin-left:22px;font-style:italic;font-size:14px;}

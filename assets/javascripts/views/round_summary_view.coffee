@@ -15,9 +15,9 @@ class RoundSummaryView extends Backbone.View
 
 
   events:
-    "click a[href=#done]": "doneHandler"
-    "click a[href=#next-round]": "nextRoundHandler"
-    "click a[href=#start-invasion-combat]": "startInvasionCombatHandler"
+    "click a[href=#done]": "_doneHandler"
+    "click a[href=#next-round]": "_nextRoundHandler"
+    "click a[href=#start-invasion-combat]": "_startInvasionCombatHandler"
 
   show: ->
     @render()
@@ -84,16 +84,16 @@ class RoundSummaryView extends Backbone.View
 
     this
 
-  doneHandler: (e) ->
+  _doneHandler: (e) ->
     e.preventDefault()
     @model.newBattle( @model.getCombatType() )
 
-  nextRoundHandler: (e) ->
+  _nextRoundHandler: (e) ->
     e.preventDefault()
     @model.nextRound()
     @hide()
 
-  startInvasionCombatHandler: (e) ->
+  _startInvasionCombatHandler: (e) ->
     e.preventDefault()
     @model.newBattle("ground")
     @hide()

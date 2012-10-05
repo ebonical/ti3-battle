@@ -8,10 +8,10 @@
         .player{ class: "player-{{number-1}}" }
           .name>
             %input{ type: "text", name: "player[{{number-1}}][name]", placeholder: "Player {{number}}" }
-          .color{ class: "{{color}}" }>
+          .color.swatch{ class: "{{color}}", 'data-color' => "{{color}}" }>
             %input{ type: "hidden", name: "player[{{number-1}}][color]", value: "{{color}}" }>
             %a{ href:'#pick-color' }>
-              %span> ?
+              %span{ class: "random" }> ?
           .race{ class: "{{raceId}}" }>
             %input{ type: "hidden", name: "player[{{number-1}}][raceId]", value: "{{raceId}}" }
             %a{ href:'#pick-race' } Random race

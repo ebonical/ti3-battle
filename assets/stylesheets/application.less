@@ -95,7 +95,114 @@ a.disabled {
   line-height: 35px;
   text-align: center;
 }
-
+.color.swatch {
+  border: 1px solid #CCC;
+  text-align: center;
+  line-height: 100%;
+  &.red {
+    background-color: #F90000;
+  }
+  &.orange {
+    background-color: #F90;
+  }
+  &.yellow {
+    background-color: #FFEA00;
+  }
+  &.green {
+    background-color: #080;
+  }
+  &.blue {
+    background-color: #00F;
+  }
+  &.purple {
+    background-color: #800080;
+  }
+  &.gray {
+    background-color: #999;
+  }
+  &.black {
+    background-color: #000;
+  }
+  .random {
+    display: none;
+  }
+  &.random .random {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 96%;
+  }
+  a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+}
+.color-picker {
+  position: absolute;
+  z-index: 10;
+  .swatches {
+    position: absolute;
+    left: -37px;
+    top: -37px;
+    width: 112px;
+    height:112px;
+    .box-shadow(0 0 5px #333);
+  }
+  .swatch {
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+  }
+  .color {
+    position: absolute;
+    float:none !important;
+    &.random {
+      background-color: #FFF;
+    }
+    &.color0 {
+      left: 0;
+      top: 0;
+    }
+    &.color1 {
+      left: 50%;
+      margin-left: -19px !important;
+      top: 0;
+    }
+    &.color2 {
+      right: 0;
+      top: 0;
+    }
+    &.color3 {
+      left: 0;
+      top: 50%;
+      margin-top: -19px !important;
+    }
+    &.color4 {
+      right: 0;
+      bottom: 50%;
+      margin-bottom: -19px !important;
+    }
+    &.color5 {
+      left: 0;
+      bottom:0;
+    }
+    &.color6 {
+      right: 50%;
+      margin-right: -19px !important;
+      bottom:0;
+    }
+    &.color7 {
+      right:0;
+      bottom:0;
+    }
+    // currently selected
+    &.color8 {
+      left: 50%;
+      top: 50%;
+      margin: -19px 0 0 -19px !important;
+    }
+  }
+}
 #index {
   .game-options {
     text-align: center;
@@ -155,15 +262,10 @@ a.disabled {
         width: 36px;
         height: 36px;
         margin: 0 20px;
-        border: 1px solid #CCC;
-        font-weight: bold;
         font-size: 34px;
-        line-height: 36px;
+        // line-height: 36px;
         a {
           color: #CCC;
-          display: inline-block;
-          width: 100%;
-          text-align: center;
         }
       }
       .race {
@@ -192,6 +294,36 @@ a.disabled {
         color:@primaryBtnColor;
         border-color:@primaryBtnColor;
       }
+    }
+  }
+}
+#start {
+  .player {
+    clear:both;
+    font-size: 36px;
+    margin-top: 22px;
+    a {
+      display: block;
+      color: @textColor;
+      span {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+    .name {
+      width: 365px;
+      text-align: right;
+    }
+    .color {
+      width: 36px;
+      height: 36px;
+      margin:0 20px;
+      span {
+        display: none;
+      }
+    }
+    .race {
+
     }
   }
 }

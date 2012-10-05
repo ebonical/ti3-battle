@@ -1,12 +1,13 @@
 %h1 Select Player
 
 .message
-  Select a player below to manage. You can change later if needed.
+  Select current player below. You can change this later.
 
 .players
   .player.template
     .player{ class: "{{active}}" }
       %a.select-player{ href:'#select-player', id: "player-{{number}}" }
         %span.name {{name}}
-        %span.color {{color}}
+        %span.color.swatch{ class: "{{color}}" }
+          %span {{color}}
         %span.race {{race.name}}
