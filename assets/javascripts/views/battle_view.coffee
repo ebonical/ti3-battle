@@ -36,48 +36,49 @@ class BattleView extends Backbone.View
       @setDefendingPlayer player
 
   events:
-    "click a[href=#roll-dice]": "rollDiceHandler"
-    "click a[href=#reset-dice]": "resetDiceHandler"
-    "click a[href=#resolve-round]": "resolveRoundHandler"
-    "click a[href=#skip-pre-combat]": "skipPreCombatHandler"
-    "click a[href=#next-round]": "nextRoundHandler"
-    "click a[href=#new-battle]": "newBattleHandler"
-    "click a[href=#new-space-combat]": "newSpaceCombatHandler"
-    "click a[href=#new-ground-combat]": "newGroundCombatHandler"
+    "click a[href=#roll-dice]": "_rollDiceHandler"
+    "click a[href=#reset-dice]": "_resetDiceHandler"
+    "click a[href=#resolve-round]": "_resolveRoundHandler"
+    "click a[href=#skip-pre-combat]": "_skipPreCombatHandler"
+    "click a[href=#next-round]": "_nextRoundHandler"
+    "click a[href=#new-battle]": "_newBattleHandler"
+    "click a[href=#new-space-combat]": "_newSpaceCombatHandler"
+    "click a[href=#new-ground-combat]": "_newGroundCombatHandler"
 
-  rollDiceHandler: (e) ->
+  _rollDiceHandler: (e) ->
     e.preventDefault()
     @model.rollDice()
 
-  resetDiceHandler: (e) ->
+  _resetDiceHandler: (e) ->
     e.preventDefault()
     @model.resetDice()
 
-  resolveRoundHandler: (e) ->
+  _resolveRoundHandler: (e) ->
     e.preventDefault()
     @model.resolveDamage()
 
-  skipPreCombatHandler: (e) ->
+  _skipPreCombatHandler: (e) ->
     e.preventDefault()
     @model.nextRound()
 
-  nextRoundHandler: (e) ->
+  _nextRoundHandler: (e) ->
     e.preventDefault()
     # move battle to next round
 
-  newBattleHandler: (e) ->
+  _newBattleHandler: (e) ->
     e.preventDefault()
     @_toggleNewBattleOptions()
 
-  newSpaceCombatHandler: (e) ->
+  _newSpaceCombatHandler: (e) ->
     e.preventDefault()
     @model.newBattle("space")
     @_toggleNewBattleOptions(false)
 
-  newGroundCombatHandler: (e) ->
+  _newGroundCombatHandler: (e) ->
     e.preventDefault()
     @model.newBattle("ground")
     @_toggleNewBattleOptions(false)
+
 
   setPlayer: (side, player) ->
     @model[side].setPlayer player
