@@ -10,6 +10,7 @@ class IndexView extends Backbone.View
     "click .form-actions button": "_submitFormHandler"
     "click a[href=#start-game]": "_startGameHandler"
     "click a[href=#pick-color]": "_pickColorHandler"
+    "click a[href=#pick-race]": "_pickRaceHandler"
 
   initialize: ->
     @elNewGame = @$el.find(".new-game-view")
@@ -67,6 +68,9 @@ class IndexView extends Backbone.View
     swatch = $(e.target).closest '.color.swatch'
     currentColor = swatch.data('color')
     @colorPicker = new ColorPickerView(swatch: swatch, selected: currentColor)
+
+  _pickRaceHandler: (e) ->
+    e.preventDefault()
 
 
   _gameCreated: (data) ->
