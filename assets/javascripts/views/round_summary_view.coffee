@@ -29,37 +29,33 @@ class RoundSummaryView extends Backbone.View
     @$el.modal("hide")
 
   render: ->
-    e = @$el
-    e.removeClass("finished win draw")
+    el = @$el
+    el.removeClass("finished win draw")
     battleFinished = @model.isFinished()
     # Has the battle finished? I.e. one side has zero units left
     if battleFinished
-      e.addClass "finished"
+      el.addClass "finished"
       if winner = @model.winner()
-        e.addClass "win"
-        e.find("h2 strong").text winner.player.race.getName()
+        el.addClass "win"
+        el.find("h2 strong").text winner.player.race.getName()
       else
-        e.addClass "draw"
+        el.addClass "draw"
 
     # Round number
-    e.find(".round .value").text @model.getRound()
+    el.find(".round .value").text @model.getRound()
 
     # Add attacking forces
-    e.find(".forces").html ""
+    el.find(".forces").html ""
 
     for force in [@model.attacker, @model.defender]
       elForce = $ @forceTemplate
         stance: force.stance()
-        player:
-          name: force.player.getName()
-        race:
-          name: force.player.race.getName()
+        player: force.player.toJSON()
         hits: force.getHits()
         damage: force.getDamage()
         losses: force.totalUnitsLost()
 
-      elForce.addClass "force #{force.id} race-#{force.player.race.id} color-#{force.player.getColor()}"
-      e.find(".forces").append elForce
+      el.find(".forces").append elForce
 
       # Display units in force
       elUnits = elForce.find(".units")

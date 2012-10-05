@@ -12,10 +12,10 @@
 
     .forces
       .force.template
-        .force
+        .force{ class: "{{stance}} race-{{player.raceId}} color-{{player.color}}" }
           .stance {{stance}}
           %h4
-            %span.race {{race.name}}
+            %span.race {{player.race.name}}
             %span.player {{player.name}}
 
           %p.overview
