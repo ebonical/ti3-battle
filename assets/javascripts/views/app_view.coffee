@@ -9,6 +9,7 @@ class AppView extends Backbone.View
           model.initialize()
           @openStartGame()
     else
+      history.replaceState({}, "New Game", "/")
       @openIndex()
 
 
