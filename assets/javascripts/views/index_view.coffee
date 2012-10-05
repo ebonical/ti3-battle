@@ -58,6 +58,7 @@ class IndexView extends Backbone.View
 
   _startGameHandler: (e) ->
     e.preventDefault()
+    history.pushState({}, "Game On", "/g/#{state.game.getToken()}")
     App.openStartGame()
 
   _gameCreated: (data) ->
