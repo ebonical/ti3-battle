@@ -203,6 +203,26 @@ a.disabled {
     }
   }
 }
+.option-picker {
+  .option {
+    font-size: 24px;
+    padding: 5px 0;
+    font-weight: 200;
+    border-bottom: 1px solid #DDD;
+    text-align: center;
+    margin: 0 -22px;
+    a {
+      color: @textColor;
+      display: block;
+    }
+    &:first-child {
+      border-top: 1px solid #DDD;
+    }
+    &.selected {
+      background-color: #D0E6F6;
+    }
+  }
+}
 #index {
   .game-options {
     text-align: center;
@@ -424,6 +444,7 @@ a.disabled {
       .race {
         font-size: 26px;
         margin-right: 4px;
+        color: @textColor;
       }
       .player {
         .serif;
@@ -735,7 +756,11 @@ a.disabled {
       }
     }
   }
-
+  .phase-message {
+    .after-dice {
+      display: none;
+    }
+  }
   .round-summary {
     @summaryWidth: 940px;
     width: (@summaryWidth - (22 * 2)) !important;
@@ -950,6 +975,17 @@ a.disabled {
     }
     .order-of-battle .unit.zero {
       .opacity(50);
+    }
+    .phase-message {
+      color: @warningText;
+      background-color: @warningBackground;
+      border-color: @warningBorder;
+      .setup {
+        display: none;
+      }
+      .after-dice {
+        display: block;
+      }
     }
   }
 

@@ -14,10 +14,11 @@ class BattleForceView extends Backbone.View
 
 
   events:
-    "click a[href=#clear-units]": "clearUnitsHandler"
-    "click a[href=#adjust-battle-values]": "adjustBattleValuesHandler"
-    "click a[href=#adjust-damage-values]": "adjustDamageValuesHandler"
-    "click a[href=#clear-damage]": "clearDamageHandler"
+    "click a[href=#clear-units]": "_clearUnitsHandler"
+    "click a[href=#adjust-battle-values]": "_adjustBattleValuesHandler"
+    "click a[href=#adjust-damage-values]": "_adjustDamageValuesHandler"
+    "click a[href=#clear-damage]": "_clearDamageHandler"
+    "click a[href=#change-player]": "_changePlayerHandler"
 
   stance: ->
     @options.stance
@@ -30,27 +31,39 @@ class BattleForceView extends Backbone.View
 
   setPlayer: (player) ->
     @player = player
-    @$el.data('player', @player.id)
+    @$el.data('player', @player.getNumber())
     @render()
 
 
-  clearUnitsHandler: (e) ->
+  _clearUnitsHandler: (e) ->
     e.preventDefault()
     unless $(e.target).hasClass("disabled")
       @battleForce().clearUnits()
 
-  adjustBattleValuesHandler: (e) ->
+  _adjustBattleValuesHandler: (e) ->
     e.preventDefault()
     @_toggleAdjustingBattleValues()
 
-  adjustDamageValuesHandler: (e) ->
+  _adjustDamageValuesHandler: (e) ->
     e.preventDefault()
     unless $(e.target).hasClass "disabled"
-      console.warn "adjustDamageValuesHandler: not yet implemented"
+      console.warn "_adjustDamageValuesHandler: not yet implemented"
 
-  clearDamageHandler: (e) ->
+  _clearDamageHandler: (e) ->
     e.preventDefault()
     unit.clearDamage() for unit in @battleForce().units
+
+  _changePlayerHandler: (e) ->
+    e.preventDefault()
+    picker = new OptionPickerView
+      labels: _.map(state.game.players, (p)-> "#{p.race.getName()} : #{p.getName()}")
+      values: _.map(state.game.players, (p)-> p.getNumber())
+      selected: @player.getNumber()
+      callback: @_selectOptionPlayer
+
+  _selectOptionPlayer: (selectedPlayerNumber) =>
+    player = state.game.getPlayer(selectedPlayerNumber)
+    @battleForce().setPlayer player
 
 
   _setDiceHaveBeenRolled: (battleModel, isRolled) ->
@@ -73,13 +86,12 @@ class BattleForceView extends Backbone.View
     e.find(".force-actions .clear-units a, .force-actions .adjust-damage-values a").toggleClass "disabled", turnOn
     e.find(".force-actions .adjust-battle-values a").text(if turnOn then "Done" else "Battle Values")
 
-
-
   render: ->
     # Make sure the current race and colour classes are set
     @$el.removeClass ->
-      _.filter $(this).attr('class').split(' '), (klass) ->
+      results = _.filter $(this).attr('class').split(' '), (klass) ->
         /^(race|color)-/.test(klass)
+      results.join(' ')
 
     @$el.addClass "race-#{@player.race.id} color-#{@player.getColor()}"
 

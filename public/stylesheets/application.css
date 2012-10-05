@@ -73,6 +73,9 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 .color-picker .color.color6{right:50%;margin-right:-19px !important;bottom:0;}
 .color-picker .color.color7{right:0;bottom:0;}
 .color-picker .color.color8{left:50%;top:50%;margin:-19px 0 0 -19px !important;}
+.option-picker .option{font-size:24px;padding:5px 0;font-weight:200;border-bottom:1px solid #DDD;text-align:center;margin:0 -22px;}.option-picker .option a{color:#333333;display:block;}
+.option-picker .option:first-child{border-top:1px solid #DDD;}
+.option-picker .option.selected{background-color:#D0E6F6;}
 #index .game-options{text-align:center;padding-top:180px;}#index .game-options .btn{width:180px;margin-bottom:12px;}
 #index .game-options .new-game a{color:#0088cc;border-color:#0088cc;}
 #index .game-options .join-game a{color:#ff9900;border-color:#ff9900;}
@@ -108,7 +111,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .battle-actions .new-space-combat{color:#9F3F9F;border-color:#9F3F9F;}
 #battle .battle-actions .new-ground-combat{color:#B18B65;border-color:#B18B65;}
 #battle .force{position:relative;margin:25px 50px 0;}#battle .force >h2{font-size:12px;font-weight:300;line-height:16px;text-transform:uppercase;color:#666;font-weight:bold;border-bottom:1px dashed #e0e0e0;}
-#battle .force h3.name{font-weight:normal;margin:12px 0;}#battle .force h3.name .race{font-size:26px;margin-right:4px;}
+#battle .force h3.name{font-weight:normal;margin:12px 0;}#battle .force h3.name .race{font-size:26px;margin-right:4px;color:#333333;}
 #battle .force h3.name .player{font-family:Georgia,"Times New Roman",Times,serif;font-size:14px;font-weight:normal;line-height:1;font-style:italic;color:#666666;font-size:20px;}
 #battle .force .damage{display:none;}
 #battle .force .order-of-battle{margin:0 -12px;height:165px;*zoom:1;}#battle .force .order-of-battle:before,#battle .force .order-of-battle:after{display:table;content:"";line-height:0;}
@@ -166,6 +169,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force >.damage .value{font-weight:bold;font-size:24px;}
 #battle.ground .force.attacker .unit.fighter,#battle.ground .force.attacker .unit.pds{visibility:hidden;}
 #battle.ground .force.defender .unit.warsun,#battle.ground .force.defender .unit.dreadnought,#battle.ground .force.defender .unit.fighter{visibility:hidden;}
+#battle .phase-message .after-dice{display:none;}
 #battle .round-summary{width:896px !important;margin-left:-470px;}#battle .round-summary h2 .win,#battle .round-summary h2 .draw{display:none;}
 #battle .round-summary h3.round{display:none;}
 #battle .round-summary.win h2 .win{display:inline;}
@@ -215,6 +219,8 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle.dice-rolled .resolve-round.btn{display:inline-block;}
 #battle.dice-rolled .before-dice{display:none;}
 #battle.dice-rolled .order-of-battle .unit.zero{opacity:0.5;filter:alpha(opacity=50);}
+#battle.dice-rolled .phase-message{color:#c09853;background-color:#fcf8e3;border-color:#fbeed5;}#battle.dice-rolled .phase-message .setup{display:none;}
+#battle.dice-rolled .phase-message .after-dice{display:block;}
 #battle.round-resolved .reset-dice.btn{display:none;}
 .hidden,.hide{display:none;}
 .invisible{visibility:hidden;}
