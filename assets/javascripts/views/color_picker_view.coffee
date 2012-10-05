@@ -46,11 +46,9 @@ class ColorPickerView extends Backbone.View
         index: index
     el.html @wrapperTemplate(swatches: swatches)
     #
-    swatch = @swatch
-    swatch.after el
+    @swatch.after el
     # position picker
-    left = swatch.position().left
-    left += +swatch.css('margin-left').replace('px','')
+    left = @swatch.position().left
+    left += +@swatch.css('margin-left').replace('px','')
     el.css 'left', left
-
     this
