@@ -224,11 +224,14 @@ class window.Battle extends Backbone.Model
 
   # Resolve all damage applied to units
   resolveDamage: ->
+    @resolvingDamage = true
     @attacker.resolveDamage()
     @defender.resolveDamage()
+    @resolvingDamage = false
     @set "roundResolved", true
 
   hasPreCombat: (combatType) ->
+    return false if @resolvingDamage
     if combatType is "ground" then @hasPreGroundCombat() else @hasPreSpaceCombat()
 
   # Determine if we need a round 0 of pre-combat in Space Battle.
