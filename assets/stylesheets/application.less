@@ -78,6 +78,10 @@ a {
   display: inline-block;
   padding: 0 18px;
   background: none;
+  &.primary {
+    color: @primaryBtnColor;
+    border-color: @primaryBtnColor;
+  }
 }
 .template {
   display: none;
@@ -240,14 +244,23 @@ a.disabled {
       border-color: @cautionBtnColor;
     }
   }
-  .new-game-view {
-    .back {
-      margin: 25px;
-      .btn {
-        color: @gray;
-        border-color: @gray;
-      }
+  input {
+    border: none;
+    padding: 0;
+    margin: 0;
+    #font > .sans-serif(36px);
+    font-weight: 200;
+    background: none;
+    .placeholder();
+  }
+  .back {
+    margin: 25px;
+    .btn {
+      color: @gray;
+      border-color: @gray;
     }
+  }
+  .new-game-view {
     button {
       color: @primaryBtnColor;
       border-color: @primaryBtnColor;
@@ -267,14 +280,7 @@ a.disabled {
         width: 365px;
         input {
           width: 100%;
-          border: none;
-          padding: 0;
-          margin: 0;
-          #font > .sans-serif(36px);
-          font-weight: 200;
-          background: none;
           text-align: right;
-          .placeholder();
         }
       }
       .color {
@@ -316,6 +322,26 @@ a.disabled {
         color:@primaryBtnColor;
         border-color:@primaryBtnColor;
       }
+    }
+  }
+  .join-game-view {
+    .back {
+      position: absolute;
+      top: 15px;
+      left: 25px;
+      margin: 0;
+    }
+    form {
+      text-align: center;
+      padding-top: 50px;
+    }
+    input {
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .form-actions {
+      margin-top: 50px;
     }
   }
 }

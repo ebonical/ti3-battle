@@ -20,24 +20,25 @@ class AppView extends Backbone.View
   toggleMainNav: (show) ->
     $('.main-nav').toggleClass "hide", not show
 
+  _activateSection: (section) ->
+    $('.section.active').removeClass 'active'
+    $(".section##{section}").addClass 'active'
+
 
   openIndex: (e) ->
     e.preventDefault() if e?
-    $('.section.active').removeClass 'active'
-    $('.section#index').addClass 'active'
+    @_activateSection 'index'
     @index ?= new IndexView
     @index.reset()
 
   openStartGame: (e) ->
     e.preventDefault() if e?
-    $('.section.active').removeClass 'active'
-    $('.section#start').addClass 'active'
+    @_activateSection 'start'
     @start ?= new StartGameView(model: state.game)
 
   openBattleBoard: (e) ->
     e.preventDefault() if e?
-    $('.section.active').removeClass('active')
-    $('.section#battle').addClass('active')
+    @_activateSection 'battle'
     unless state.battle?
       state.battle = new Battle
       state.battle.newBattle("space")

@@ -46,7 +46,7 @@ a{text-decoration:none;}
 .main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
 .container{width:1024px;margin:auto;}
 .section{height:748px;position:relative;display:none;}.section.active{display:block;}
-.btn,button{font-weight:bold;font-size:30px;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;background:none;}
+.btn,button{font-weight:bold;font-size:30px;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;background:none;}.btn.primary,button.primary{color:#0088cc;border-color:#0088cc;}
 .template{display:none;}
 a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 .message{font-family:Georgia,"Times New Roman",Times,serif;font-size:16px;font-weight:normal;line-height:1;font-style:italic;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:35px;line-height:35px;text-align:center;}
@@ -79,20 +79,25 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #index .game-options{text-align:center;padding-top:180px;}#index .game-options .btn{width:180px;margin-bottom:12px;}
 #index .game-options .new-game a{color:#0088cc;border-color:#0088cc;}
 #index .game-options .join-game a{color:#ff9900;border-color:#ff9900;}
-#index .new-game-view .back{margin:25px;}#index .new-game-view .back .btn{color:#666666;border-color:#666666;}
+#index input{border:none;padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:36px;font-weight:normal;line-height:1;font-weight:200;background:none;}#index input:-moz-placeholder{color:#cccccc;}
+#index input:-ms-input-placeholder{color:#cccccc;}
+#index input::-webkit-input-placeholder{color:#cccccc;}
+#index .back{margin:25px;}#index .back .btn{color:#666666;border-color:#666666;}
 #index .new-game-view button{color:#0088cc;border-color:#0088cc;}
 #index .new-game-view form{width:940px;margin:auto;}
 #index .new-game-view .player{clear:both;*zoom:1;font-size:36px;font-weight:200;margin-bottom:18px;}#index .new-game-view .player:before,#index .new-game-view .player:after{display:table;content:"";line-height:0;}
 #index .new-game-view .player:after{clear:both;}
-#index .new-game-view .player .name{float:left;width:365px;}#index .new-game-view .player .name input{width:100%;border:none;padding:0;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:36px;font-weight:normal;line-height:1;font-weight:200;background:none;text-align:right;}#index .new-game-view .player .name input:-moz-placeholder{color:#cccccc;}
-#index .new-game-view .player .name input:-ms-input-placeholder{color:#cccccc;}
-#index .new-game-view .player .name input::-webkit-input-placeholder{color:#cccccc;}
-#index .new-game-view .player .color{float:left;width:36px;height:36px;margin:0 20px;font-size:34px;}#index .new-game-view .player .color a{color:#CCC;}
+#index .new-game-view .player .name{float:left;width:365px;}#index .new-game-view .player .name input{width:100%;text-align:right;}
+#index .new-game-view .player .color{float:left;width:36px;height:36px;margin:0 20px;font-size:34px;}#index .new-game-view .player .color a{color:#666666;}
 #index .new-game-view .player .race{float:left;}#index .new-game-view .player .race a{color:#333333;}
-#index .new-game-view .player .race.random a{color:#CCC;}
+#index .new-game-view .player .race.random a{color:#666666;}
 #index .new-game-view .form-actions{clear:both;text-align:center;padding-top:25px;}
 #index .game-created-view{text-align:center;}#index .game-created-view .game-token{font-weight:bold;font-size:48px;text-transform:uppercase;margin:50px 0;}
 #index .game-created-view .game-start .btn{color:#0088cc;border-color:#0088cc;}
+#index .join-game-view .back{position:absolute;top:15px;left:25px;margin:0;}
+#index .join-game-view form{text-align:center;padding-top:50px;}
+#index .join-game-view input{font-weight:bold;text-transform:uppercase;text-align:center;}
+#index .join-game-view .form-actions{margin-top:50px;}
 #start .player{clear:both;font-size:36px;margin-top:22px;}#start .player a{display:block;color:#333333;}#start .player a span{display:inline-block;vertical-align:middle;}
 #start .player .name{width:365px;text-align:right;}
 #start .player .color{width:36px;height:36px;margin:0 20px;}#start .player .color span{display:none;}

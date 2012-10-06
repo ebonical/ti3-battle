@@ -12,6 +12,7 @@ class IndexView extends Backbone.View
 
   initialize: ->
     @elNewGame = @$el.find(".new-game-view")
+    @elJoinGame = @$el.find(".join-game-view")
     @elGameCreated = @$el.find(".game-created-view")
 
   reset: ->
@@ -25,6 +26,7 @@ class IndexView extends Backbone.View
 
   _joinGameHandler: (e) ->
     e.preventDefault()
+    @toggleJoinGameForm()
 
   _closeNewGameHandler: (e) ->
     e.preventDefault()
@@ -75,6 +77,12 @@ class IndexView extends Backbone.View
     show ?= @elNewGame.hasClass("hide")
     @$el.find(".game-options").toggleClass "hide", show
     @elNewGame.toggleClass "hide", not show
+
+  toggleJoinGameForm: (show) ->
+    @joinGameView ?= new JoinGameView(parent: this)
+    show ?= not @joinGameView.isVisible()
+    @$el.find(".game-options").toggleClass "hide", show
+    @joinGameView.toggle show
 
   serializeNewGameForm: ->
     data = $.deparam @$el.find(".new-game-view form").serialize()
