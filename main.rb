@@ -5,6 +5,10 @@ class BattleBoard < Sinatra::Base
   Dir['./lib/*.rb'].each { |file| require file }
   DataMapper.finalize
 
+  configure do
+    mime_type :appcache, 'text/cache-manifest'
+  end
+
   helpers do
     include ApplicationHelper
   end
