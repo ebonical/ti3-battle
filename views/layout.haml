@@ -4,7 +4,7 @@
   %head
     %title Battle Board
     %link{ rel: 'stylesheet', href: '/stylesheets/application.css', type: 'text/css', media: 'all'}
-    %meta{ name:"viewport", content:"width=device-width, initial-scale=1, maximum-scale=1" }
+    %meta{ name:"viewport", content:"width=device-width, minimum-scale=1, maximum-scale=1" }
     %meta{ name:"apple-mobile-web-app-capable", content:"yes"}
     :javascript
       window.GAME_TOKEN=#{@game.nil? ? 'null' : @game.token.inspect};

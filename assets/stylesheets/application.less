@@ -16,13 +16,15 @@
 @primaryBtnColor: #08C;
 @cautionBtnColor: #F90;
 
+html {
+  font-size:@baseFontSize;
+}
 body {
   .reset;
   #font > .sans-serif;
   color: @textColor;
   background-color: @bodyBackground;
 }
-
 h1, h2, h3, h4 {
   color: @headingsColor;
   margin: 0;
@@ -30,13 +32,12 @@ h1, h2, h3, h4 {
 h1 {
   text-align: center;
   font-weight: 200;
-  font-size: 42px;
+  .font-size(42);
   .text-inset;
   margin: 0;
-  padding: 20px 0;
+  padding: 0.476190476em 0;
   line-height: 1;
 }
-
 p {
   margin: 0;
 }
@@ -47,7 +48,6 @@ a {
 // Top-level navigation
 .main-nav {
   position: relative;
-  width: 1024px;
   margin:auto;
   z-index: 2;
   ul {
@@ -57,7 +57,6 @@ a {
 }
 // Main area for content
 .container {
-  width: 1024px;
   margin:auto;
 }
 // Sections navigated to from main nav
@@ -71,7 +70,7 @@ a {
 }
 .btn, button {
   font-weight: bold;
-  font-size: 30px;
+  .font-size(30);
   line-height: 45px;
   color: #CCC;
   border: 1px solid #CCC;
@@ -95,8 +94,8 @@ a.disabled {
   background-color: #D9EDF7;
   border-top:1px solid #BCE8F1;
   border-bottom:1px solid #BCE8F1;
-  height: 35px;
-  line-height: 35px;
+  height: 2em;
+  line-height: 2em;
   text-align: center;
 }
 .color.swatch {
@@ -133,7 +132,7 @@ a.disabled {
   &.random .random {
     display: inline-block;
     font-weight: bold;
-    font-size: 96%;
+    .font-size(30);
   }
   a {
     display: inline-block;
@@ -209,7 +208,7 @@ a.disabled {
 }
 .option-picker {
   .option {
-    font-size: 24px;
+    .font-size(24);
     padding: 5px 0;
     font-weight: 200;
     border-bottom: 1px solid #DDD;
@@ -272,12 +271,12 @@ a.disabled {
     .player {
       clear:both;
       .clearfix;
-      font-size: 36px;
+      .font-size(36);
       font-weight: 200;
       margin-bottom: 18px;
       .name {
         float: left;
-        width: 365px;
+        width: 35%;
         input {
           width: 100%;
           text-align: right;
@@ -288,7 +287,7 @@ a.disabled {
         width: 36px;
         height: 36px;
         margin: 0 20px;
-        font-size: 34px;
+        // .font-size(34);
         a {
           color: @gray;
         }
@@ -313,7 +312,7 @@ a.disabled {
     text-align: center;
     .game-token {
       font-weight: bold;
-      font-size: 48px;
+      .font-size(48);
       text-transform: uppercase;
       margin: 50px 0;
     }
@@ -348,30 +347,35 @@ a.disabled {
 #start {
   .player {
     clear:both;
-    font-size: 36px;
-    margin-top: 22px;
+    .font-size(36);
+    padding-top: 0.611em;
     a {
       display: block;
       color: @textColor;
       span {
         display: inline-block;
         vertical-align: middle;
+        .box-sizing(border-box);
+        float:left;
       }
     }
     .name {
-      width: 365px;
+      width: 50%;
       text-align: right;
+      padding-right: 75px;
     }
     .color {
+      position:absolute;
+      left: 50%;
       width: 36px;
       height: 36px;
-      margin:0 20px;
+      margin-left: -53px;
       span {
         display: none;
       }
     }
     .race {
-
+      width: 50%;
     }
   }
 }
@@ -379,13 +383,6 @@ a.disabled {
   .round {
     text-align: center;
     h1 {
-      text-align: center;
-      font-weight: 200;
-      font-size: 42px;
-      .text-inset;
-      margin: 0;
-      padding: 20px 0;
-      line-height: 1;
     }
     .pre-combat {
       display: none;
@@ -395,7 +392,7 @@ a.disabled {
       top:45px;
       margin-left: 22px;
       font-style: italic;
-      font-size: 14px;
+      .font-size(14);
     }
     .skip-pre-combat {
       display: none;
@@ -434,6 +431,7 @@ a.disabled {
     }
     .new-battle-action {
       position: absolute;
+      left: 0;
       .btn {
         margin-left: 0;
         margin-right: -1px;
@@ -457,7 +455,7 @@ a.disabled {
     margin: 25px 50px 0;
 
     & > h2 {
-      font-size: 12px;
+      .font-size(12);
       font-weight: 300;
       line-height: 16px;
       text-transform: uppercase;
@@ -470,14 +468,13 @@ a.disabled {
       font-weight: normal;
       margin: 12px 0;
       .race {
-        font-size: 26px;
+        .font-size(26);
         margin-right: 4px;
         color: @textColor;
       }
       .player {
-        .serif;
+        .serif(20px);
         color: @gray;
-        font-size: 20px;
       }
     }
     .damage {
@@ -537,7 +534,7 @@ a.disabled {
         position: absolute;
         top: 34px;
         left: -3px;
-        font-size: 16px;
+        .font-size(16);
         font-weight: bold;
         background: url("/images/battle-value.png") no-repeat;
         height: 30px;
@@ -589,16 +586,16 @@ a.disabled {
         line-height: 1;
         .value {
           color: #454F60;
-          font-size: 57px;
+          .font-size(57);
           // text-shadow: -1px -1px #222;
           line-height: 63px;
         }
         &.double .value {
-          font-size: 40px;
+          .font-size(40);
         }
         a {
           display: block;
-          font-size: 48px;
+          .font-size(48);
           color: #9FA4C0;
           &.decrease {
             line-height: 35px;
@@ -609,7 +606,7 @@ a.disabled {
         display: none;
         #battle > .force > .unit > .quantity;
         .value {
-          font-size: 35px;
+          .font-size(35);
         }
         &.positive {
           .value {
@@ -647,7 +644,7 @@ a.disabled {
           display: block;
           text-align: center;
           font-weight: bold;
-          font-size: 28px;
+          .font-size(28);
           line-height: 66px;
           color: #FFF;
           text-shadow: 1px 1px @grayDarker;
@@ -679,7 +676,7 @@ a.disabled {
         top: 125px;
         margin-left: 10px;
         margin-right: 15px;
-        #font > .serif(16px);
+        .serif(16px, normal);
         .hit {
           color: #080;
         }
@@ -716,7 +713,7 @@ a.disabled {
       top: 115px;
       right: -25px;
       line-height: 22px;
-      font-size: 12px;
+      .font-size(12);
       width: 110px;
       a {
         color: @grayDark;
@@ -740,7 +737,7 @@ a.disabled {
       position: absolute;
       top: 31px;
       right: -25px;
-      font-size: 14px;
+      .font-size(14);
       font-weight: lighter;
       width: 220px;
       div {
@@ -768,7 +765,7 @@ a.disabled {
       }
       .value {
         font-weight: bold;
-        font-size: 24px;
+        .font-size(24);
       }
     }
   } //.force
@@ -827,11 +824,11 @@ a.disabled {
       }
       .stance {
         text-transform: capitalize;
-        font-size: 14px;
+        .font-size(14);
         font-weight: 200;
       }
       h4 {
-        font-size: 18px;
+        .font-size(18);
         font-weight: normal;
         .player {
           .serif(14px);
@@ -1037,7 +1034,7 @@ a.disabled {
   background: #f4f4f4;
   h2.heading {
     font-weight: 200;
-    font-size: 42px;
+    .font-size(42);
     text-shadow: 1px 1px #fff;
     text-align: center;
     strong {
@@ -1048,4 +1045,15 @@ a.disabled {
 .modal-backdrop,
 .modal-backdrop.fade.in {
   .opacity(50);
+}
+
+@media (max-width:768px) {
+  html, body {
+    font-size:12px;
+  }
+}
+@media (max-width:480px) {
+  html, body {
+    font-size:10px;
+  }
 }
