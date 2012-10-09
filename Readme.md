@@ -70,3 +70,6 @@ Things still to do...
 * Apply pre-existing sustained damage to units like War Sun and Dreadnought
 * High alert battle value bonus
 * Abilities that allow dice re-rolls for misses
+* Write some tests!
+* and lots of other things...
+
