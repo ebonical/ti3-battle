@@ -73,3 +73,13 @@ Things still to do...
 * Write some tests!
 * and lots of other things...
 
+Finally...
+==========
+
+Get the source code here if you want to fiddle or deploy your own version
+https://github.com/ebonical/ti3-battle
+
+All rights of the game "Twilight Imperium" and related content belong to 
+Fantasy Flight Publishing. [Get the game][ff], it's good.
+
+[ff]: http://www.fantasyflightgames.com/edge_minisite.asp?eidm=21&enmi=Twilight%20Imperium%203rd%20Edition
