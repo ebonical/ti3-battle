@@ -785,8 +785,8 @@ Data =
       name: "Graviton Negator"
       description: "Dreadnoughts may bombard planets containing PDS units. Your Fighters may participate in Invasion Combat. Surviving Fighters return to space after combat and may never establish control of a planet."
       color: "red"
-      prerequisites: ["assault-cannon"]
-      andor: "and"
+      prerequisites: ["assault-cannon","dacxive-animators"]
+      andor: "or"
       modifiers: [
         {
           id: "tech-graviton-negator-dreadnought"
