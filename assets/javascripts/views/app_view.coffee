@@ -5,16 +5,18 @@ class AppView extends Backbone.View
     if GAME_TOKEN?
       state.game = new Game(token: GAME_TOKEN)
       state.game.fetch
-        success: (model, response) =>
+        success: (model, data) =>
           model.initialize()
           @openStartGame()
     else
       history.replaceState({}, "New Game", "/")
       @openIndex()
+      # @openTechTree()
 
 
   events:
     "click .main-nav a[href=#battle]": "openBattleBoard"
+    "click .main-nav a[href=#techtree]": "openTechTree"
 
 
   toggleMainNav: (show) ->
@@ -43,3 +45,8 @@ class AppView extends Backbone.View
       state.battle = new Battle
       state.battle.newBattle("space")
     @battle ?= new BattleView(model: state.battle)
+
+  openTechTree: (e) ->
+    e.preventDefault() if e?
+    @_activateSection 'techtree'
+    @techtree ?= new TechTreeView()

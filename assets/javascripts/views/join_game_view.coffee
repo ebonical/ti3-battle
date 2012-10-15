@@ -17,4 +17,11 @@ class JoinGameView extends Backbone.View
 
   _submitFormHandler: (e) ->
     e.preventDefault()
-
+    token = @$el.find('form input[name=game-token]').val()
+    state.game = new Game(token: token)
+    state.game.fetch
+      success: (model, data) =>
+        model.initialize()
+        App.openStartGame()
+      error: (model, data) ->
+        # ...

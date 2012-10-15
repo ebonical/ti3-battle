@@ -531,6 +531,10 @@ Data =
             dice: "+1"
         }
       ]
+      plumbing:
+        stub: [155,10]
+        anchorsOut:
+          "assault-cannon": "Left"
     }
     {
       id: "deep-space-cannon"
@@ -540,6 +544,10 @@ Data =
       prerequisites: ["hylar-v-assault-laser"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stub: [5,30]
+        anchorsOut:
+          "war-sun": "Right"
     }
     {
       id: "enviro-compensator"
@@ -567,6 +575,8 @@ Data =
       prerequisites: ["enviro-compensator"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stub: [5,16]
     }
     {
       id: "stasis-capsules"
@@ -576,6 +586,15 @@ Data =
       prerequisites: ["enviro-compensator"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stubs:
+          "neural-motivator": [81,10]
+          "cybernetics": [10,35]
+          "micro-technology": [10,35]
+        anchorsOut:
+          "neural-motivator": "Right"
+          "cybernetics": "Right"
+          "micro-technology": "Left"
     }
     {
       id: "micro-technology"
@@ -585,6 +604,10 @@ Data =
       prerequisites: ["sarween-tools", "stasis-capsules"]
       andor: "or"
       modifiers: []
+      plumbing:
+        stub: [5,20]
+        anchorsIn:
+          "stasis-capsules": "Right"
     }
     {
       id: "cybernetics"
@@ -603,6 +626,10 @@ Data =
             battle: "+1"
         }
       ]
+      plumbing:
+        stub: [84,5]
+        anchorsIn:
+          "stasis-capsules": "Left"
     }
     {
       id: "xrd-transporters"
@@ -612,6 +639,11 @@ Data =
       prerequisites: ["antimass-deflectors"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stubs:
+          "type-iv-drive": [120,100]
+          "maneuvering-jets": [49,0]
+          "light-wave-deflector": [213,10]
     }
     {
       id: "graviton-laser-system"
@@ -630,6 +662,9 @@ Data =
             rerolls: 1
         }
       ]
+      plumbing:
+        anchorsIn:
+          "deep-space-cannon": "Right"
     }
     {
       id: "magen-defense-grid"
@@ -667,6 +702,9 @@ Data =
       prerequisites: ["micro-technology","cybernetics"]
       andor: "and"
       modifiers: []
+      plumbing:
+        anchorsIn:
+          "cybernetics": "Right"
     }
     {
       id: "neural-motivator"
@@ -676,6 +714,11 @@ Data =
       prerequisites: ["stasis-capsules","micro-technology"]
       andor: "or"
       modifiers: []
+      plumbing:
+        stub: [40,10]
+        anchorsIn:
+          "micro-technology": "Left"
+          "stasis-capsules": "Right"
     }
     {
       id: "gen-synthesis"
@@ -694,6 +737,8 @@ Data =
             battle: "+1"
         }
       ]
+      plumbing:
+        stub: [30,10]
     }
     {
       id: "maneuvering-jets"
@@ -713,6 +758,10 @@ Data =
       prerequisites: ["deep-space-cannon","sarween-tools"]
       andor: "and"
       modifiers: []
+      plumbing:
+        anchorsIn:
+          "sarween-tools": "Left"
+          "deep-space-cannon": "Right"
     }
     {
       id: "assault-cannon"
@@ -732,6 +781,10 @@ Data =
           special: "TBD"
         }
       ]
+      plumbing:
+        stub: [221,10]
+        anchorsIn:
+          "cybernetics": "Left"
     }
     {
       id: "nano-technology"
@@ -751,6 +804,8 @@ Data =
       prerequisites: ["neural-motivator"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stub: [10,20]
     }
     {
       id: "type-iv-drive"
@@ -760,6 +815,11 @@ Data =
       prerequisites: ["neural-motivator","xrd-transporters"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stub: [15,61]
+        anchorsIn:
+          "neural-motivator": "Left"
+
     }
     {
       id: "hyper-metabolism"
@@ -779,6 +839,10 @@ Data =
       prerequisites: ["magen-defense-grid","xrd-transporters"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stub: [195,10]
+        anchorsIn:
+          "xrd-transporters": "Left"
     }
     {
       id: "graviton-negator"
@@ -809,6 +873,9 @@ Data =
             activeGroundCombatUnit: true
         }
       ]
+      plumbing:
+        anchorsIn:
+          "assault-cannon": "Right"
     }
     {
       id: "advanced-fighters"
@@ -833,9 +900,13 @@ Data =
       name: "Transit Diodes"
       description: "As an action you may spend 1 Strategic Command Counter to immediately move up to 4 of your Ground Forces from one planet to any other planet you control."
       color: "yellow"
-      prerequisites: ["light-wave-deflector"]
+      prerequisites: ["light-wave-deflector","dacxive-animators"]
       andor: "and"
       modifiers: []
+      plumbing:
+        stub: [71,15]
+        anchorsIn:
+          "dacxive-animators": "Left"
     }
     {
       id: "fleet-logistics"
@@ -852,8 +923,11 @@ Data =
       description: "Instead of normal bombardment your Dreadnought or War Sun units may now immediately destroy all enemy Ground Forces on the planet. Then discard all of your Action Cards."
       color: "red"
       prerequisites: ["transit-diodes", "assault-cannon"]
-      andor: "and"
+      andor: "or"
       modifiers: []
+      plumbing:
+        anchorsIn:
+          "transit-diodes": "Left"
     }
   ]
 

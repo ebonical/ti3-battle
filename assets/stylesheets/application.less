@@ -58,6 +58,7 @@ a {
 // Main area for content
 .container {
   margin:auto;
+  width: 1024px;
 }
 // Sections navigated to from main nav
 .section {
@@ -1020,6 +1021,88 @@ a.disabled {
     }
   }
 
+} //#battle
+#techtree {
+  .techlevel {
+    .clearfix;
+    padding:0 20px 42px;
+    .category {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+  .tech {
+    float:left;
+    text-align: center;
+    width: 138px;
+    border: 1px solid #999;
+    border-top: none;
+    .name {
+      .font-size(10px);
+      text-transform: uppercase;
+      background-color: #999;
+      color: #FFF;
+      padding: 3px 5px;
+    }
+    .description {
+      .serif(12px);
+      padding: 3px 5px;
+    }
+    &.blue {
+      border-color: #0167FF;
+      .name {
+        background-color: #0167FF;
+      }
+    }
+    &.green {
+      border-color: #009900;
+      .name {
+        background-color: #009900;
+      }
+    }
+    &.yellow {
+      border-color: #CF910E;
+      .name {
+        background-color: #CF910E;
+      }
+    }
+    &.red {
+      border-color: #c00;
+      .name {
+        background-color: #c00;
+      }
+    }
+  }
+} //#techtree
+.techlevel {
+  &.level-2 {
+    padding-bottom: 65px !important;
+  }
+  &.level-3 {
+    padding-bottom: 55px !important;
+  }
+}
+.tech {
+  &.enviro-compensator { margin-left: 95px; }
+  &.antimass-deflectors { margin-left: 101px; }
+  &.hylar-v-assault-laser { margin-left: 260px; }
+  // level2
+  &.stasis-capsules { margin-left: 78px; }
+  &.xrd-transporters { margin-left: 62px; }
+  &.automated-defense-turrets { margin-left: 68px; }
+  &.deep-space-cannon { margin-left: 72px; }
+  &.l-3 { margin-left: 28px; }
+  &.micro-technology { margin-left: 0; }
+  &.l-4 { margin-left: 28px; }
+  &.integrated-economy { margin-left: 0; }
+  &.dacxive-animators { margin-left: 168px; }
+  &.hyper-metabolism { margin-left: 100px; }
+  &.type-iv-drive { margin-left: 37px; }
+  &.transit-diodes { margin-left: 290px; }
+  &.advanced-fighters { margin-left: 80px; }
+  &.graviton-negator { margin-left: 80px; }
+  &.fleet-logistics { margin-left: 650px; }
+  &.x-89-bacterial-weapon { margin-left: 50px; }
 }
 
 .hidden, .hide {

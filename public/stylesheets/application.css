@@ -45,7 +45,7 @@ h1{text-align:center;font-weight:200;font-size:3rem;text-shadow:1px 1px #ffffff;
 p{margin:0;}
 a{text-decoration:none;}
 .main-nav{position:relative;margin:auto;z-index:2;}.main-nav ul{position:absolute;padding:0;margin:0;}.main-nav ul li{list-style:none;display:inline-block;padding:0;margin:0;}
-.container{margin:auto;}
+.container{margin:auto;width:1024px;}
 .section{height:748px;position:relative;display:none;}.section.active{display:block;}
 .btn,button{font-weight:bold;font-size:2.142857142857143rem;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;background:none;}.btn.primary,button.primary{color:#0088cc;border-color:#0088cc;}
 .template{display:none;}
@@ -230,6 +230,36 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle.dice-rolled .phase-message{color:#c09853;background-color:#fcf8e3;border-color:#fbeed5;}#battle.dice-rolled .phase-message .setup{display:none;}
 #battle.dice-rolled .phase-message .after-dice{display:block;}
 #battle.round-resolved .reset-dice.btn{display:none;}
+#techtree .techlevel{*zoom:1;padding:0 20px 42px;}#techtree .techlevel:before,#techtree .techlevel:after{display:table;content:"";line-height:0;}
+#techtree .techlevel:after{clear:both;}
+#techtree .techlevel .category{display:inline-block;vertical-align:top;}
+#techtree .tech{float:left;text-align:center;width:138px;border:1px solid #999;border-top:none;}#techtree .tech .name{font-size:0.7142857142857143rem;text-transform:uppercase;background-color:#999;color:#FFF;padding:3px 5px;}
+#techtree .tech .description{font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;font-size:0.8571428571428571rem;padding:3px 5px;}
+#techtree .tech.blue{border-color:#0167FF;}#techtree .tech.blue .name{background-color:#0167FF;}
+#techtree .tech.green{border-color:#009900;}#techtree .tech.green .name{background-color:#009900;}
+#techtree .tech.yellow{border-color:#CF910E;}#techtree .tech.yellow .name{background-color:#CF910E;}
+#techtree .tech.red{border-color:#c00;}#techtree .tech.red .name{background-color:#c00;}
+.techlevel.level-2{padding-bottom:65px !important;}
+.techlevel.level-3{padding-bottom:55px !important;}
+.tech.enviro-compensator{margin-left:95px;}
+.tech.antimass-deflectors{margin-left:101px;}
+.tech.hylar-v-assault-laser{margin-left:260px;}
+.tech.stasis-capsules{margin-left:78px;}
+.tech.xrd-transporters{margin-left:62px;}
+.tech.automated-defense-turrets{margin-left:68px;}
+.tech.deep-space-cannon{margin-left:72px;}
+.tech.l-3{margin-left:28px;}
+.tech.micro-technology{margin-left:0;}
+.tech.l-4{margin-left:28px;}
+.tech.integrated-economy{margin-left:0;}
+.tech.dacxive-animators{margin-left:168px;}
+.tech.hyper-metabolism{margin-left:100px;}
+.tech.type-iv-drive{margin-left:37px;}
+.tech.transit-diodes{margin-left:290px;}
+.tech.advanced-fighters{margin-left:80px;}
+.tech.graviton-negator{margin-left:80px;}
+.tech.fleet-logistics{margin-left:650px;}
+.tech.x-89-bacterial-weapon{margin-left:50px;}
 .hidden,.hide{display:none;}
 .invisible{visibility:hidden;}
 .modal{border-color:#aaa;padding:22px;background:#f4f4f4;}.modal h2.heading{font-weight:200;font-size:3rem;text-shadow:1px 1px #fff;text-align:center;}.modal h2.heading strong{font-weight:normal;}

@@ -9,8 +9,7 @@ slots blank. You can predetermine all the colours and races if you want or
 leave them on random.
 
 This will create a code that you can give to your friends if they want to also 
-manage their battles and stuff. The 'Join' button is working just yet (see to-do 
-list) but you can link directly to a game with this URL format "/g/game-code-here".
+manage their battles and stuff. 
 
 Battle Board
 ------------
@@ -64,7 +63,6 @@ Things still to do...
   but you can't add newly researched ones. It does include base starting technologies.
 * Leaders in combat
 * Responsive styling to better fit web view in mobile browsers
-* 'Join Game' button on home screen
 * Switch to manage another player during game
 * Refresh other player's technology lists
 * Apply pre-existing sustained damage to units like War Sun and Dreadnought
