@@ -12,6 +12,14 @@ class BattleForce extends Backbone.Model
       @expireModifiers()
       @applyModifiers()
 
+    if state.game?
+      for player in state.game.players
+        player.on "change:technologies", (model, technologies) =>
+          if model.getNumber() is @player.getNumber()
+            @expireModifiers(true)
+            @fetchModifiers @attributes.battle.getCombatType()
+            @applyModifiers()
+
 
   setPlayer: (player) ->
     @player = player
