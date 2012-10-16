@@ -1,8 +1,6 @@
 class TechTreeView extends Backbone.View
   el: ".section#techtree"
 
-  levelTemplate: _.template $('.section#techtree .techlevel.template').html()
-
   initialize: ->
     @elTree = @$el.find('.technologies')
     @levels = {}
