@@ -1,7 +1,7 @@
 class Race extends Backbone.Model
 
   initialize: ->
-    @technologies = _.map @get("technologies"), (tId) ->
+    @technologies = _.map @get("technologies").split(','), (tId) ->
       Technologies.get(tId)
 
   getName: ->

@@ -8,10 +8,13 @@ class Player extends Backbone.Model
     @technologies = []
     rId = @get("raceId") or @get("race")
     @setRace(rId) if rId?
-    # Add technologies from attributes
-    if @get("technologies")?
-      techIds = @get("technologies").split(",")
-      @technologies = _.map techIds, (tId) -> Technologies.get(tId)
+
+  refreshTechnologies: (trigger = true) ->
+    ids = @get("technologies").split(",")
+    changed = _.difference(ids, @getTechnologyIds()).length > 0
+    @technologies = _.map ids, (tId) -> Technologies.get(tId)
+    if trigger and changed
+      @trigger 'change:technologies', this, @get("technologies")
 
   url: ->
     "/players/#{@id}"
@@ -43,7 +46,9 @@ class Player extends Backbone.Model
     if race?
       @race = race
       # Add racial technologies
-      @technologies = [].concat @race.technologies
+      if not @get('technologies')?
+        @set 'technologies', @race.get('technologies')
+      @refreshTechnologies(false)
       @set("raceId", race.id)
       @set("race", race)
 
