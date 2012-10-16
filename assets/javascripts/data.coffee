@@ -128,7 +128,7 @@ Data =
         { id: 'destroyer', amount: 1 }
         { id: 'dock', amount: 1 }
       ]
-      technologies: ["antimass-deflectors", "cybernetics"]
+      technologies: "antimass-deflectors,cybernetics"
       leaders: ["agent", "admiral", "diplomat"],
       modifiers: []
     }
@@ -147,7 +147,7 @@ Data =
         { id: "carrier", amount: 1 }
         { id: "ground", amount: 3 }
       ]
-      technologies: ["hylar-v-assault-laser", "antimass-deflectors"]
+      technologies: "hylar-v-assault-laser,antimass-deflectors"
       leaders: ["general", "admiral", "diplomat"]
       modifiers: [
         {
@@ -177,7 +177,7 @@ Data =
         { id: "fighter", amount: 2 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["enviro-compensator", "sarween-tools"]
+      technologies: "enviro-compensator,sarween-tools"
       leaders: ["general", "scientist", "diplomat"]
       modifiers: []
     }
@@ -195,7 +195,7 @@ Data =
         { id: "pds", amount: 1 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["hylar-v-assault-laser", "deep-space-cannon"]
+      technologies: "hylar-v-assault-laser,deep-space-cannon"
       leaders: ["admiral", "general", "general"]
       modifiers: [
         {
@@ -223,7 +223,7 @@ Data =
         { id: "dreadnought", amount: 1 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["hylar-v-assault-laser", "antimass-deflectors", "enviro-compensator", "sarween-tools"]
+      technologies: "hylar-v-assault-laser,antimass-deflectors,enviro-compensator,sarween-tools"
       leaders: ["scientist", "scientist", "admiral"]
       modifiers: [
         {
@@ -251,7 +251,7 @@ Data =
         { id: "fighter", amount: 3 }
         { id: "pds", amount: 1 }
       ]
-      technologies: ["enviro-compensator", "stasis-capsules", "cybernetics", "hylar-v-assault-laser"]
+      technologies: "enviro-compensator,stasis-capsules,cybernetics,hylar-v-assault-laser"
       leaders: ["agent", "scientist", "diplomat"]
       modifiers: [
         {
@@ -289,7 +289,7 @@ Data =
         { id: "pds", amount: 1 }
         { id: "ground", amount: 4 }
       ]
-      technologies: ["hylar-v-assault-laser", "enviro-compensator"]
+      technologies: "hylar-v-assault-laser,enviro-compensator"
       leaders: ["agent", "diplomat", "admiral"]
       modifiers: [
         {
@@ -321,7 +321,7 @@ Data =
         { id: "destroyer", amount: 1 }
         { id: "fighter", amount: 4 }
       ]
-      technologies: ["antimass-deflectors", "enviro-compensator"]
+      technologies: "antimass-deflectors,enviro-compensator"
       leaders: ["admiral", "agent", "diplomat"]
       modifiers: [
         {
@@ -351,7 +351,7 @@ Data =
         { id: "ground", amount: 2 }
         { id: "cruiser", amount: 2 }
       ]
-      technologies: ["antimass-deflectors", "enviro-compensator"]
+      technologies: "antimass-deflectors,enviro-compensator"
       leaders: ["admiral", "diplomat", "diplomat"]
       modifiers: [
         {
@@ -381,7 +381,7 @@ Data =
         { id: "cruiser", amount: 1 }
         { id: "fighter", amount: 2 }
       ]
-      technologies: ["antimass-deflectors", "xrd-transporters"]
+      technologies: "antimass-deflectors,xrd-transporters"
       leaders: ["agent", "agent", "admiral"]
       modifiers: []
     }
@@ -403,7 +403,7 @@ Data =
         { id: "pds", amount: 1 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["antimass-deflectors", "enviro-compensator", "stasis-capsules"]
+      technologies: "antimass-deflectors,enviro-compensator,stasis-capsules"
       leaders: ["agent", "scientist", "admiral"]
       modifiers: []
     }
@@ -423,7 +423,7 @@ Data =
         { id: "warsun", amount: 1 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["enviro-compensator", "war-sun"]
+      technologies: "enviro-compensator,war-sun"
       leaders: ["general", "scientist", "diplomat"]
       modifiers: []
     }
@@ -444,7 +444,7 @@ Data =
         { id: "fighter", amount: 4 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["hylar-v-assault-laser", "automated-defense-turrets"]
+      technologies: "hylar-v-assault-laser,automated-defense-turrets"
       leaders: ["general", "diplomat", "agent"]
       modifiers: [
         {
@@ -475,7 +475,7 @@ Data =
         { id: "cruiser", amount: 1 }
         { id: "dock", amount: 1 }
       ]
-      technologies: ["antimass-deflectors", "xrd-transporters"]
+      technologies: "antimass-deflectors,xrd-transporters"
       leaders: ["agent", "admiral", "general"]
       modifiers: []
     }
@@ -641,7 +641,7 @@ Data =
       modifiers: []
       plumbing:
         stubs:
-          "type-iv-drive": [120,100]
+          "type-iv-drive": [118,100]
           "maneuvering-jets": [49,0]
           "light-wave-deflector": [213,10]
     }

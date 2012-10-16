@@ -3,14 +3,10 @@
   Technology Tree
 
 .technologies
-  .techlevel.template
-    .techlevel{ class: "level-{{level}}" }
-      .category.yellow> {{yellow}}
-      .category.green> {{green}}
-      .category.blue> {{blue}}
-      .category.red> {{red}}
-
   .tech.template
     .tech{ id: "{{id}}", class: "{{id}} l-{{level}} {{color}}" }
       %h3.name {{name}}
       %p.description {{description}}
+      .action
+        %a.research{ href:'#research' }
+          %span [√]

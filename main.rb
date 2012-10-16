@@ -36,6 +36,16 @@ class BattleBoard < Sinatra::Base
     { success: @game.save, game: @game }.to_json
   end
 
+  put "/players/:id" do
+    content_type :json
+    data = JSON.parse request.body.read.to_s
+    @game = Game.first(token: data['gameToken'].downcase)
+    @player = @game.players.first(id: params[:id])
+    @player.attributes = data['player']
+    @player.save
+    @player.to_json
+  end
+
   get "/javascripts/*" do
     begin
       if params[:splat].last == "all.js"

@@ -14,7 +14,7 @@ class Player extends Backbone.Model
       @technologies = _.map techIds, (tId) -> Technologies.get(tId)
 
   url: ->
-    "/g/#{@getGameToken()}/players/#{id}"
+    "/players/#{@id}"
 
   getName: ->
     @get("name") or "Unnamed Player"
@@ -27,6 +27,9 @@ class Player extends Backbone.Model
 
   getNumber: ->
     @get("number")
+
+  getGameToken: ->
+    @get("gameToken")
 
   getRaceId: ->
     @get("raceId")
@@ -51,17 +54,25 @@ class Player extends Backbone.Model
     tech = _.filter(@technologies, (t) -> t.hasModifiers())
     _.flatten _.map(tech, (t) -> t.modifiers)
 
-  getGameToken: ->
-    @get("gameToken")
 
+  hasTechnology: (technology) ->
+    _.include(@getTechnologyIds(), technology.id)
 
   addTechnology: (technology) ->
-    unless _.include(@getTechnologyIds(), technology.id)
+    if not @hasTechnology(technology)
       @technologies.push technology
+      @set "technologies", @getTechnologyIds().join(',')
+      @_save()
 
   removeTechnology: (technology) ->
-    @technologies = _.reject @technologies, (t) ->
-      t.id is technology.id
+    if @hasTechnology(technology)
+      @technologies = _.reject @technologies, (t) -> t.id is technology.id
+      @set "technologies", @getTechnologyIds().join(',')
+      @_save()
+
+  _save: ->
+    @save
+      player: @toDbAttributes()
 
   toDbAttributes: ->
     {

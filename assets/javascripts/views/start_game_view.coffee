@@ -12,7 +12,7 @@ class StartGameView extends Backbone.View
 
   selectPlayer: (number) ->
     state.player = @model.getPlayer(number)
-    App.openBattleBoard()
+    App.openDashboard()
 
 
   _selectPlayerHandler: (e) ->

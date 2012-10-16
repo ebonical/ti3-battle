@@ -38,6 +38,11 @@ class AppView extends Backbone.View
     @_activateSection 'start'
     @start ?= new StartGameView(model: state.game)
 
+  openDashboard: (e) ->
+    e.preventDefault() if e?
+    @showMainNav()
+    @openBattleBoard()
+
   openBattleBoard: (e) ->
     e.preventDefault() if e?
     @_activateSection 'battle'
@@ -50,3 +55,9 @@ class AppView extends Backbone.View
     e.preventDefault() if e?
     @_activateSection 'techtree'
     @techtree ?= new TechTreeView()
+    @techtree.refresh()
+
+  showMainNav: ->
+    if not @navVisible
+      @navVisible = true
+      $('.main-nav').removeClass('hide')

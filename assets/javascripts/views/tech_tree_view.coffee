@@ -7,31 +7,50 @@ class TechTreeView extends Backbone.View
     @elTree = @$el.find('.technologies')
     @levels = {}
     @render()
+    # register listeners for all players
+    if state.game?
+      for player in state.game.players
+        player.on "change:technologies", (model, technologies) =>
+          @_refreshTechnologies(model)
 
-  renderPlumbing: ->
+  refresh: ->
+    # mark current player's researched technologies
+    if @_playerChanged()
+      @currentPlayerNumber = state.player.getNumber()
+      @_refreshTechnologies(state.player)
+
+  _playerChanged: ->
+    state.player? and state.player.getNumber() != @currentPlayerNumber
+
+  _refreshTechnologies: (player) ->
+    if player.getNumber() is @currentPlayerNumber
+      @$el.find('.tech').removeClass 'researched'
+      ids = _.map(player.getTechnologyIds(), (id) -> "##{id}").join(', ')
+      $(ids).addClass 'researched'
+
+  initPlumbing: ->
     tech.initPlumbing() for tech in Technologies.models
-
+    # repaint to make sure all connections are sound
+    jsPlumb.repaintEverything()
 
   render: ->
     @technologies = []
-    # Build level partitions
-    @levels = []
-    for num in [1..10]
-      @levels.push
-        level: num
-        yellow: ""
-        green: ""
-        blue: ""
-        red: ""
-
+    levels = []
+    # Build level partitions - ugly
     for tech in Technologies.models
       view = new TechnologyView(model: tech)
       @technologies.push view
-      key = "level-#{tech.getLevel()}"
-      @levels[tech.getLevel() - 1][tech.getColor()] += view.render().$el.html()
+      index = tech.getLevel() - 1
+      color = tech.getColor()
+      levels[index] ?= {}
+      levels[index][color] ?= $("<div class=\"#{color}\"></div>")
+      levels[index][color].append view.render().el
 
-    for level in @levels
-      @elTree.append @levelTemplate(level)
+    for level, index in levels
+      el = $ "<div class=\"techlevel level-#{index + 1}\"></div>"
+      for color in ['yellow','green','blue','red']
+        el.append level[color]
+      @elTree.append el
 
-    _.delay @renderPlumbing, 250
+    _.delay @initPlumbing, 250
     this
