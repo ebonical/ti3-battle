@@ -22,6 +22,7 @@ class JoinGameView extends Backbone.View
     state.game.fetch
       success: (model, data) =>
         model.initialize()
+        history.pushState({}, "Game On", "/g/#{model.getToken()}")
         App.openStartGame()
       error: (model, data) ->
         # ...
