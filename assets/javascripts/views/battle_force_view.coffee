@@ -115,7 +115,7 @@ class BattleForceView extends Backbone.View
     oob = @$el.find(".order-of-battle .units").html("")
 
     for unit in @battleForce().units
-      view = new BattleUnitView(model: unit, id: unit.cid, className: "unit zero #{unit.id}")
+      view = new BattleUnitView(model: unit, id: unit.cid, className: "unit #{zeroCss(unit.getQuantity())} #{unit.id}")
       oob.append view.render().el
       @units.push view
 
