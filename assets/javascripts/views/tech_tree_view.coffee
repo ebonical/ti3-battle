@@ -26,6 +26,21 @@ class TechTreeView extends Backbone.View
       ids = _.map(player.getTechnologyIds(), (id) -> "##{id}").join(', ')
       $(ids).addClass 'researched'
 
+  # Only show the pipes leading to a specific technology
+  showPath: (toTech) ->
+    if @_pathToTechHighlighted is toTech
+      @_pathToTechHighlighted = null
+      tech.showConnections() for tech in @technologies
+    else
+      @_pathToTechHighlighted = toTech
+      # visible technologies are those from current back through prerequisites
+      visible = _.map toTech.getAncestorsAndSelf(), (t) -> t.id
+      for tech in @technologies
+        if _.include(visible, tech.id)
+          tech.showConnections()
+        else
+          tech.hideConnections()
+
   initPlumbing: ->
     tech.initPlumbing() for tech in Technologies.models
     # repaint to make sure all connections are sound
@@ -36,7 +51,7 @@ class TechTreeView extends Backbone.View
     levels = []
     # Build level partitions - ugly
     for tech in Technologies.models
-      view = new TechnologyView(model: tech)
+      view = new TechnologyView(model: tech, parent: this)
       @technologies.push view
       index = tech.getLevel() - 1
       color = tech.getColor()

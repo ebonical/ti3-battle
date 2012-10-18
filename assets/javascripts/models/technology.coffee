@@ -36,6 +36,15 @@ class window.Technology extends Backbone.Model
         results.push tech
     @_dependents = results
 
+  getAncestorsAndSelf: ->
+    @_ancestors = []
+    @_pre(this)
+
+  _pre: (tech) ->
+    @_ancestors.push tech
+    @_pre(prereq) for prereq in tech.getPrerequisites()
+    @_ancestors
+
   getLevel: ->
     return @_level if @_level?
     l = 1
