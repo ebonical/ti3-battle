@@ -589,7 +589,7 @@ Data =
       plumbing:
         stubs:
           "neural-motivator": [81,10]
-          "cybernetics": [10,35]
+          "cybernetics": [35,10]
           "micro-technology": [10,35]
         anchorsOut:
           "neural-motivator": "Right"
