@@ -493,7 +493,9 @@ a.disabled {
       width: 135px;
       height: 165px;
       float:left;
-
+      border-right: 1px dashed #E0E0E0;
+      &:last-child { border-right: none; }
+      margin-right: 5px;
       .image {
         position: absolute;
         top: 42px;
@@ -581,7 +583,7 @@ a.disabled {
       .quantity {
         position: absolute;
         top:0px;
-        right: 5px;
+        right: 6px;
         width: 40px;
         text-align: center;
         font-weight: bold;

@@ -59,14 +59,13 @@ manage these manually for now.
 Things still to do... 
 ---------------------
 
-* Actually build the Tech Tree. It has all of the technologies in the data file 
-  but you can't add newly researched ones. It does include base starting technologies.
+* Toggle optional combat modifiers from racial abilities and game mechanics -
+  like High Alert battle bonus and Letnev combat bonuses
 * Leaders in combat
 * Responsive styling to better fit web view in mobile browsers
 * Switch to manage another player during game
 * Refresh other player's technology lists
 * Apply pre-existing sustained damage to units like War Sun and Dreadnought
-* High alert battle value bonus
 * Abilities that allow dice re-rolls for misses
 * Write some tests!
 * and lots of other things...

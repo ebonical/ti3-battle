@@ -124,7 +124,8 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .damage{display:none;}
 #battle .force .order-of-battle{margin:0 -12px;height:165px;*zoom:1;}#battle .force .order-of-battle:before,#battle .force .order-of-battle:after{display:table;content:"";line-height:0;}
 #battle .force .order-of-battle:after{clear:both;}
-#battle .force .unit{position:relative;width:135px;height:165px;float:left;}#battle .force .unit .image{position:absolute;top:42px;left:3px;width:77px;height:77px;z-index:1;overflow:hidden;background:url("/images/units.png") no-repeat;}
+#battle .force .unit{position:relative;width:135px;height:165px;float:left;border-right:1px dashed #E0E0E0;margin-right:5px;}#battle .force .unit:last-child{border-right:none;}
+#battle .force .unit .image{position:absolute;top:42px;left:3px;width:77px;height:77px;z-index:1;overflow:hidden;background:url("/images/units.png") no-repeat;}
 #battle .force .unit.dreadnought .image{background-position-y:-77px;}
 #battle .force .unit.cruiser .image{background-position-y:-154px;}
 #battle .force .unit.destroyer .image{background-position-y:-231px;}
@@ -142,10 +143,10 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit .dice.dice-3{background-position-x:-18px;}
 #battle .force .unit .dice.dice-4{background-position-x:-12px;}
 #battle .force .unit .dice.dice-5{background-position-x:-6px;}
-#battle .force .unit .quantity{position:absolute;top:0px;right:5px;width:40px;text-align:center;font-weight:bold;line-height:1;}#battle .force .unit .quantity .value{color:#454F60;font-size:4.071428571428571rem;line-height:63px;}
+#battle .force .unit .quantity{position:absolute;top:0px;right:6px;width:40px;text-align:center;font-weight:bold;line-height:1;}#battle .force .unit .quantity .value{color:#454F60;font-size:4.071428571428571rem;line-height:63px;}
 #battle .force .unit .quantity.double .value{font-size:2.857142857142857rem;}
 #battle .force .unit .quantity a{display:block;font-size:3.4285714285714284rem;color:#9FA4C0;}#battle .force .unit .quantity a.decrease{line-height:35px;}
-#battle .force .unit .adjust-battle-values{display:none;position:absolute;top:0px;right:5px;width:40px;text-align:center;font-weight:bold;line-height:1;}#battle .force .unit .adjust-battle-values .value{color:#454F60;font-size:4.071428571428571rem;line-height:63px;}
+#battle .force .unit .adjust-battle-values{display:none;position:absolute;top:0px;right:6px;width:40px;text-align:center;font-weight:bold;line-height:1;}#battle .force .unit .adjust-battle-values .value{color:#454F60;font-size:4.071428571428571rem;line-height:63px;}
 #battle .force .unit .adjust-battle-values.double .value{font-size:2.857142857142857rem;}
 #battle .force .unit .adjust-battle-values a{display:block;font-size:3.4285714285714284rem;color:#9FA4C0;}#battle .force .unit .adjust-battle-values a.decrease{line-height:35px;}
 #battle .force .unit .adjust-battle-values .value{font-size:2.5rem;}
