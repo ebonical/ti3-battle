@@ -122,7 +122,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force h3.name{font-weight:normal;margin:12px 0;}#battle .force h3.name .race{font-size:1.8571428571428572rem;margin-right:4px;color:#333333;}
 #battle .force h3.name .player{font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;font-size:1.4285714285714286rem;color:#666666;}
 #battle .force .damage{display:none;}
-#battle .force .order-of-battle{margin:0 -12px;height:165px;*zoom:1;}#battle .force .order-of-battle:before,#battle .force .order-of-battle:after{display:table;content:"";line-height:0;}
+#battle .force .order-of-battle{margin:0 -18px;height:165px;*zoom:1;}#battle .force .order-of-battle:before,#battle .force .order-of-battle:after{display:table;content:"";line-height:0;}
 #battle .force .order-of-battle:after{clear:both;}
 #battle .force .unit{position:relative;width:135px;height:165px;float:left;border-right:1px dashed #E0E0E0;margin-right:5px;}#battle .force .unit:last-child{border-right:none;}
 #battle .force .unit .image{position:absolute;top:42px;left:3px;width:77px;height:77px;z-index:1;overflow:hidden;background:url("/images/units.png") no-repeat;}
