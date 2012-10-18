@@ -231,6 +231,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle.dice-rolled .phase-message{color:#c09853;background-color:#fcf8e3;border-color:#fbeed5;}#battle.dice-rolled .phase-message .setup{display:none;}
 #battle.dice-rolled .phase-message .after-dice{display:block;}
 #battle.round-resolved .reset-dice.btn{display:none;}
+#battle.ground .force.attacker.mod-tech-graviton-negator-fighter .unit.fighter{visibility:visible;}
 #techtree .techlevel{*zoom:1;padding:0 20px 42px;}#techtree .techlevel:before,#techtree .techlevel:after{display:table;content:"";line-height:0;}
 #techtree .techlevel:after{clear:both;}
 #techtree .techlevel .category{display:inline-block;vertical-align:top;}

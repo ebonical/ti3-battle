@@ -28,7 +28,7 @@ class BattleForce extends Backbone.Model
 
   reset: ->
     @units = []
-    @activeModifiers = []
+    @_setActiveModifiers []
     @sumQuantity()
     @sumDamage()
 
@@ -139,7 +139,7 @@ class BattleForce extends Backbone.Model
       @modifiersForOpponent.push m.cloneForOpponent()
 
   applyModifiers: ->
-    @activeModifiers ?= []
+    @_setActiveModifiers(@activeModifiers)
     round = @attributes.battle.getRound()
     @applyModifiersFromOpponent(@opponent())
     activeIds = _.map @activeModifiers, (obj) -> obj.id
@@ -158,11 +158,12 @@ class BattleForce extends Backbone.Model
             modifier: mod
     # After all modifiers have been added then apply them
     unit.applyModifiers() for unit in @units
+    @_setActiveModifiers(@activeModifiers)
 
   # Check active modifiers and remove if necessary
   # Clear all unit modifiers and reapply
   expireModifiers: (expireAll = false) ->
-    @activeModifiers ?= []
+    @_setActiveModifiers(@activeModifiers)
     round = @attributes.battle.getRound()
     for active in @activeModifiers
       mod = active.modifier
@@ -176,7 +177,7 @@ class BattleForce extends Backbone.Model
         if roundDelta >= mod.getDuration()
           active.expired = true
     # Remove expired modifiers
-    @activeModifiers = _.reject @activeModifiers, (aMod) =>
+    @_setActiveModifiers _.reject @activeModifiers, (aMod) =>
       if aMod.expired
         unit.removeModifier(aMod) for unit in @units
         true
@@ -206,7 +207,7 @@ class BattleForce extends Backbone.Model
       unit.removeModifier(mod) for unit in @units
       ids = _.map @modifiersFromOpponent, (m) -> m.id
       @modifiers = _.reject @modifiers, (m) -> _.include(ids, m.id)
-      @activeModifiers = _.reject @activeModifiers, (m) -> _.include(ids, m.id)
+      @_setActiveModifiers _.reject(@activeModifiers, (m) -> _.include(ids, m.id))
     # Apply new modifiers
     if opponent.hasModifiersForOpponent()
       @modifiersFromOpponent = [].concat opponent.modifiersForOpponent
@@ -214,11 +215,14 @@ class BattleForce extends Backbone.Model
       # @applyModifiers()
 
   resetModifiers: (combatType) ->
-    @activeModifiers = []
+    @_setActiveModifiers []
     @optionalModifiersTurnedOn = []
     @modifiersFromOpponent = []
     unit.clearModifiers() for unit in @units
     @fetchModifiers(combatType)
     @applyModifiers()
 
+  _setActiveModifiers: (activeModifiersArray) ->
+    @activeModifiers = activeModifiersArray or []
+    @set 'activeModifiers', _.map(@activeModifiers, (m) -> m.id).join(',')
 

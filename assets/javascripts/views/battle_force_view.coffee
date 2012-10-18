@@ -12,6 +12,9 @@ class BattleForceView extends Backbone.View
     @battleForce().on "change:damage", (model, newValue) =>
       @_setDamageApplied(newValue)
 
+    @battleForce().on "change:activeModifiers", (model, newValue) =>
+      @_setActiveModifiers newValue
+
 
   events:
     "click a[href=#clear-units]": "_clearUnitsHandler"
@@ -81,6 +84,13 @@ class BattleForceView extends Backbone.View
     el = @$el.find(".damage-applied")
     el.toggleClass "zero", damage is 0
     el.find(".value").text damage
+
+  _setActiveModifiers: (modifierIdList) ->
+    klasses = @$el.attr('class').split(' ')
+    @$el.removeClass ->
+      results = _.filter klasses, (klass) -> /^mod-/.test(klass)
+      results.join(' ')
+    @$el.addClass _.map( modifierIdList.split(','), (id) -> "mod-#{id}" ).join(' ')
 
   _toggleAdjustingBattleValues: (turnOn) ->
     e = @$el
