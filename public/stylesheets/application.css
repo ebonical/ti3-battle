@@ -128,7 +128,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .order-of-battle{margin:0 -20px;height:165px;*zoom:1;}#battle .force .order-of-battle:before,#battle .force .order-of-battle:after{display:table;content:"";line-height:0;}
 #battle .force .order-of-battle:after{clear:both;}
 #battle .force .unit{position:relative;width:135px;height:165px;float:left;border-right:1px dashed #E0E0E0;margin-right:5px;}#battle .force .unit:last-child{border-right:none;}
-#battle .force .unit .image{position:absolute;top:42px;left:3px;width:77px;height:77px;z-index:1;overflow:hidden;background:url("/images/units.png") no-repeat;}
+#battle .force .unit .image{position:absolute;top:42px;left:8px;width:77px;height:77px;z-index:1;overflow:hidden;background:url("/images/units.png") no-repeat;}
 #battle .force .unit.dreadnought .image{background-position-y:-77px;}
 #battle .force .unit.cruiser .image{background-position-y:-154px;}
 #battle .force .unit.destroyer .image{background-position-y:-231px;}
@@ -138,9 +138,9 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit.pds .image{background-position-y:-539px;}
 #battle .force .unit.dock .image{background-position-y:-616px;}
 #battle .force .unit .name{display:none;}
-#battle .force .unit .battle{z-index:2;position:absolute;top:34px;left:-3px;font-size:1.1428571428571428rem;font-weight:bold;background:url("/images/battle-value.png") no-repeat;height:30px;width:30px;}#battle .force .unit .battle .value{display:block;line-height:30px;text-align:center;}
+#battle .force .unit .battle{z-index:2;position:absolute;top:34px;left:0px;font-size:1.1428571428571428rem;font-weight:bold;background:url("/images/battle-value.png") no-repeat;height:30px;width:30px;}#battle .force .unit .battle .value{display:block;line-height:30px;text-align:center;}
 #battle .force .unit .battle span{display:none;}
-#battle .force .unit .dice{position:absolute;top:29px;height:3px;width:35px;background:url("/images/dice.png") no-repeat;}#battle .force .unit .dice strong,#battle .force .unit .dice span{display:none;}
+#battle .force .unit .dice{position:absolute;top:29px;left:3px;height:3px;width:35px;background:url("/images/dice.png") no-repeat;}#battle .force .unit .dice strong,#battle .force .unit .dice span{display:none;}
 #battle .force .unit .dice.dice-1{display:none;}
 #battle .force .unit .dice.dice-2{background-position-x:-24px;}
 #battle .force .unit .dice.dice-3{background-position-x:-18px;}
@@ -156,7 +156,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit .adjust-battle-values.positive .value{color:#060;}
 #battle .force .unit .adjust-battle-values.negative .value{color:#600;}
 #battle .force .unit .damage{position:relative;z-index:10;width:100%;height:100%;}#battle .force .unit .damage a{position:absolute;top:0;left:0;display:block;width:100%;height:100%;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;z-index:2;}
-#battle .force .unit .damage .value{position:absolute;top:17px;right:28px;background:url("/images/unit-damage.png") no-repeat;width:66px;height:66px;display:block;text-align:center;font-weight:bold;font-size:2rem;line-height:66px;color:#FFF;text-shadow:1px 1px #222222;z-index:1;}
+#battle .force .unit .damage .value{position:absolute;top:17px;right:23px;background:url("/images/unit-damage.png") no-repeat;width:66px;height:66px;display:block;text-align:center;font-weight:bold;font-size:2rem;line-height:66px;color:#FFF;text-shadow:1px 1px #222222;z-index:1;}
 #battle .force .unit .damage.zero .value{display:none;}
 #battle .force .unit .sustained-damage{position:absolute;top:120px;height:17px;}#battle .force .unit .sustained-damage.zero,#battle .force .unit .sustained-damage span.label,#battle .force .unit .sustained-damage span.value,#battle .force .unit .sustained-damage a{display:none;}
 #battle .force .unit .sustained-damage .sustained{display:inline-block;width:17px;height:17px;background:url("/images/sustained-damage.png") no-repeat;overflow:hidden;}
