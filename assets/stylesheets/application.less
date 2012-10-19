@@ -48,11 +48,34 @@ a {
 // Top-level navigation
 .main-nav {
   position: relative;
+  width: 1024px;
   margin:auto;
   z-index: 2;
   ul {
     position: absolute;
-    .horizontal-list;
+    margin: 0;
+    padding: 0;
+    width: 150px;
+    top:5px;
+    left: 12px;
+    li {
+      list-style: none;
+      float:left;
+      margin-right: 2px;
+    }
+  }
+  a {
+    text-indent: -9999px;
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    background: url("/images/main-nav.png") no-repeat;
+  }
+  .battle a { background-position-x: -42px; }
+  .techtree a { background-position-x: -84px; }
+  .active {
+    background-color: #E0EBE0;
+    .border-radius(21px);
   }
 }
 // Main area for content
@@ -255,7 +278,10 @@ a.disabled {
     .placeholder();
   }
   .back {
-    margin: 25px;
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    margin: 0;
     .btn {
       color: @gray;
       border-color: @gray;
@@ -269,6 +295,7 @@ a.disabled {
     form {
       width: 940px;
       margin: auto;
+      padding-top: 65px;
     }
     .player {
       clear:both;
@@ -326,12 +353,6 @@ a.disabled {
     }
   }
   .join-game-view {
-    .back {
-      position: absolute;
-      top: 15px;
-      left: 25px;
-      margin: 0;
-    }
     form {
       text-align: center;
       padding-top: 50px;

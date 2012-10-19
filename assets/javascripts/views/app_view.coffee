@@ -15,6 +15,7 @@ class AppView extends Backbone.View
 
 
   events:
+    "click .main-nav a[href=#dashboard]": "openDashboard"
     "click .main-nav a[href=#battle]": "openBattleBoard"
     "click .main-nav a[href=#techtree]": "openTechTree"
 
@@ -25,6 +26,8 @@ class AppView extends Backbone.View
   _activateSection: (section) ->
     $('.section.active').removeClass 'active'
     $(".section##{section}").addClass 'active'
+    $(".main-nav li.active").removeClass 'active'
+    $(".main-nav li.#{section}").addClass 'active'
 
 
   openIndex: (e) ->

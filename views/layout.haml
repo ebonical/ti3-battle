@@ -12,9 +12,12 @@
   %body
     .main-nav.hide
       %ul
-        %li
-          %a.battle{href:'#battle'} Battle
-          %a.techtree{href:'#techtree'} Technology
+        %li.dashboard
+          %a{href:'#dashboard'} Dashboard
+        %li.battle
+          %a{href:'#battle'} Battle
+        %li.techtree
+          %a{href:'#techtree'} Technology
 
     .container
       = yield
