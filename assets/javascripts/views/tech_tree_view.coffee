@@ -13,11 +13,12 @@ class TechTreeView extends Backbone.View
 
   refresh: ->
     # mark current player's researched technologies
-    if @_playerChanged()
+    if @_hasPlayerChanged()
       @currentPlayerNumber = state.player.getNumber()
+      @$el.find('h1 span').text state.player.race.getShortName()
       @_refreshTechnologies(state.player)
 
-  _playerChanged: ->
+  _hasPlayerChanged: ->
     state.player? and state.player.getNumber() != @currentPlayerNumber
 
   _refreshTechnologies: (player) ->

@@ -7,6 +7,9 @@ class Race extends Backbone.Model
   getName: ->
     @get("name")
 
+  getShortName: ->
+    @get("shortName")
+
   getModifiers: ->
     unless @modifiers?
       mods = @get("modifiers") or []
