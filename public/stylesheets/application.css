@@ -44,7 +44,7 @@ h1,h2,h3,h4{color:#1f1f1f;margin:0;}
 h1{text-align:center;font-weight:200;font-size:3rem;text-shadow:1px 1px #ffffff;margin:0;padding:0.476190476em 0;line-height:1;}
 p{margin:0;}
 a{text-decoration:none;}
-.main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;margin:0;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0 12px;top:5px;left:0;}.main-nav ul li{list-style:none;float:left;margin-right:2px;}
+.main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;margin:0;width:100%;height:1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0 12px;top:5px;left:0;}.main-nav ul li{list-style:none;float:left;margin-right:2px;}
 .main-nav a{text-indent:-9999px;display:inline-block;width:42px;height:42px;background:url("/images/main-nav.png") no-repeat;}
 .main-nav .battle a{background-position-x:-42px;}
 .main-nav .techtree a{background-position-x:-84px;}
@@ -56,7 +56,7 @@ a{text-decoration:none;}
 .btn,button{font-weight:bold;font-size:2.142857142857143rem;line-height:45px;color:#CCC;border:1px solid #CCC;display:inline-block;padding:0 18px;background:none;}.btn.primary,button.primary{color:#0088cc;border-color:#0088cc;}
 .template{display:none;}
 a.disabled{opacity:0.2;filter:alpha(opacity=20);}
-.message{font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;font-size:1.1428571428571428rem;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;height:2em;line-height:2em;text-align:center;}
+.message{font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;font-size:1.1428571428571428rem;color:#286386;background-color:#D9EDF7;border-top:1px solid #BCE8F1;border-bottom:1px solid #BCE8F1;line-height:1.8rem;text-align:center;}
 .color.swatch{border:1px solid #CCC;text-align:center;line-height:100%;}.color.swatch.red{background-color:#F90000;}
 .color.swatch.orange{background-color:#F90;}
 .color.swatch.yellow{background-color:#FFEA00;}
@@ -104,6 +104,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #index .join-game-view form{text-align:center;padding-top:50px;}
 #index .join-game-view input{font-weight:bold;text-transform:uppercase;text-align:center;}
 #index .join-game-view .form-actions{margin-top:50px;}
+#start .players{margin-top:20px;}
 #start .player{clear:both;font-size:2.5714285714285716rem;padding-top:0.611em;}#start .player a{display:block;color:#333333;}#start .player a span{display:inline-block;vertical-align:middle;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;float:left;}
 #start .player .name{width:50%;text-align:right;padding-right:75px;}
 #start .player .color{position:absolute;left:50%;width:36px;height:36px;margin-left:-53px;}#start .player .color span{display:none;}
@@ -237,6 +238,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle.dice-rolled .phase-message .after-dice{display:block;}
 #battle.round-resolved .reset-dice.btn{display:none;}
 #battle.ground .force.attacker.mod-tech-graviton-negator-fighter .unit.fighter{visibility:visible;}
+#techtree .technologies{margin-top:8px;}
 #techtree .techlevel{*zoom:1;padding:0 20px 42px;}#techtree .techlevel:before,#techtree .techlevel:after{display:table;content:"";line-height:0;}
 #techtree .techlevel:after{clear:both;}
 #techtree .techlevel .category{display:inline-block;vertical-align:top;}
@@ -274,4 +276,4 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 .invisible{visibility:hidden;}
 .modal{border-color:#aaa;padding:22px;background:#f4f4f4;}.modal h2.heading{font-weight:200;font-size:3rem;text-shadow:1px 1px #fff;text-align:center;}.modal h2.heading strong{font-weight:normal;}
 .modal-backdrop,.modal-backdrop.fade.in{opacity:0.5;filter:alpha(opacity=50);}
-@media (max-width:768px){html,body{font-size:12px;}}@media (max-width:480px){html,body{font-size:10px;}}
+@media (max-height:700px){#battle .round h1{font-size:2.8rem;padding:0.33em 0;}#battle .round h1 small{top:35px;} #battle .force{margin-top:16px;} #battle .battle-actions{margin-top:25px;}}

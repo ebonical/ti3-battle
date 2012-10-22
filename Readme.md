@@ -83,6 +83,7 @@ Finally...
 * Apply pre-existing sustained damage to units like War Sun and Dreadnought
 * Abilities that allow dice re-rolls for misses
 * Write some tests!
+* Show what technologies and abilities have been applied in a battle
 * and lots of other things...
 
 

@@ -55,6 +55,7 @@ a {
     position: absolute;
     margin: 0;
     width: 100%;
+    height: 1px; // reduce height so links below clickable
     .box-sizing(border-box);
     padding: 0 12px;
     top:5px;
@@ -130,8 +131,7 @@ a.disabled {
   background-color: #D9EDF7;
   border-top:1px solid #BCE8F1;
   border-bottom:1px solid #BCE8F1;
-  height: 2em;
-  line-height: 2em;
+  line-height: 1.8rem;
   text-align: center;
 }
 .color.swatch {
@@ -379,6 +379,9 @@ a.disabled {
   }
 }
 #start {
+  .players {
+    margin-top: 20px;
+  }
   .player {
     clear:both;
     .font-size(36);
@@ -1062,7 +1065,9 @@ a.disabled {
   }
 } //#battle
 #techtree {
-  .technologies {}
+  .technologies {
+    margin-top: 8px;
+  }
   .techlevel {
     .clearfix;
     padding:0 20px 42px;
@@ -1194,13 +1199,25 @@ a.disabled {
   .opacity(50);
 }
 
-@media (max-width:768px) {
-  html, body {
-    font-size:12px;
+@media (max-height:700px) {
+  #battle {
+    .round h1 {
+      font-size: 2.8rem;
+      padding:0.33em 0;
+      small {
+        top:35px;
+      }
+    }
+    .force {
+      margin-top: 16px;
+    }
+    .battle-actions {
+      margin-top: 25px;
+    }
   }
 }
-@media (max-width:480px) {
-  html, body {
-    font-size:10px;
-  }
-}
+// @media (max-width:480px) {
+//   html, body {
+//     font-size:10px;
+//   }
+// }
