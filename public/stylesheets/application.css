@@ -44,10 +44,12 @@ h1,h2,h3,h4{color:#1f1f1f;margin:0;}
 h1{text-align:center;font-weight:200;font-size:3rem;text-shadow:1px 1px #ffffff;margin:0;padding:0.476190476em 0;line-height:1;}
 p{margin:0;}
 a{text-decoration:none;}
-.main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;margin:0;padding:0;width:150px;top:5px;left:12px;}.main-nav ul li{list-style:none;float:left;margin-right:2px;}
+.main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;margin:0;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0 12px;top:5px;left:0;}.main-nav ul li{list-style:none;float:left;margin-right:2px;}
 .main-nav a{text-indent:-9999px;display:inline-block;width:42px;height:42px;background:url("/images/main-nav.png") no-repeat;}
 .main-nav .battle a{background-position-x:-42px;}
 .main-nav .techtree a{background-position-x:-84px;}
+.main-nav .sync{position:absolute;right:12px;}.main-nav .sync a{background-position-x:-126px;}
+.main-nav .sync.loading a{background:url("/images/loader.gif") center center no-repeat;}
 .main-nav .active{background-color:#E0EBE0;-webkit-border-radius:21px;-moz-border-radius:21px;border-radius:21px;}
 .container{margin:auto;width:1024px;overflow:hidden;}
 .section{position:relative;display:none;}.section.active{display:block;}

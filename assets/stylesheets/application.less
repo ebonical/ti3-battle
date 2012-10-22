@@ -54,10 +54,11 @@ a {
   ul {
     position: absolute;
     margin: 0;
-    padding: 0;
-    width: 150px;
+    width: 100%;
+    .box-sizing(border-box);
+    padding: 0 12px;
     top:5px;
-    left: 12px;
+    left: 0;
     li {
       list-style: none;
       float:left;
@@ -73,6 +74,16 @@ a {
   }
   .battle a { background-position-x: -42px; }
   .techtree a { background-position-x: -84px; }
+  .sync {
+    position: absolute;
+    right: 12px;
+    a {
+      background-position-x: -126px;
+    }
+    &.loading a {
+      background: url("/images/loader.gif") center center no-repeat;
+    }
+  }
   .active {
     background-color: #E0EBE0;
     .border-radius(21px);

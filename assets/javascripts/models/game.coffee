@@ -26,8 +26,10 @@ class window.Game extends Backbone.Model
 
   update: ->
     @fetch
-      success: (model, data) ->
+      success: (model, data) =>
         for pData in model.get('players')
           player = model.getPlayer(pData.number)
           player.set pData, silent: true
           player.refreshTechnologies()
+        # Ping listeners for update
+        @trigger('updated', model)

@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2012-10-19:v5
+# 2012-10-22:v1
 
 /
 /stylesheets/application.css
@@ -23,6 +23,7 @@ CACHE MANIFEST
 /images/units.png
 /images/research-tech.png
 /images/main-nav.png
+/images/loader.gif
 
 NETWORK:
 *

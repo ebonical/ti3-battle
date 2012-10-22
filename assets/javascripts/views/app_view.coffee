@@ -18,6 +18,7 @@ class AppView extends Backbone.View
     "click .main-nav a[href=#dashboard]": "openDashboard"
     "click .main-nav a[href=#battle]": "openBattleBoard"
     "click .main-nav a[href=#techtree]": "openTechTree"
+    "click .main-nav a[href=#sync]": "syncData"
 
 
   toggleMainNav: (show) ->
@@ -59,6 +60,18 @@ class AppView extends Backbone.View
     @_activateSection 'techtree'
     @techtree ?= new TechTreeView()
     @techtree.refresh()
+
+  syncData: (e) ->
+    e.preventDefault()
+    if not @_listeningToGameUpdate
+      state.game.on 'updated', (model) =>
+        @_finishedSync()
+    @$el.find('.main-nav .sync').addClass 'loading'
+    state.game.update()
+
+  _finishedSync: ->
+    console.log 'finished sync'
+    @$el.find('.main-nav .sync').removeClass 'loading'
 
   showMainNav: ->
     if not @navVisible

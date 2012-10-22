@@ -9,12 +9,10 @@ class Player extends Backbone.Model
     rId = @get("raceId") or @get("race")
     @setRace(rId) if rId?
 
-  refreshTechnologies: (trigger = true) ->
+  refreshTechnologies: (silent = false) ->
     ids = @get("technologies").split(",")
-    changed = _.difference(ids, @getTechnologyIds()).length > 0
     @technologies = _.map ids, (tId) -> Technologies.get(tId)
-    if trigger and changed
-      @trigger 'change:technologies', this, @get("technologies")
+    @_updateTechnologiesAttribute(silent)
 
   url: ->
     "/players/#{@id}"
@@ -48,7 +46,7 @@ class Player extends Backbone.Model
       # Add racial technologies
       if not @get('technologies')?
         @set 'technologies', @race.get('technologies')
-      @refreshTechnologies(false)
+      @refreshTechnologies(true)
       @set("raceId", race.id)
       @set("race", race)
 
@@ -66,18 +64,22 @@ class Player extends Backbone.Model
   addTechnology: (technology) ->
     if not @hasTechnology(technology)
       @technologies.push technology
-      @set "technologies", @getTechnologyIds().join(',')
+      @_updateTechnologiesAttribute()
       @_save()
 
   removeTechnology: (technology) ->
     if @hasTechnology(technology)
       @technologies = _.reject @technologies, (t) -> t.id is technology.id
-      @set "technologies", @getTechnologyIds().join(',')
+      @_updateTechnologiesAttribute()
       @_save()
 
   _save: ->
     @save
       player: @toDbAttributes()
+
+  _updateTechnologiesAttribute: (silent) ->
+    @set "technologies", @getTechnologyIds().join(','),
+      silent: silent
 
   toDbAttributes: ->
     {

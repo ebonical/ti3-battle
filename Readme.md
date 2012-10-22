@@ -80,7 +80,6 @@ Finally...
 * Leaders in combat
 * Responsive styling to better fit web view in mobile browsers
 * Switch to manage another player during game
-* Refresh other player's technology lists
 * Apply pre-existing sustained damage to units like War Sun and Dreadnought
 * Abilities that allow dice re-rolls for misses
 * Write some tests!
