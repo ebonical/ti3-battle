@@ -1198,8 +1198,31 @@ a.disabled {
 .modal-backdrop.fade.in {
   .opacity(50);
 }
+.readme_overlay {
+  margin: 0 auto;
+  width: 1024px;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -512px;
+  z-index: 1000;
+  background: @bodyBackground;
+  .content {
+    padding: 25px 50px;
+  }
+  .back {
+    #index > .back;
+  }
+  &.loading {
+    .back {
+      display: none;
+    }
+    background: @bodyBackground url("/images/loader.gif") no-repeat 25px 25px;
+  }
+}
 
-@media (max-height:700px) {
+@media (device-max-height:700px) {
   #battle {
     .round h1 {
       font-size: 2.8rem;
@@ -1216,8 +1239,3 @@ a.disabled {
     }
   }
 }
-// @media (max-width:480px) {
-//   html, body {
-//     font-size:10px;
-//   }
-// }

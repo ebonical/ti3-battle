@@ -6,6 +6,7 @@ class IndexView extends Backbone.View
   events:
     "click a[href=#new-game]": "_newGameHandler"
     "click a[href=#join-game]": "_joinGameHandler"
+    "click a[href=#readme]": "_readmeHandler"
     "click a[href=#close-new-game]": "_closeNewGameHandler"
     "click .form-actions button": "_submitFormHandler"
     "click a[href=#start-game]": "_startGameHandler"
@@ -27,6 +28,20 @@ class IndexView extends Backbone.View
   _joinGameHandler: (e) ->
     e.preventDefault()
     @toggleJoinGameForm()
+
+  _readmeHandler: (e) ->
+    e.preventDefault()
+    readme = $('.readme_overlay')
+    content = readme.find('.content')
+    readme.removeClass('hide')
+    if content.html() == ''
+      readme.addClass('loading')
+      $.get "/readme", (data, textStatus, jqXHR) ->
+        readme.removeClass('loading')
+        readme.find('a.close-readme').click (e) ->
+          e.preventDefault()
+          readme.addClass('hide')
+        content.html data
 
   _closeNewGameHandler: (e) ->
     e.preventDefault()

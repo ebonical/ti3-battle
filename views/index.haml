@@ -4,6 +4,8 @@
       %a.btn{href:'#new-game'} New Game
     .join-game
       %a.btn{href:'#join-game'} Join Game
+    .readme
+      %a.btn{href:'#readme'} Read me
 
   = partial "new_game"
   = partial "join_game"
@@ -20,3 +22,8 @@
 
 .section#techtree
   = partial "technologies"
+
+.readme_overlay.hide
+  .back
+    %a.close-readme.btn{ href:'#close-readme' } X
+  .content

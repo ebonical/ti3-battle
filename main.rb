@@ -17,6 +17,11 @@ class BattleBoard < Sinatra::Base
     haml :index
   end
 
+  get "/readme" do
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    markdown.render File.read("./Readme.md")
+  end
+
   get %r{/g/([a-zA-Z]+)\.?(json)?} do
     captures = params[:captures].dup
     token = captures.shift.to_s
