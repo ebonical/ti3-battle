@@ -73,6 +73,16 @@ Tap the same one again to reveal all paths again.
 Finally...
 ==========
 
+Get the source code here if you want to fiddle or deploy your own version
+https://github.com/ebonical/ti3-battle - it will deploy to Heroku just fine.
+
+[![Creative Commons Licence](http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png)][license]  
+This work is licensed under a 
+[Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License][license].
+
+All rights of the game *Twilight Imperium* and related content belong to 
+Fantasy Flight Publishing. [Get the game][ff], it's good.
+
 **Things still to do...**
 
 * Toggle optional combat modifiers from racial abilities and game mechanics -
@@ -87,10 +97,5 @@ Finally...
 * and lots of other things...
 
 
-Get the source code here if you want to fiddle or deploy your own version
-https://github.com/ebonical/ti3-battle - it will deploy to Heroku just fine.
-
-All rights of the game *Twilight Imperium* and related content belong to 
-Fantasy Flight Publishing. [Get the game][ff], it's good.
-
 [ff]: http://www.fantasyflightgames.com/edge_minisite.asp?eidm=21&enmi=Twilight%20Imperium%203rd%20Edition
+[license]: http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB
