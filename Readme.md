@@ -74,7 +74,7 @@ Finally...
 ==========
 
 Get the source code here if you want to fiddle or deploy your own version
-https://github.com/ebonical/ti3-battle - it will deploy to Heroku just fine.
+<https://github.com/ebonical/ti3-battle> - it will deploy to Heroku just fine.
 
 [![Creative Commons Licence](http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png)][license]  
 This work is licensed under a 
