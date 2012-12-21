@@ -73,13 +73,13 @@ a {
     height: 42px;
     background: url("/images/main-nav.png") no-repeat;
   }
-  .battle a { background-position-x: -42px; }
-  .techtree a { background-position-x: -84px; }
+  .battle a { background-position: -42px 0; }
+  .techtree a { background-position: -84px 0; }
   .sync {
     position: absolute;
     right: 12px;
     a {
-      background-position-x: -126px;
+      background-position: -126px 0;
     }
     &.loading a {
       background: url("/images/loader.gif") center center no-repeat;
@@ -601,19 +601,19 @@ a.disabled {
           display: none;
         }
         &.dice-2 {
-          background-position-x:-24px;
+          background-position:-24px 0;
         }
         &.dice-3 {
-          background-position-x:-18px;
+          background-position:-18px 0;
         }
         &.dice-4 {
-          background-position-x:-12px;
+          background-position:-12px 0;
         }
         &.dice-5 {
-          background-position-x:-6px;
+          background-position:-6px 0;
         }
         &.dice-6 {
-          // background-position-x:0px;
+          // background-position:0px 0;
         }
       }
       .quantity {
@@ -1114,7 +1114,7 @@ a.disabled {
     }
     &.researched {
       .action {
-        background-position-x: 0;
+        background-position: 0 0;
       }
     }
     &.blue {

@@ -46,9 +46,9 @@ p{margin:0;}
 a{text-decoration:none;}
 .main-nav{position:relative;width:1024px;margin:auto;z-index:2;}.main-nav ul{position:absolute;margin:0;width:100%;height:1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0 12px;top:5px;left:0;}.main-nav ul li{list-style:none;float:left;margin-right:2px;}
 .main-nav a{text-indent:-9999px;display:inline-block;width:42px;height:42px;background:url("/images/main-nav.png") no-repeat;}
-.main-nav .battle a{background-position-x:-42px;}
-.main-nav .techtree a{background-position-x:-84px;}
-.main-nav .sync{position:absolute;right:12px;}.main-nav .sync a{background-position-x:-126px;}
+.main-nav .battle a{background-position:-42px 0;}
+.main-nav .techtree a{background-position:-84px 0;}
+.main-nav .sync{position:absolute;right:12px;}.main-nav .sync a{background-position:-126px 0;}
 .main-nav .sync.loading a{background:url("/images/loader.gif") center center no-repeat;}
 .main-nav .active{background-color:#E0EBE0;-webkit-border-radius:21px;-moz-border-radius:21px;border-radius:21px;}
 .container{margin:auto;width:1024px;overflow:hidden;}
@@ -145,10 +145,10 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit .battle span{display:none;}
 #battle .force .unit .dice{position:absolute;top:29px;left:3px;height:3px;width:35px;background:url("/images/dice.png") no-repeat;}#battle .force .unit .dice strong,#battle .force .unit .dice span{display:none;}
 #battle .force .unit .dice.dice-1{display:none;}
-#battle .force .unit .dice.dice-2{background-position-x:-24px;}
-#battle .force .unit .dice.dice-3{background-position-x:-18px;}
-#battle .force .unit .dice.dice-4{background-position-x:-12px;}
-#battle .force .unit .dice.dice-5{background-position-x:-6px;}
+#battle .force .unit .dice.dice-2{background-position:-24px 0;}
+#battle .force .unit .dice.dice-3{background-position:-18px 0;}
+#battle .force .unit .dice.dice-4{background-position:-12px 0;}
+#battle .force .unit .dice.dice-5{background-position:-6px 0;}
 #battle .force .unit .quantity{position:absolute;top:0px;right:6px;width:40px;text-align:center;font-weight:bold;line-height:1;}#battle .force .unit .quantity .value{color:#454F60;font-size:4.071428571428571rem;line-height:63px;}
 #battle .force .unit .quantity.double .value{font-size:2.857142857142857rem;}
 #battle .force .unit .quantity a{display:block;font-size:3.4285714285714284rem;color:#9FA4C0;}#battle .force .unit .quantity a.decrease{line-height:35px;}
@@ -246,7 +246,7 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #techtree .tech .description{font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;font-size:0.8571428571428571rem;padding:3px 4px 7px;}
 #techtree .tech .action{position:absolute;bottom:-10px;right:-10px;width:25px;height:25px;overflow:hidden;background:url("/images/research-tech.png") -25px top no-repeat;z-index:1;}#techtree .tech .action a{display:block;width:100%;height:100%;}
 #techtree .tech .action span{display:none;}
-#techtree .tech.researched .action{background-position-x:0;}
+#techtree .tech.researched .action{background-position:0 0;}
 #techtree .tech.blue{border-color:#0167FF;}#techtree .tech.blue .name{background-color:#0167FF;}
 #techtree .tech.green{border-color:#009900;}#techtree .tech.green .name{background-color:#009900;}
 #techtree .tech.yellow{border-color:#CF910E;}#techtree .tech.yellow .name{background-color:#CF910E;}
