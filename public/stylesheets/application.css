@@ -132,14 +132,6 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .order-of-battle:after{clear:both;}
 #battle .force .unit{position:relative;width:135px;height:165px;float:left;border-right:1px dashed #E0E0E0;margin-right:5px;}#battle .force .unit:last-child{border-right:none;}
 #battle .force .unit .image{position:absolute;top:42px;left:8px;width:77px;height:77px;z-index:1;overflow:hidden;background:url("/images/units.png") no-repeat;}
-#battle .force .unit.dreadnought .image{background-position-y:-77px;}
-#battle .force .unit.cruiser .image{background-position-y:-154px;}
-#battle .force .unit.destroyer .image{background-position-y:-231px;}
-#battle .force .unit.fighter .image{background-position-y:-308px;}
-#battle .force .unit.carrier .image{background-position-y:-385px;}
-#battle .force .unit.ground .image{background-position-y:-462px;}
-#battle .force .unit.pds .image{background-position-y:-539px;}
-#battle .force .unit.dock .image{background-position-y:-616px;}
 #battle .force .unit .name{display:none;}
 #battle .force .unit .battle{z-index:2;position:absolute;top:34px;left:0px;font-size:1.1428571428571428rem;font-weight:bold;background:url("/images/battle-value.png") no-repeat;height:30px;width:30px;}#battle .force .unit .battle .value{display:block;line-height:30px;text-align:center;}
 #battle .force .unit .battle span{display:none;}
@@ -165,13 +157,78 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .force .unit .sustained-damage .sustained{display:inline-block;width:17px;height:17px;background:url("/images/sustained-damage.png") no-repeat;overflow:hidden;}
 #battle .force .unit .rolls{position:absolute;top:125px;margin-left:10px;margin-right:15px;font-family:Georgia,"Times New Roman",Times,serif;font-style:normal;font-size:1.1428571428571428rem;}#battle .force .unit .rolls .hit{color:#080;}
 #battle .force .unit .rolls .miss{color:#999999;}
-#battle .force.color-orange .unit .image{background-position-x:-77px;}
-#battle .force.color-yellow .unit .image{background-position-x:-154px;}
-#battle .force.color-green .unit .image{background-position-x:-231px;}
-#battle .force.color-blue .unit .image{background-position-x:-308px;}
-#battle .force.color-purple .unit .image{background-position-x:-385px;}
-#battle .force.color-gray .unit .image{background-position-x:-462px;}
-#battle .force.color-black .unit .image{background-position-x:-539px;}
+#battle .force.color-red .unit.warsun .image{background-position:0px 0px;}
+#battle .force.color-red .unit.dreadnought .image{background-position:0px -77px;}
+#battle .force.color-red .unit.cruiser .image{background-position:0px -154px;}
+#battle .force.color-red .unit.destroyer .image{background-position:0px -231px;}
+#battle .force.color-red .unit.fighter .image{background-position:0px -308px;}
+#battle .force.color-red .unit.carrier .image{background-position:0px -385px;}
+#battle .force.color-red .unit.ground .image{background-position:0px -462px;}
+#battle .force.color-red .unit.pds .image{background-position:0px -539px;}
+#battle .force.color-red .unit.dock .image{background-position:0px -616px;}
+#battle .force.color-orange .unit.warsun .image{background-position:-77px 0px;}
+#battle .force.color-orange .unit.dreadnought .image{background-position:-77px -77px;}
+#battle .force.color-orange .unit.cruiser .image{background-position:-77px -154px;}
+#battle .force.color-orange .unit.destroyer .image{background-position:-77px -231px;}
+#battle .force.color-orange .unit.fighter .image{background-position:-77px -308px;}
+#battle .force.color-orange .unit.carrier .image{background-position:-77px -385px;}
+#battle .force.color-orange .unit.ground .image{background-position:-77px -462px;}
+#battle .force.color-orange .unit.pds .image{background-position:-77px -539px;}
+#battle .force.color-orange .unit.dock .image{background-position:-77px -616px;}
+#battle .force.color-yellow .unit.warsun .image{background-position:-154px 0px;}
+#battle .force.color-yellow .unit.dreadnought .image{background-position:-154px -77px;}
+#battle .force.color-yellow .unit.cruiser .image{background-position:-154px -154px;}
+#battle .force.color-yellow .unit.destroyer .image{background-position:-154px -231px;}
+#battle .force.color-yellow .unit.fighter .image{background-position:-154px -308px;}
+#battle .force.color-yellow .unit.carrier .image{background-position:-154px -385px;}
+#battle .force.color-yellow .unit.ground .image{background-position:-154px -462px;}
+#battle .force.color-yellow .unit.pds .image{background-position:-154px -539px;}
+#battle .force.color-yellow .unit.dock .image{background-position:-154px -616px;}
+#battle .force.color-green .unit.warsun .image{background-position:-231px 0px;}
+#battle .force.color-green .unit.dreadnought .image{background-position:-231px -77px;}
+#battle .force.color-green .unit.cruiser .image{background-position:-231px -154px;}
+#battle .force.color-green .unit.destroyer .image{background-position:-231px -231px;}
+#battle .force.color-green .unit.fighter .image{background-position:-231px -308px;}
+#battle .force.color-green .unit.carrier .image{background-position:-231px -385px;}
+#battle .force.color-green .unit.ground .image{background-position:-231px -462px;}
+#battle .force.color-green .unit.pds .image{background-position:-231px -539px;}
+#battle .force.color-green .unit.dock .image{background-position:-231px -616px;}
+#battle .force.color-blue .unit.warsun .image{background-position:-308px 0px;}
+#battle .force.color-blue .unit.dreadnought .image{background-position:-308px -77px;}
+#battle .force.color-blue .unit.cruiser .image{background-position:-308px -154px;}
+#battle .force.color-blue .unit.destroyer .image{background-position:-308px -231px;}
+#battle .force.color-blue .unit.fighter .image{background-position:-308px -308px;}
+#battle .force.color-blue .unit.carrier .image{background-position:-308px -385px;}
+#battle .force.color-blue .unit.ground .image{background-position:-308px -462px;}
+#battle .force.color-blue .unit.pds .image{background-position:-308px -539px;}
+#battle .force.color-blue .unit.dock .image{background-position:-308px -616px;}
+#battle .force.color-purple .unit.warsun .image{background-position:-385px 0px;}
+#battle .force.color-purple .unit.dreadnought .image{background-position:-385px -77px;}
+#battle .force.color-purple .unit.cruiser .image{background-position:-385px -154px;}
+#battle .force.color-purple .unit.destroyer .image{background-position:-385px -231px;}
+#battle .force.color-purple .unit.fighter .image{background-position:-385px -308px;}
+#battle .force.color-purple .unit.carrier .image{background-position:-385px -385px;}
+#battle .force.color-purple .unit.ground .image{background-position:-385px -462px;}
+#battle .force.color-purple .unit.pds .image{background-position:-385px -539px;}
+#battle .force.color-purple .unit.dock .image{background-position:-385px -616px;}
+#battle .force.color-gray .unit.warsun .image{background-position:-462px 0px;}
+#battle .force.color-gray .unit.dreadnought .image{background-position:-462px -77px;}
+#battle .force.color-gray .unit.cruiser .image{background-position:-462px -154px;}
+#battle .force.color-gray .unit.destroyer .image{background-position:-462px -231px;}
+#battle .force.color-gray .unit.fighter .image{background-position:-462px -308px;}
+#battle .force.color-gray .unit.carrier .image{background-position:-462px -385px;}
+#battle .force.color-gray .unit.ground .image{background-position:-462px -462px;}
+#battle .force.color-gray .unit.pds .image{background-position:-462px -539px;}
+#battle .force.color-gray .unit.dock .image{background-position:-462px -616px;}
+#battle .force.color-black .unit.warsun .image{background-position:-539px 0px;}
+#battle .force.color-black .unit.dreadnought .image{background-position:-539px -77px;}
+#battle .force.color-black .unit.cruiser .image{background-position:-539px -154px;}
+#battle .force.color-black .unit.destroyer .image{background-position:-539px -231px;}
+#battle .force.color-black .unit.fighter .image{background-position:-539px -308px;}
+#battle .force.color-black .unit.carrier .image{background-position:-539px -385px;}
+#battle .force.color-black .unit.ground .image{background-position:-539px -462px;}
+#battle .force.color-black .unit.pds .image{background-position:-539px -539px;}
+#battle .force.color-black .unit.dock .image{background-position:-539px -616px;}
 #battle .force .force-actions{position:absolute;top:115px;right:-30px;line-height:22px;font-size:0.8571428571428571rem;width:110px;}#battle .force .force-actions a{color:#333333;padding-left:21px;display:inline-block;}
 #battle .force .force-actions .clear-units a{background:url("/images/btn-clear-units.png") no-repeat left center;}
 #battle .force .force-actions .adjust-battle-values a{background:url("/images/btn-adjust-battle.png") no-repeat left center;}
@@ -200,23 +257,80 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 #battle .round-summary .force .unit .name{display:none;}
 #battle .round-summary .force .unit .battle{display:none;}
 #battle .round-summary .force .unit .image{display:inline-block;width:40px;height:40px;background-image:url("/images/units-sm.png");vertical-align:middle;}
-#battle .round-summary .force .unit.dreadnought .image{background-position-y:-40px;}
-#battle .round-summary .force .unit.cruiser .image{background-position-y:-80px;}
-#battle .round-summary .force .unit.destroyer .image{background-position-y:-120px;}
-#battle .round-summary .force .unit.fighter .image{background-position-y:-160px;}
-#battle .round-summary .force .unit.carrier .image{background-position-y:-200px;}
-#battle .round-summary .force .unit.ground .image{background-position-y:-240px;}
-#battle .round-summary .force .unit.pds .image{background-position-y:-280px;}
-#battle .round-summary .force .unit.dock .image{background-position-y:-320px;}
 #battle .round-summary .force .unit .rolls{margin:0 3px;}
 #battle .round-summary .force .unit .losses{color:#C00;font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;font-size:1rem;}#battle .round-summary .force .unit .losses.zero{display:none;}
-#battle .round-summary .force.color-orange .unit .image{background-position-x:-40px;}
-#battle .round-summary .force.color-yellow .unit .image{background-position-x:-80px;}
-#battle .round-summary .force.color-green .unit .image{background-position-x:-120px;}
-#battle .round-summary .force.color-blue .unit .image{background-position-x:-160px;}
-#battle .round-summary .force.color-purple .unit .image{background-position-x:-200px;}
-#battle .round-summary .force.color-gray .unit .image{background-position-x:-240px;}
-#battle .round-summary .force.color-black .unit .image{background-position-x:-280px;}
+#battle .round-summary .force.color-red .unit.warsun .image{background-position:0px 0px;}
+#battle .round-summary .force.color-red .unit.dreadnought .image{background-position:0px -40px;}
+#battle .round-summary .force.color-red .unit.cruiser .image{background-position:0px -80px;}
+#battle .round-summary .force.color-red .unit.destroyer .image{background-position:0px -120px;}
+#battle .round-summary .force.color-red .unit.fighter .image{background-position:0px -160px;}
+#battle .round-summary .force.color-red .unit.carrier .image{background-position:0px -200px;}
+#battle .round-summary .force.color-red .unit.ground .image{background-position:0px -240px;}
+#battle .round-summary .force.color-red .unit.pds .image{background-position:0px -280px;}
+#battle .round-summary .force.color-red .unit.dock .image{background-position:0px -320px;}
+#battle .round-summary .force.color-orange .unit.warsun .image{background-position:-40px 0px;}
+#battle .round-summary .force.color-orange .unit.dreadnought .image{background-position:-40px -40px;}
+#battle .round-summary .force.color-orange .unit.cruiser .image{background-position:-40px -80px;}
+#battle .round-summary .force.color-orange .unit.destroyer .image{background-position:-40px -120px;}
+#battle .round-summary .force.color-orange .unit.fighter .image{background-position:-40px -160px;}
+#battle .round-summary .force.color-orange .unit.carrier .image{background-position:-40px -200px;}
+#battle .round-summary .force.color-orange .unit.ground .image{background-position:-40px -240px;}
+#battle .round-summary .force.color-orange .unit.pds .image{background-position:-40px -280px;}
+#battle .round-summary .force.color-orange .unit.dock .image{background-position:-40px -320px;}
+#battle .round-summary .force.color-yellow .unit.warsun .image{background-position:-80px 0px;}
+#battle .round-summary .force.color-yellow .unit.dreadnought .image{background-position:-80px -40px;}
+#battle .round-summary .force.color-yellow .unit.cruiser .image{background-position:-80px -80px;}
+#battle .round-summary .force.color-yellow .unit.destroyer .image{background-position:-80px -120px;}
+#battle .round-summary .force.color-yellow .unit.fighter .image{background-position:-80px -160px;}
+#battle .round-summary .force.color-yellow .unit.carrier .image{background-position:-80px -200px;}
+#battle .round-summary .force.color-yellow .unit.ground .image{background-position:-80px -240px;}
+#battle .round-summary .force.color-yellow .unit.pds .image{background-position:-80px -280px;}
+#battle .round-summary .force.color-yellow .unit.dock .image{background-position:-80px -320px;}
+#battle .round-summary .force.color-green .unit.warsun .image{background-position:-120px 0px;}
+#battle .round-summary .force.color-green .unit.dreadnought .image{background-position:-120px -40px;}
+#battle .round-summary .force.color-green .unit.cruiser .image{background-position:-120px -80px;}
+#battle .round-summary .force.color-green .unit.destroyer .image{background-position:-120px -120px;}
+#battle .round-summary .force.color-green .unit.fighter .image{background-position:-120px -160px;}
+#battle .round-summary .force.color-green .unit.carrier .image{background-position:-120px -200px;}
+#battle .round-summary .force.color-green .unit.ground .image{background-position:-120px -240px;}
+#battle .round-summary .force.color-green .unit.pds .image{background-position:-120px -280px;}
+#battle .round-summary .force.color-green .unit.dock .image{background-position:-120px -320px;}
+#battle .round-summary .force.color-blue .unit.warsun .image{background-position:-160px 0px;}
+#battle .round-summary .force.color-blue .unit.dreadnought .image{background-position:-160px -40px;}
+#battle .round-summary .force.color-blue .unit.cruiser .image{background-position:-160px -80px;}
+#battle .round-summary .force.color-blue .unit.destroyer .image{background-position:-160px -120px;}
+#battle .round-summary .force.color-blue .unit.fighter .image{background-position:-160px -160px;}
+#battle .round-summary .force.color-blue .unit.carrier .image{background-position:-160px -200px;}
+#battle .round-summary .force.color-blue .unit.ground .image{background-position:-160px -240px;}
+#battle .round-summary .force.color-blue .unit.pds .image{background-position:-160px -280px;}
+#battle .round-summary .force.color-blue .unit.dock .image{background-position:-160px -320px;}
+#battle .round-summary .force.color-purple .unit.warsun .image{background-position:-200px 0px;}
+#battle .round-summary .force.color-purple .unit.dreadnought .image{background-position:-200px -40px;}
+#battle .round-summary .force.color-purple .unit.cruiser .image{background-position:-200px -80px;}
+#battle .round-summary .force.color-purple .unit.destroyer .image{background-position:-200px -120px;}
+#battle .round-summary .force.color-purple .unit.fighter .image{background-position:-200px -160px;}
+#battle .round-summary .force.color-purple .unit.carrier .image{background-position:-200px -200px;}
+#battle .round-summary .force.color-purple .unit.ground .image{background-position:-200px -240px;}
+#battle .round-summary .force.color-purple .unit.pds .image{background-position:-200px -280px;}
+#battle .round-summary .force.color-purple .unit.dock .image{background-position:-200px -320px;}
+#battle .round-summary .force.color-gray .unit.warsun .image{background-position:-240px 0px;}
+#battle .round-summary .force.color-gray .unit.dreadnought .image{background-position:-240px -40px;}
+#battle .round-summary .force.color-gray .unit.cruiser .image{background-position:-240px -80px;}
+#battle .round-summary .force.color-gray .unit.destroyer .image{background-position:-240px -120px;}
+#battle .round-summary .force.color-gray .unit.fighter .image{background-position:-240px -160px;}
+#battle .round-summary .force.color-gray .unit.carrier .image{background-position:-240px -200px;}
+#battle .round-summary .force.color-gray .unit.ground .image{background-position:-240px -240px;}
+#battle .round-summary .force.color-gray .unit.pds .image{background-position:-240px -280px;}
+#battle .round-summary .force.color-gray .unit.dock .image{background-position:-240px -320px;}
+#battle .round-summary .force.color-black .unit.warsun .image{background-position:-280px 0px;}
+#battle .round-summary .force.color-black .unit.dreadnought .image{background-position:-280px -40px;}
+#battle .round-summary .force.color-black .unit.cruiser .image{background-position:-280px -80px;}
+#battle .round-summary .force.color-black .unit.destroyer .image{background-position:-280px -120px;}
+#battle .round-summary .force.color-black .unit.fighter .image{background-position:-280px -160px;}
+#battle .round-summary .force.color-black .unit.carrier .image{background-position:-280px -200px;}
+#battle .round-summary .force.color-black .unit.ground .image{background-position:-280px -240px;}
+#battle .round-summary .force.color-black .unit.pds .image{background-position:-280px -280px;}
+#battle .round-summary .force.color-black .unit.dock .image{background-position:-280px -320px;}
 #battle .round-summary .summary-actions{clear:both;text-align:right;}#battle .round-summary .summary-actions .btn{margin-left:12px;}
 #battle .round-summary .summary-actions .done{color:#999999;border-color:#999999;}
 #battle .round-summary .summary-actions .next-round{color:#0088cc;border-color:#0088cc;}
