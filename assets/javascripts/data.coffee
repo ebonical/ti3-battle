@@ -423,7 +423,7 @@ Data =
         { id: "warsun", amount: 1 }
         { id: "dock", amount: 1 }
       ]
-      technologies: "enviro-compensator,war-sun"
+      technologies: "enviro-compensator,war-sun,sarween-tools"
       leaders: ["general", "scientist", "diplomat"]
       modifiers: []
     }
