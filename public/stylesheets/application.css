@@ -393,4 +393,4 @@ a.disabled{opacity:0.2;filter:alpha(opacity=20);}
 .readme_overlay{margin:0 auto;width:1024px;min-height:100%;position:absolute;top:0;left:50%;margin-left:-512px;z-index:1000;background:#fafafa;}.readme_overlay .content{line-height:1.2em;padding:25px;width:750px;margin:0 auto;}.readme_overlay .content p{margin:1em 0;}
 .readme_overlay .back{position:absolute;top:15px;left:25px;margin:0;}.readme_overlay .back .btn{color:#666666;border-color:#666666;}
 .readme_overlay.loading{background:#fafafa url("/images/loader.gif") no-repeat 25px 25px;}.readme_overlay.loading .back{display:none;}
-@media (device-max-height:700px){#battle .round h1{font-size:2.8rem;padding:0.33em 0;}#battle .round h1 small{top:35px;} #battle .force{margin-top:16px;} #battle .battle-actions{margin-top:25px;}}
+@media (max-height:700px){#battle .round h1{font-size:2.8rem;padding:0.33em 0;}#battle .round h1 small{top:35px;} #battle .force{margin-top:16px;} #battle .battle-actions{margin-top:25px;}}
