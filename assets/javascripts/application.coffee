@@ -27,3 +27,7 @@ window.state =
 
 # init app
 window.App = new AppView
+
+window.addEventListener 'load', ->
+    new FastClick(document.body)
+, false
