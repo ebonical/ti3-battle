@@ -8,7 +8,6 @@ class BattleUnit extends Backbone.Model
     toughness: 1
     rolls: []
 
-
   initialize: ->
     @unit = @get "unit"
     @set(key, value) for key, value of @unit.attributes
@@ -16,7 +15,9 @@ class BattleUnit extends Backbone.Model
 
     @on "change:battleValueAdjustment", =>
       @applyModifiers()
-    @on "change:quantity", => @_checkSustainedDamageValue
+
+    @on "change:quantity", =>
+      @_checkSustainedDamageValue
 
 
   getBattleValue: ->
@@ -28,7 +29,7 @@ class BattleUnit extends Backbone.Model
     @set "battle", +value
 
   getQuantity: ->
-    @get("quantity")
+    @get("quantity") or 0
 
   getMaxQuantity: ->
     @get("maxQuantity") or 99
@@ -203,8 +204,10 @@ class BattleUnit extends Backbone.Model
 
   # When quantity changes make sure sustained damage doesn't exceed limits
   _checkSustainedDamageValue: ->
-    if (d = @getSustainedDamage()) > 0
-      @setSustainedDamage(d)
+    d = @getSustainedDamage()
+    q = @getQuantity()
+    if d > q
+      @setSustainedDamage(q)
 
 
   toJSON: ->
