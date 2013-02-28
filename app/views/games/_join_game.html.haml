@@ -1,0 +1,15 @@
+.join-game-view.hide
+  .back
+    %a.close-join-game.btn{ href:'#close-join-game' } X
+
+  %h1 Join Existing Game
+
+  .message
+    %p Enter the game code below and tap 'Start Game.'
+
+  %form
+    %input{ name: 'game-token', placeholder: 'Game Code' }
+    .error-message
+      %p Game token wasn’t found.
+    .form-actions
+      %button.primary{ type: "submit" } Start Game

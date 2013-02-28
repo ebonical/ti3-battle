@@ -1,17 +1,26 @@
-source :rubygems
+source "https://rubygems.org"
 
-gem 'sinatra', :require => 'sinatra/base'
-gem "coffee-script"
-gem "data_mapper"
+gem "rails", "3.2.11"
+
 gem "haml"
-gem "json"
 gem "redcarpet", "~> 2.2.2"
 
-group :production do
-  gem "pg"
-  gem "dm-postgres-adapter"
+group :developement do
+  gem "sqlite3"
 end
 
-group :development, :test do
-  gem "dm-sqlite-adapter"
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem "sass-rails",   "~> 3.2.3"
+  gem "coffee-rails", "~> 3.2.1"
+  gem "bootstrap-sass", "~> 2.3.0.1"
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
+
+  gem "uglifier", ">= 1.0.3"
 end
+
+gem "jquery-rails"

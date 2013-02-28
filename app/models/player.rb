@@ -1,15 +1,13 @@
-class Player
-  include DataMapper::Resource
-
-  property :id, Serial
-  property :name, String
-  property :number, Integer
-  property :color, String
-  property :race, String
-  property :technologies, Text
-  property :created_at, DateTime
+class Player < ActiveRecord::Base
   belongs_to :game
 
+  attr_accessible :name,
+                  :number,
+                  :color,
+                  :race,
+                  :technologies
+
+  #
   def to_s
     name
   end

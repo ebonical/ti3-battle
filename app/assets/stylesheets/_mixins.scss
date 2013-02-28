@@ -1,0 +1,28 @@
+@mixin reset {
+  padding:0;
+  margin:0;
+}
+
+@mixin horizontal-list {
+  @include reset;
+  li {
+    list-style:none;
+    display: inline-block;
+    @include reset;
+  }
+}
+
+@mixin text-inset($shadowColor: #FFF) {
+  text-shadow: 1px 1px $shadowColor;
+}
+
+@mixin font-size($targetSize, $base: $baseFontSize) {
+  $rem: ($targetSize / $base);
+  font-size: #{$rem}rem;
+}
+
+@mixin serif($size: $baseFontSize, $style: italic) {
+  @include font-family-serif;
+  font-style: $style;
+  @include font-size($size);
+}

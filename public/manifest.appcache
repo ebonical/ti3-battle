@@ -1,30 +1,22 @@
 CACHE MANIFEST
-# 2013-02-12:v2
+# 2013-02-28:v1
 
 /
-/stylesheets/application.css
-/javascripts/jquery.min.js
-/javascripts/underscore-min.js
-/javascripts/backbone-min.js
-/javascripts/bootstrap/bootstrap-transition.js
-/javascripts/bootstrap/bootstrap-modal.js
-/javascripts/jquery.deparam.min.js
-/javascripts/jquery.jsPlumb.min.js
-/javascripts/fastclick.min.js
-/javascripts/all.js
-/images/battle-value.png
-/images/btn-adjust-battle.png
-/images/btn-adjust-damage.png
-/images/btn-clear-damage.png
-/images/btn-clear-units.png
-/images/dice.png
-/images/sustained-damage.png
-/images/unit-damage.png
-/images/units-sm.png
-/images/units.png
-/images/research-tech.png
-/images/main-nav.png
-/images/loader.gif
+/assets/battle-value.png
+/assets/btn-adjust-battle.png
+/assets/btn-adjust-damage.png
+/assets/btn-clear-damage.png
+/assets/btn-clear-units.png
+/assets/dice.png
+/assets/loader.gif
+/assets/main-nav.png
+/assets/research-tech.png
+/assets/sustained-damage.png
+/assets/unit-damage.png
+/assets/units-sm.png
+/assets/units.png
+/assets/application.js
+/assets/application.css
 
 NETWORK:
 *

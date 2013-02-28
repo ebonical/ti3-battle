@@ -1,14 +1,10 @@
-class Game
-  include DataMapper::Resource
+class Game < ActiveRecord::Base
+  has_many :players
 
-  property :id, Serial
-  property :token, String
-  property :name, String
-  property :created_at, DateTime
+  before_create :set_token
 
-  has n, :players
-
-  before :create, :set_token
+  attr_accessible :name,
+                  :players_attributes
 
   def self.generate_token(n = 8)
     chars = ('a'..'z').to_a
@@ -17,12 +13,12 @@ class Game
 
   def players_attributes=(player_array = [])
     player_array.each do |k, player_attributes|
-      players << Player.new(player_attributes)
+      players.build player_attributes
     end
   end
 
-  def to_json(*args)
-    attributes.merge(players: players).to_json(*args)
+  def as_json(*)
+    attributes.merge(players: players)
   end
 
   private
@@ -30,6 +26,6 @@ class Game
   def set_token
     begin
       self.token = self.class.generate_token
-    end while Game.first(token: token)
+    end while Game.find_by_token(token)
   end
 end

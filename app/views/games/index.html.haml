@@ -1,0 +1,41 @@
+.main-nav.hide
+  %ul
+    %li.dashboard
+      %a{href:'#dashboard'} Dashboard
+    %li.battle
+      %a{href:'#battle'} Battle
+    %li.techtree
+      %a{href:'#techtree'} Technology
+    %li.sync
+      %a{href:'#sync'} Sync
+
+.container
+  .section#index
+    .game-options
+      .new-game
+        %a.btn{href:'#new-game'} New Game
+      .join-game
+        %a.btn{href:'#join-game'} Join Game
+      .readme
+        %a.btn{href:'#readme'} Read me
+
+    = render "new_game"
+    = render "join_game"
+    = render "game_created"
+
+  .section#start
+    = render "start_section"
+
+  .section#dashboard
+    = render "dashboard"
+
+  .section#battle
+    = render "battle_section"
+
+  .section#techtree
+    = render "technologies"
+
+  .readme_overlay.hide
+    .back
+      %a.close-readme.btn{ href:'#close-readme' } X
+    .content

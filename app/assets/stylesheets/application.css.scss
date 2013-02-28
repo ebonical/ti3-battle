@@ -1,0 +1,1620 @@
+@import "variables";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "mixins";
+@import "bootstrap/reset";
+@import "bootstrap/component-animations";
+@import "bootstrap/modals";
+
+html {
+  font-size:$baseFontSize;
+}
+body {
+  @include reset;
+  @include font-sans-serif;
+  color: $textColor;
+  background-color: $bodyBackground;
+}
+h1, h2, h3, h4 {
+  color: $headingsColor;
+  margin: 0;
+}
+h1 {
+  text-align: center;
+  font-weight: 200;
+  @include font-size(42px);
+  @include text-inset;
+  margin: 0;
+  padding: 0.476190476em 0;
+  line-height: 1;
+}
+p {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+
+// Top-level navigation
+.main-nav {
+  position: relative;
+  width: 1024px;
+  margin:auto;
+  z-index: 2;
+  ul {
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 1px; // reduce height so links below clickable
+    @include box-sizing(border-box);
+    padding: 0 12px;
+    top:5px;
+    left: 0;
+    li {
+      list-style: none;
+      float:left;
+      margin-right: 2px;
+    }
+  }
+  a {
+    text-indent: -9999px;
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    background: image-url("main-nav.png") no-repeat;
+  }
+  .battle a { background-position: -42px 0; }
+  .techtree a { background-position: -84px 0; }
+  .sync {
+    position: absolute;
+    right: 12px;
+    a {
+      background-position: -126px 0;
+    }
+    &.loading a {
+      background: image-url("loader.gif") center center no-repeat;
+    }
+  }
+  .active {
+    background-color: #E0EBE0;
+    @include border-radius(21px);
+  }
+}
+// Main area for content
+.container {
+  margin:auto;
+  width: 1024px;
+  overflow: hidden;
+}
+// Sections navigated to from main nav
+.section {
+  // height: 768px - 20px;
+  position: relative;
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+.btn, button {
+  font-weight: bold;
+  @include font-size(30px);
+  line-height: 45px;
+  color: #CCC;
+  border: 1px solid #CCC;
+  display: inline-block;
+  padding: 0 18px;
+  background: none;
+  &.primary {
+    color: $primaryBtnColor;
+    border-color: $primaryBtnColor;
+  }
+}
+.template {
+  display: none;
+}
+a.disabled {
+  @include opacity(20);
+}
+.message {
+  @include serif(16px);
+  color: #286386;
+  background-color: #D9EDF7;
+  border-top:1px solid #BCE8F1;
+  border-bottom:1px solid #BCE8F1;
+  line-height: 1.8rem;
+  text-align: center;
+}
+.color.swatch {
+  border: 1px solid #CCC;
+  text-align: center;
+  line-height: 100%;
+  &.red {
+    background-color: #F90000;
+  }
+  &.orange {
+    background-color: #F90;
+  }
+  &.yellow {
+    background-color: #FFEA00;
+  }
+  &.green {
+    background-color: #080;
+  }
+  &.blue {
+    background-color: #00F;
+  }
+  &.purple {
+    background-color: #800080;
+  }
+  &.gray {
+    background-color: #999;
+  }
+  &.black {
+    background-color: #000;
+  }
+  .random {
+    display: none;
+  }
+  &.random .random {
+    display: inline-block;
+    font-weight: bold;
+    @include font-size(30px);
+  }
+  a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+}
+.color-picker {
+  position: absolute;
+  z-index: 10;
+  .swatches {
+    position: absolute;
+    left: -37px;
+    top: -37px;
+    width: 112px;
+    height:112px;
+    @include box-shadow(0 0 5px #333);
+  }
+  .swatch {
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+  }
+  .color {
+    position: absolute;
+    float:none !important;
+    &.random {
+      background-color: #FFF;
+    }
+    &.color0 {
+      left: 0;
+      top: 0;
+    }
+    &.color1 {
+      left: 50%;
+      margin-left: -19px !important;
+      top: 0;
+    }
+    &.color2 {
+      right: 0;
+      top: 0;
+    }
+    &.color3 {
+      left: 0;
+      top: 50%;
+      margin-top: -19px !important;
+    }
+    &.color4 {
+      right: 0;
+      bottom: 50%;
+      margin-bottom: -19px !important;
+    }
+    &.color5 {
+      left: 0;
+      bottom:0;
+    }
+    &.color6 {
+      right: 50%;
+      margin-right: -19px !important;
+      bottom:0;
+    }
+    &.color7 {
+      right:0;
+      bottom:0;
+    }
+    // currently selected
+    &.color8 {
+      left: 50%;
+      top: 50%;
+      margin: -19px 0 0 -19px !important;
+    }
+  }
+}
+.option-picker {
+  .option {
+    @include font-size(24px);
+    padding: 5px 0;
+    font-weight: 200;
+    border-bottom: 1px solid #DDD;
+    text-align: center;
+    margin: 0 -22px;
+    a {
+      color: $textColor;
+      display: block;
+    }
+    &:first-child {
+      border-top: 1px solid #DDD;
+    }
+    &.selected {
+      background-color: #D0E6F6;
+    }
+  }
+}
+.back {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  margin: 0;
+  .btn {
+    color: $gray;
+    border-color: $gray;
+  }
+}
+#index {
+  .game-options {
+    text-align: center;
+    padding-top: 180px;
+    .btn {
+      width: 180px;
+      margin-bottom: 12px;
+    }
+    .new-game a {
+      color: $primaryBtnColor;
+      border-color: $primaryBtnColor;
+    }
+    .join-game a {
+      color: $cautionBtnColor;
+      border-color: $cautionBtnColor;
+    }
+  }
+  input {
+    border: none;
+    padding: 0;
+    margin: 0;
+    @include font-sans-serif(36px);
+    font-weight: 200;
+    background: none;
+    @include placeholder;
+  }
+  .new-game-view {
+    button {
+      color: $primaryBtnColor;
+      border-color: $primaryBtnColor;
+    }
+    form {
+      width: 940px;
+      margin: auto;
+      padding-top: 65px;
+    }
+    .player {
+      clear:both;
+      @include clearfix;
+      @include font-size(36px);
+      font-weight: 200;
+      margin-bottom: 18px;
+      .name {
+        float: left;
+        width: 35%;
+        input {
+          width: 100%;
+          text-align: right;
+        }
+      }
+      .color {
+        float: left;
+        width: 36px;
+        height: 36px;
+        margin: 0 20px;
+        a {
+          color: $gray;
+        }
+      }
+      .race {
+        float: left;
+        a {
+          color: $textColor;
+        }
+        &.random a {
+          color: $gray;
+        }
+      }
+    } //.player
+    .form-actions {
+      clear:both;
+      text-align: center;
+      padding-top: 25px;
+    }
+  } //.new-game-view
+  .game-created-view {
+    text-align: center;
+    .game-token {
+      font-weight: bold;
+      @include font-size(48px);
+      text-transform: uppercase;
+      margin: 50px 0;
+    }
+    .game-start {
+      .btn {
+        color:$primaryBtnColor;
+        border-color:$primaryBtnColor;
+      }
+    }
+  }
+  .join-game-view {
+    form {
+      text-align: center;
+      padding-top: 50px;
+      .error-message {
+        color: #C00;
+        display: none;
+        @include serif;
+      }
+      &.error {
+        .error-message {
+          display: block;
+        }
+        input {
+          color: #C00;
+        }
+      }
+    }
+    input {
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .form-actions {
+      margin-top: 50px;
+    }
+  }
+}
+#start {
+  .players {
+    margin-top: 20px;
+  }
+  .player {
+    clear:both;
+    @include font-size(36px);
+    padding-top: 0.611em;
+    a {
+      display: block;
+      color: $textColor;
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        @include box-sizing(border-box);
+        float:left;
+      }
+    }
+    .name {
+      width: 50%;
+      text-align: right;
+      padding-right: 75px;
+    }
+    .color {
+      position:absolute;
+      left: 50%;
+      width: 36px;
+      height: 36px;
+      margin-left: -53px;
+      span {
+        display: none;
+      }
+    }
+    .race {
+      width: 50%;
+    }
+  }
+}
+#battle {
+  .round {
+    text-align: center;
+    h1 {
+    }
+    .pre-combat {
+      display: none;
+    }
+    small {
+      position: absolute;
+      top:45px;
+      margin-left: 22px;
+      font-style: italic;
+      @include font-size(14px);
+    }
+    .skip-pre-combat {
+      display: none;
+      color: #08c;
+    }
+    &.zero {
+      .default {
+        display: none;
+      }
+      .pre-combat {
+        display: inline;
+      }
+      .skip-pre-combat {
+        display: inline-block;
+      }
+    }
+  } //.round
+  .battle-actions {
+    position: relative;
+    margin: 45px 40px 0;
+    text-align: right;
+    .btn {
+      margin-left: 12px;
+    }
+    .roll-dice {
+      color: $primaryBtnColor;
+      border-color: $primaryBtnColor;
+    }
+    .reset-dice {
+      color: $cautionBtnColor;
+      border-color: $cautionBtnColor;
+    }
+    .resolve-round {
+      color: $primaryBtnColor;
+      border-color: $primaryBtnColor;
+    }
+    .new-battle-action {
+      position: absolute;
+      left: 0;
+      .btn {
+        margin-left: 0;
+        margin-right: -1px;
+      }
+    }
+    .new-battle {
+      color: #BCB;
+      border-color: #BCB;
+    }
+    .new-space-combat {
+      color: #9F3F9F;
+      border-color: #9F3F9F;
+    }
+    .new-ground-combat {
+      color: #B18B65;
+      border-color: #B18B65;
+    }
+  } //.battle-actions
+  .force {
+    position: relative;
+    margin: 25px 50px 0;
+
+    & > h2 {
+      @include font-size(12px);
+      font-weight: 300;
+      line-height: 16px;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: bold;
+      border-bottom: 1px dashed #e0e0e0;
+    }
+
+    h3.name {
+      font-weight: normal;
+      margin: 12px 0;
+      .race {
+        @include font-size(26px);
+        margin-right: 4px;
+        color: $textColor;
+      }
+      .player {
+        @include serif(20px);
+        color: $gray;
+      }
+    }
+    .damage {
+      display: none;
+    }
+    .order-of-battle {
+      margin: 0 -20px;
+      height: 165px;
+      @include clearfix;
+    }
+
+    .unit {
+      position: relative;
+      width: 135px;
+      height: 165px;
+      float: left;
+      border-right: 1px dashed #E0E0E0;
+      &:last-child { border-right: none; }
+      margin-right: 5px;
+      .image {
+        position: absolute;
+        top: 42px;
+        left: 8px;
+        width: 77px;
+        height: 77px;
+        z-index: 1;
+        overflow: hidden;
+        background: image-url("units.png") no-repeat;
+      }
+      .name {
+        display: none;
+      }
+      .battle {
+        z-index: 2;
+        position: absolute;
+        top: 34px;
+        left:0px;
+        @include font-size(16px);
+        font-weight: bold;
+        background: image-url("battle-value.png") no-repeat;
+        height: 30px;
+        width: 30px;
+        .value {
+          display: block;
+          line-height: 30px;
+          text-align: center;
+        }
+        span {
+          display: none;
+        }
+      }
+      .dice {
+        position: absolute;
+        top:29px;
+        left:3px;
+        height: 3px;
+        width: 35px;
+        background: image-url("dice.png") no-repeat;
+        strong, span {
+          display: none;
+        }
+        &.dice-1 {
+          display: none;
+        }
+        &.dice-2 {
+          background-position:-24px 0;
+        }
+        &.dice-3 {
+          background-position:-18px 0;
+        }
+        &.dice-4 {
+          background-position:-12px 0;
+        }
+        &.dice-5 {
+          background-position:-6px 0;
+        }
+        &.dice-6 {
+          // background-position:0px 0;
+        }
+      }
+      @mixin battle-force-unit-quantity {
+        position: absolute;
+        top:0px;
+        right: 6px;
+        width: 40px;
+        text-align: center;
+        font-weight: bold;
+        line-height: 1;
+        .value {
+          color: #454F60;
+          @include font-size(57px);
+          line-height: 63px;
+        }
+        &.double .value {
+          @include font-size(40px);
+        }
+        a {
+          display: block;
+          @include font-size(48px);
+          color: #9FA4C0;
+          &.decrease {
+            line-height: 35px;
+          }
+        }
+      }
+      .quantity {
+        @include battle-force-unit-quantity;
+      }
+      .adjust-battle-values {
+        display: none;
+        // #battle > .force > .unit > .quantity;
+        @include battle-force-unit-quantity;
+        .value {
+          @include font-size(35px);
+        }
+        &.positive {
+          .value {
+            color: #060;
+          }
+        }
+        &.negative {
+          .value {
+            color: #600;
+          }
+        }
+      }
+      .damage {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        a {
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: block;
+          width: 100%;
+          height: 100%;
+          @include hide-text;
+          z-index: 2;
+        }
+        .value {
+          position: absolute;
+          top: 17px;
+          right: 23px;
+          background: image-url("unit-damage.png") no-repeat;
+          width: 66px;
+          height: 66px;
+          display: block;
+          text-align: center;
+          font-weight: bold;
+          @include font-size(28px);
+          line-height: 66px;
+          color: #FFF;
+          text-shadow: 1px 1px $grayDarker;
+          z-index: 1;
+        }
+        &.zero {
+          .value {
+            display: none;
+          }
+        }
+      }
+      .sustained-damage {
+        position: absolute;
+        top: 120px;
+        height: 17px;
+        &.zero, span.label, span.value, a {
+          display: none;
+        }
+        .sustained {
+          display: inline-block;
+          width: 17px;
+          height: 17px;
+          background: image-url("sustained-damage.png") no-repeat;
+          overflow: hidden;
+        }
+      }
+      .rolls {
+        position: absolute;
+        top: 125px;
+        margin-left: 10px;
+        margin-right: 15px;
+        @include serif(18px, normal);
+        .hit {
+          color: #080;
+        }
+        .miss {
+          color: $grayLight;
+        }
+      }
+    } //.unit
+    &.color-red .unit {
+      &.warsun .image {
+        background-position:0px 0px;
+      }
+      &.dreadnought .image {
+        background-position:0px -77px;
+      }
+      &.cruiser .image {
+        background-position:0px -154px;
+      }
+      &.destroyer .image {
+        background-position:0px -231px;
+      }
+      &.fighter .image {
+        background-position:0px -308px;
+      }
+      &.carrier .image {
+        background-position:0px -385px;
+      }
+      &.ground .image {
+        background-position:0px -462px;
+      }
+      &.pds .image {
+        background-position:0px -539px;
+      }
+      &.dock .image {
+        background-position:0px -616px;
+      }
+    }
+    &.color-orange .unit {
+      &.warsun .image {
+        background-position:-77px 0px;
+      }
+      &.dreadnought .image {
+        background-position:-77px -77px;
+      }
+      &.cruiser .image {
+        background-position:-77px -154px;
+      }
+      &.destroyer .image {
+        background-position:-77px -231px;
+      }
+      &.fighter .image {
+        background-position:-77px -308px;
+      }
+      &.carrier .image {
+        background-position:-77px -385px;
+      }
+      &.ground .image {
+        background-position:-77px -462px;
+      }
+      &.pds .image {
+        background-position:-77px -539px;
+      }
+      &.dock .image {
+        background-position:-77px -616px;
+      }
+    }
+    &.color-yellow .unit {
+      &.warsun .image {
+        background-position:-154px 0px;
+      }
+      &.dreadnought .image {
+        background-position:-154px -77px;
+      }
+      &.cruiser .image {
+        background-position:-154px -154px;
+      }
+      &.destroyer .image {
+        background-position:-154px -231px;
+      }
+      &.fighter .image {
+        background-position:-154px -308px;
+      }
+      &.carrier .image {
+        background-position:-154px -385px;
+      }
+      &.ground .image {
+        background-position:-154px -462px;
+      }
+      &.pds .image {
+        background-position:-154px -539px;
+      }
+      &.dock .image {
+        background-position:-154px -616px;
+      }
+    }
+    &.color-green .unit {
+      &.warsun .image {
+        background-position:-231px 0px;
+      }
+      &.dreadnought .image {
+        background-position:-231px -77px;
+      }
+      &.cruiser .image {
+        background-position:-231px -154px;
+      }
+      &.destroyer .image {
+        background-position:-231px -231px;
+      }
+      &.fighter .image {
+        background-position:-231px -308px;
+      }
+      &.carrier .image {
+        background-position:-231px -385px;
+      }
+      &.ground .image {
+        background-position:-231px -462px;
+      }
+      &.pds .image {
+        background-position:-231px -539px;
+      }
+      &.dock .image {
+        background-position:-231px -616px;
+      }
+    }
+    &.color-blue .unit {
+      &.warsun .image {
+        background-position:-308px 0px;
+      }
+      &.dreadnought .image {
+        background-position:-308px -77px;
+      }
+      &.cruiser .image {
+        background-position:-308px -154px;
+      }
+      &.destroyer .image {
+        background-position:-308px -231px;
+      }
+      &.fighter .image {
+        background-position:-308px -308px;
+      }
+      &.carrier .image {
+        background-position:-308px -385px;
+      }
+      &.ground .image {
+        background-position:-308px -462px;
+      }
+      &.pds .image {
+        background-position:-308px -539px;
+      }
+      &.dock .image {
+        background-position:-308px -616px;
+      }
+    }
+    &.color-purple .unit {
+      &.warsun .image {
+        background-position:-385px 0px;
+      }
+      &.dreadnought .image {
+        background-position:-385px -77px;
+      }
+      &.cruiser .image {
+        background-position:-385px -154px;
+      }
+      &.destroyer .image {
+        background-position:-385px -231px;
+      }
+      &.fighter .image {
+        background-position:-385px -308px;
+      }
+      &.carrier .image {
+        background-position:-385px -385px;
+      }
+      &.ground .image {
+        background-position:-385px -462px;
+      }
+      &.pds .image {
+        background-position:-385px -539px;
+      }
+      &.dock .image {
+        background-position:-385px -616px;
+      }
+    }
+    &.color-gray .unit {
+      &.warsun .image {
+        background-position:-462px 0px;
+      }
+      &.dreadnought .image {
+        background-position:-462px -77px;
+      }
+      &.cruiser .image {
+        background-position:-462px -154px;
+      }
+      &.destroyer .image {
+        background-position:-462px -231px;
+      }
+      &.fighter .image {
+        background-position:-462px -308px;
+      }
+      &.carrier .image {
+        background-position:-462px -385px;
+      }
+      &.ground .image {
+        background-position:-462px -462px;
+      }
+      &.pds .image {
+        background-position:-462px -539px;
+      }
+      &.dock .image {
+        background-position:-462px -616px;
+      }
+    }
+    &.color-black .unit {
+      &.warsun .image {
+        background-position:-539px 0px;
+      }
+      &.dreadnought .image {
+        background-position:-539px -77px;
+      }
+      &.cruiser .image {
+        background-position:-539px -154px;
+      }
+      &.destroyer .image {
+        background-position:-539px -231px;
+      }
+      &.fighter .image {
+        background-position:-539px -308px;
+      }
+      &.carrier .image {
+        background-position:-539px -385px;
+      }
+      &.ground .image {
+        background-position:-539px -462px;
+      }
+      &.pds .image {
+        background-position:-539px -539px;
+      }
+      &.dock .image {
+        background-position:-539px -616px;
+      }
+    }
+    .force-actions {
+      position: absolute;
+      top: 115px;
+      right: -30px;
+      line-height: 22px;
+      @include font-size(12px);
+      width: 110px;
+      a {
+        color: $grayDark;
+        padding-left: 21px;
+        display: inline-block;
+      }
+      .clear-units a {
+        background: image-url("btn-clear-units.png") no-repeat left center;
+      }
+      .adjust-battle-values a {
+        background: image-url("btn-adjust-battle.png") no-repeat left center;
+      }
+      .adjust-damage-values a {
+        background: image-url("btn-adjust-damage.png") no-repeat left center;
+      }
+      .clear-damage a {
+        background: image-url("btn-clear-damage.png") no-repeat left center;
+      }
+    }
+    & > .damage {
+      position: absolute;
+      top: 31px;
+      right: -25px;
+      @include font-size(14px);
+      font-weight: lighter;
+      width: 220px;
+      div {
+        display: inline-block;
+        position: absolute;
+      }
+      .hits-from-opponent {
+        border-right: 1px solid #CCC;
+        padding-right: 8px;
+        text-align: right;
+        right: 50%;
+        color: #C00;
+        &.zero {
+          color: inherit;
+        }
+      }
+      .damage-applied {
+        display: inline-block;
+        border-left: 1px solid #FFF;
+        padding-left: 5px;
+        left: 50%;
+      }
+      .label {
+        display: block;
+      }
+      .value {
+        font-weight: bold;
+        @include font-size(24px);
+      }
+    }
+  } //.force
+  &.ground {
+    .force.attacker {
+      .unit.fighter, .unit.pds {
+        visibility: hidden;
+      }
+    }
+    .force.defender {
+      .unit.warsun, .unit.dreadnought, .unit.fighter {
+        visibility: hidden;
+      }
+    }
+  }
+  .phase-message {
+    .after-dice {
+      display: none;
+    }
+  }
+  .round-summary {
+    $summaryWidth: 940px;
+    width: ($summaryWidth - (22 * 2)) !important;
+    margin-left: ($summaryWidth / -2);
+
+    h2 .win, h2 .draw {
+      display: none;
+    }
+    h3.round {
+      display: none;
+    }
+    // Battle states: someone has won, or it's a draw. default is 'continue'
+    &.win {
+      h2 .win {
+        display: inline;
+      }
+      h2 .continue {
+        display: none;
+      }
+    }
+    &.draw {
+      h2 .draw {
+        display: inline;
+      }
+      h2 .continue {
+        display: none;
+      }
+    }
+    .force {
+      float: left;
+      width: 50%;
+      @include box-sizing(border-box);
+      margin: 25px 0;
+      &:first-child {
+        padding-right: 20px;
+      }
+      .stance {
+        text-transform: capitalize;
+        @include font-size(14px);
+        font-weight: 200;
+      }
+      h4 {
+        @include font-size(18px);
+        font-weight: normal;
+        .player {
+          @include serif(14px);
+          color: $gray;
+        }
+      }
+      .overview {
+        @include serif;
+        margin: 12px 0;
+        color: $gray;
+      }
+      .units {
+        margin: 0;
+        padding: 0;
+      }
+      .unit {
+        display: block;
+        width: auto;
+        height: auto;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        float:none;
+        span {
+          position: static;
+        }
+        .name {
+          display: none;
+        }
+        .battle {
+          display: none;
+        }
+        .image {
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          background-image: image-url("units-sm.png");
+          vertical-align: middle;
+        }
+        .rolls {
+          margin: 0 3px;
+        }
+        .losses {
+          color: #C00;
+          @include serif;
+          white-space: nowrap;
+          &.zero {
+            display: none;
+          }
+        }
+      }
+      &.color-red .unit {
+        &.warsun .image {
+          background-position:0px 0px;
+        }
+        &.dreadnought .image {
+          background-position:0px -40px;
+        }
+        &.cruiser .image {
+          background-position:0px -80px;
+        }
+        &.destroyer .image {
+          background-position:0px -120px;
+        }
+        &.fighter .image {
+          background-position:0px -160px;
+        }
+        &.carrier .image {
+          background-position:0px -200px;
+        }
+        &.ground .image {
+          background-position:0px -240px;
+        }
+        &.pds .image {
+          background-position:0px -280px;
+        }
+        &.dock .image {
+          background-position:0px -320px;
+        }
+      }
+      &.color-orange .unit {
+        &.warsun .image {
+          background-position:-40px 0px;
+        }
+        &.dreadnought .image {
+          background-position:-40px -40px;
+        }
+        &.cruiser .image {
+          background-position:-40px -80px;
+        }
+        &.destroyer .image {
+          background-position:-40px -120px;
+        }
+        &.fighter .image {
+          background-position:-40px -160px;
+        }
+        &.carrier .image {
+          background-position:-40px -200px;
+        }
+        &.ground .image {
+          background-position:-40px -240px;
+        }
+        &.pds .image {
+          background-position:-40px -280px;
+        }
+        &.dock .image {
+          background-position:-40px -320px;
+        }
+      }
+      &.color-yellow .unit {
+        &.warsun .image {
+          background-position:-80px 0px;
+        }
+        &.dreadnought .image {
+          background-position:-80px -40px;
+        }
+        &.cruiser .image {
+          background-position:-80px -80px;
+        }
+        &.destroyer .image {
+          background-position:-80px -120px;
+        }
+        &.fighter .image {
+          background-position:-80px -160px;
+        }
+        &.carrier .image {
+          background-position:-80px -200px;
+        }
+        &.ground .image {
+          background-position:-80px -240px;
+        }
+        &.pds .image {
+          background-position:-80px -280px;
+        }
+        &.dock .image {
+          background-position:-80px -320px;
+        }
+      }
+      &.color-green .unit {
+        &.warsun .image {
+          background-position:-120px 0px;
+        }
+        &.dreadnought .image {
+          background-position:-120px -40px;
+        }
+        &.cruiser .image {
+          background-position:-120px -80px;
+        }
+        &.destroyer .image {
+          background-position:-120px -120px;
+        }
+        &.fighter .image {
+          background-position:-120px -160px;
+        }
+        &.carrier .image {
+          background-position:-120px -200px;
+        }
+        &.ground .image {
+          background-position:-120px -240px;
+        }
+        &.pds .image {
+          background-position:-120px -280px;
+        }
+        &.dock .image {
+          background-position:-120px -320px;
+        }
+      }
+      &.color-blue .unit {
+        &.warsun .image {
+          background-position:-160px 0px;
+        }
+        &.dreadnought .image {
+          background-position:-160px -40px;
+        }
+        &.cruiser .image {
+          background-position:-160px -80px;
+        }
+        &.destroyer .image {
+          background-position:-160px -120px;
+        }
+        &.fighter .image {
+          background-position:-160px -160px;
+        }
+        &.carrier .image {
+          background-position:-160px -200px;
+        }
+        &.ground .image {
+          background-position:-160px -240px;
+        }
+        &.pds .image {
+          background-position:-160px -280px;
+        }
+        &.dock .image {
+          background-position:-160px -320px;
+        }
+      }
+      &.color-purple .unit {
+        &.warsun .image {
+          background-position:-200px 0px;
+        }
+        &.dreadnought .image {
+          background-position:-200px -40px;
+        }
+        &.cruiser .image {
+          background-position:-200px -80px;
+        }
+        &.destroyer .image {
+          background-position:-200px -120px;
+        }
+        &.fighter .image {
+          background-position:-200px -160px;
+        }
+        &.carrier .image {
+          background-position:-200px -200px;
+        }
+        &.ground .image {
+          background-position:-200px -240px;
+        }
+        &.pds .image {
+          background-position:-200px -280px;
+        }
+        &.dock .image {
+          background-position:-200px -320px;
+        }
+      }
+      &.color-gray .unit {
+        &.warsun .image {
+          background-position:-240px 0px;
+        }
+        &.dreadnought .image {
+          background-position:-240px -40px;
+        }
+        &.cruiser .image {
+          background-position:-240px -80px;
+        }
+        &.destroyer .image {
+          background-position:-240px -120px;
+        }
+        &.fighter .image {
+          background-position:-240px -160px;
+        }
+        &.carrier .image {
+          background-position:-240px -200px;
+        }
+        &.ground .image {
+          background-position:-240px -240px;
+        }
+        &.pds .image {
+          background-position:-240px -280px;
+        }
+        &.dock .image {
+          background-position:-240px -320px;
+        }
+      }
+      &.color-black .unit {
+        &.warsun .image {
+          background-position:-280px 0px;
+        }
+        &.dreadnought .image {
+          background-position:-280px -40px;
+        }
+        &.cruiser .image {
+          background-position:-280px -80px;
+        }
+        &.destroyer .image {
+          background-position:-280px -120px;
+        }
+        &.fighter .image {
+          background-position:-280px -160px;
+        }
+        &.carrier .image {
+          background-position:-280px -200px;
+        }
+        &.ground .image {
+          background-position:-280px -240px;
+        }
+        &.pds .image {
+          background-position:-280px -280px;
+        }
+        &.dock .image {
+          background-position:-280px -320px;
+        }
+      }
+    } //.force
+    .summary-actions {
+      clear: both;
+      text-align: right;
+      .btn {
+        margin-left: 12px;
+      }
+      .done {
+        color: $grayLight;
+        border-color: $grayLight;
+      }
+      .next-round {
+        color: $primaryBtnColor;
+        border-color: $primaryBtnColor;
+      }
+      .start-invasion-combat {
+        color: #B18B65;
+        border-color: #B18B65;
+      }
+    }
+    &.finished {
+      .done {
+        color: $primaryBtnColor;
+        border-color: $primaryBtnColor;
+      }
+    }
+  }
+
+
+  .reset-dice.btn {
+    display: none;
+  }
+
+  .resolve-round.btn {
+    display: none;
+  }
+
+  .adjusting-battle-values {
+    .unit {
+      .quantity {
+        display: none;
+      }
+      .adjust-battle-values {
+        display: block;
+      }
+    }
+  }
+
+  // After dice have been rolled we start applying damage
+  &.dice-rolled {
+    .hits-from-opponent {
+      display: block;
+    }
+    .unit .quantity a {
+      visibility: hidden;
+    }
+    .damage {
+      display: block;
+    }
+
+    .roll-dice.btn {
+      display: none;
+    }
+    .reset-dice.btn {
+      display: inline-block;
+    }
+    .resolve-round.btn {
+      display: inline-block;
+    }
+    .before-dice {
+      display: none;
+    }
+    .order-of-battle .unit.zero {
+      @include opacity(50);
+    }
+    .phase-message {
+      color: $warningText;
+      background-color: $warningBackground;
+      border-color: $warningBorder;
+      .setup {
+        display: none;
+      }
+      .after-dice {
+        display: block;
+      }
+    }
+  }
+
+  &.round-resolved {
+    .reset-dice.btn {
+      display: none;
+    }
+  }
+  // applied ability modifiers
+  &.ground .force.attacker.mod-tech-graviton-negator-fighter .unit.fighter {
+    visibility: visible;
+  }
+} //#battle
+#techtree {
+  .technologies {
+    margin-top: 8px;
+  }
+  .techlevel {
+    @include clearfix;
+    padding:0 20px 42px;
+    .category {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+  .tech {
+    float:left;
+    text-align: center;
+    width: 138px;
+    border: 1px solid #999;
+    border-top: none;
+    position: relative;
+    .name {
+      @include font-size(10px);
+      text-transform: uppercase;
+      background-color: #999;
+      color: #FFF;
+      padding: 3px 5px;
+    }
+    .description {
+      @include serif(12px);
+      padding: 3px 4px 7px;
+    }
+    .action {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      width: 25px;
+      height: 25px;
+      overflow: hidden;
+      background: image-url("research-tech.png") -25px top no-repeat;
+      z-index: 1;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      span {
+        display: none;
+      }
+    }
+    &.researched {
+      .action {
+        background-position: 0 0;
+      }
+    }
+    &.blue {
+      border-color: #0167FF;
+      .name {
+        background-color: #0167FF;
+      }
+    }
+    &.green {
+      border-color: #009900;
+      .name {
+        background-color: #009900;
+      }
+    }
+    &.yellow {
+      border-color: #CF910E;
+      .name {
+        background-color: #CF910E;
+      }
+    }
+    &.red {
+      border-color: #c00;
+      .name {
+        background-color: #c00;
+      }
+    }
+  }
+} //#techtree
+.techlevel {
+  &.level-2 {
+    padding-bottom: 65px !important;
+  }
+  &.level-3 {
+    padding-bottom: 55px !important;
+  }
+}
+.tech {
+  &.enviro-compensator { margin-left: 95px; }
+  &.antimass-deflectors { margin-left: 101px; }
+  &.hylar-v-assault-laser { margin-left: 260px; }
+  // level2
+  &.stasis-capsules { margin-left: 78px; }
+  &.xrd-transporters { margin-left: 62px; }
+  &.automated-defense-turrets { margin-left: 68px; }
+  &.deep-space-cannon { margin-left: 72px; }
+  &.l-3 { margin-left: 28px; }
+  &.micro-technology { margin-left: 0; }
+  &.l-4 { margin-left: 28px; }
+  &.integrated-economy { margin-left: 0; }
+  &.dacxive-animators { margin-left: 168px; }
+  &.hyper-metabolism { margin-left: 100px; }
+  &.type-iv-drive { margin-left: 37px; }
+  &.transit-diodes { margin-left: 290px; }
+  &.advanced-fighters { margin-left: 80px; }
+  &.graviton-negator { margin-left: 80px; }
+  &.fleet-logistics { margin-left: 650px; }
+  &.x-89-bacterial-weapon { margin-left: 50px; }
+}
+
+.hidden, .hide {
+  display: none;
+}
+.invisible {
+  visibility: hidden;
+}
+.modal {
+  border-color: #aaa;
+  padding: 22px;
+  background: #f4f4f4;
+  h2.heading {
+    font-weight: 200;
+    @include font-size(42px);
+    text-shadow: 1px 1px #fff;
+    text-align: center;
+    strong {
+      font-weight: normal;
+    }
+  }
+}
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  @include opacity(50);
+}
+.readme_overlay {
+  margin: 0 auto;
+  width: 1024px;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -512px;
+  z-index: 1000;
+  background: $bodyBackground;
+  .content {
+    line-height: 1.2em;
+    padding: 25px;
+    width: 750px;
+    margin: 0 auto;
+    p {
+      margin: 1em 0;
+    }
+  }
+  &.loading {
+    .back {
+      display: none;
+    }
+    background: $bodyBackground image-url("loader.gif") no-repeat 25px 25px;
+  }
+}
+
+@media (max-height: 700px) {
+  #battle {
+    .round h1 {
+      font-size: 2.8rem;
+      padding:0.33em 0;
+      small {
+        top:35px;
+      }
+    }
+    .force {
+      margin-top: 16px;
+    }
+    .battle-actions {
+      margin-top: 25px;
+    }
+  }
+}
