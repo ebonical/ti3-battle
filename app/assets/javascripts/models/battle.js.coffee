@@ -49,7 +49,8 @@ class ti3.Battle extends Backbone.Model
       force.reset()
 
       for unit in ti3.Units.where(conditions)
-        force.addUnit unit, 0
+        if state.game.usingExpansion(unit.getExpansion())
+          force.addUnit unit, 0
 
       force.resetModifiers(combatType)
 
@@ -147,17 +148,26 @@ class ti3.Battle extends Backbone.Model
       mustIgnorePds = @preCombatPhases.pdsFire
       units = _.filter @attacker.units, (unit) ->
         unit.hasUnits() and unit.canBombard() and (not mustIgnorePds or unit.canIgnorePds())
+
       # Roll dice for each ship that can bombard and apply any hits to defending Ground Forces
-      groundForces = @defender.getUnit("ground")
+      totalHits = 0
       for unit in units
         unit.rollDice()
-        groundForces.adjustDamageBy unit.getHits()
+        totalHits += unit.getHits()
 
-    # PDS Fire - damages attacking Ground Forces
+      # If we're only applying to 1 active ground force type
+      groundForces = @defender.getUnitsWith hasUnits: true, activeGroundCombatUnit: true
+      if groundForces.length == 1
+        groundForces[0].adjustDamageBy totalHits
+
+    # PDS Fire - damages ATTACKING Ground Forces & Shock Troops
     if @preCombatPhases.pdsFire
       pds = @defender.getUnit("pds")
       pds.rollDice()
-      @attacker.getUnit("ground").adjustDamageBy pds.getHits()
+
+      groundForces = @attacker.getUnitsWith hasUnits: true, activeGroundCombatUnit: true
+      if groundForces.length == 1
+        groundForces[0].adjustDamageBy pds.getHits()
 
   # If player A changes then it sends its own modifiers to opponent
   # they must also check if opponent has modifiers for them too
@@ -262,24 +272,26 @@ class ti3.Battle extends Backbone.Model
     test = attacker: {}, defender: {}
 
     for force in [@attacker, @defender]
-      test[force.id].hasGroundForces = _.any force.units, (unit) ->
-        unit.id is "ground" and unit.hasUnits()
+      # Does the force have any active ground units?
+      units = force.getUnitsWith hasUnits: true, activeGroundCombatUnit: true
+      test[force.id].hasGroundForces = units.length > 0
 
       if force.id is "attacker"
         # 2. Bombard
-        test[force.id].hasBombard = _.any force.units, (unit) ->
-          unit.canBombard() and unit.hasUnits()
+        units = force.getUnitsWith hasUnits: true, bombard: true
+        test[force.id].hasBombard = units.length > 0
 
+        # 2b. Ignoring PDS defense
         if test[force.id].hasBombard
-          test[force.id].hasIgnorePds = _.any force.units, (unit) ->
-            unit.canIgnorePds() and unit.hasUnits()
+          units = force.getUnitsWith hasUnits: true, ignorePds: true
+          test[force.id].hasIgnorePds = units.length > 0
 
       if force.id is "defender"
         # 1. PDS fire
-        test[force.id].hasPds = _.any force.units, (unit) ->
-          unit.id is "pds" and unit.hasUnits()
+        units = force.getUnitsWith hasUnits: true, id: "pds"
+        test[force.id].hasPds = units.length > 0
 
-    # Check that if Defender has PDS then Attacker can still bombard
+    # If defender has PDS then attacker must be able to ignore it
     if test.defender.hasPds and test.attacker.hasBombard
       test.attacker.hasBombard = test.attacker.hasIgnorePds
 

@@ -48,6 +48,9 @@ class ti3.BattleUnit extends Backbone.Model
   getDamage: ->
     @get("damage") or 0
 
+  getExpansion: ->
+    @get("expansion")
+
   setDamage: (damage) ->
     if damage < 0 or @getQuantity() is 0
       damage = 0

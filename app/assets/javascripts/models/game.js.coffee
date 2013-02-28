@@ -3,6 +3,7 @@ class ti3.Game extends Backbone.Model
     name: "Unnamed Game"
     token: null
     players: []
+    expansionsInUse: ['se']
 
   initialize: ->
     if _.isArray @get("players")
@@ -23,6 +24,12 @@ class ti3.Game extends Backbone.Model
   getPlayer: (number) ->
     _.find @players, (p) ->
       p.getNumber() is number
+
+  usingExpansion: (code) ->
+    if code?
+      @get("expansionsInUse").indexOf(code) > -1
+    else
+      true
 
   update: ->
     @fetch

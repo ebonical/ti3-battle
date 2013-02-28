@@ -90,6 +90,17 @@ ti3.Data =
       activeGroundCombatUnit: true
     }
     {
+      id: "shock"
+      name: "Shock Troops"
+      cost: 1
+      battle: 5
+      move: 0
+      inSpaceCombat: false
+      inGroundCombat: true
+      activeGroundCombatUnit: true
+      expansion: "se"
+    }
+    {
       id: "pds"
       name: "PDS"
       cost: 2
