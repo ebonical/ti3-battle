@@ -5,6 +5,10 @@ gem "rails", "3.2.11"
 gem "haml"
 gem "redcarpet", "~> 2.2.2"
 
+group :production do
+  gem "pg"
+end
+
 group :developement do
   gem "sqlite3"
 end
