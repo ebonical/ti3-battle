@@ -715,8 +715,8 @@ a.disabled {
     } //.unit
     $colorIndex: 0;
     $unitIndex: 0;
-    @each $color in red, orange, yellow, green, blue, purple, gray, black {
-      @each $unit in warsun, dreadnought, cruiser, destroyer, fighter, carrier, ground, pds, dock {
+    @each $color in "red", "orange", "yellow", "green", "blue", "purple", "gray", "black" {
+      @each $unit in "warsun", "dreadnought", "cruiser", "destroyer", "fighter", "carrier", "ground", "pds", "dock" {
         &.color-#{$color} .unit {
           &.#{$unit} .image {
             background-position: (-77px * $colorIndex) (-77px * $unitIndex);
@@ -928,8 +928,8 @@ a.disabled {
       }
       $colorIndex: 0;
       $unitIndex: 0;
-      @each $color in red, orange, yellow, green, blue, purple, gray, black {
-        @each $unit in warsun, dreadnought, cruiser, destroyer, fighter, carrier, ground, pds, dock {
+      @each $color in "red", "orange", "yellow", "green", "blue", "purple", "gray", "black" {
+        @each $unit in "warsun", "dreadnought", "cruiser", "destroyer", "fighter", "carrier", "ground", "pds", "dock" {
           &.color-#{$color} .unit {
             &.#{$unit} .image {
               background-position: (-40px * $colorIndex) (-40px * $unitIndex);
