@@ -6,6 +6,14 @@ ti3.Data =
     }
   ]
 
+  optionalRules: [
+    {
+      id: "shock_troops"
+      name: "Shock Troops"
+      expansion: "se"
+    }
+  ]
+
   units: [
     {
       id: "warsun"
@@ -98,7 +106,7 @@ ti3.Data =
       inSpaceCombat: false
       inGroundCombat: true
       activeGroundCombatUnit: true
-      expansion: "se"
+      optionalRule: "shock_troops"
     }
     {
       id: "pds"

@@ -33,8 +33,7 @@
           %span.battle {{battle}}
           %span.rolls {{rolls}}
           %span.losses{ class: "{{zeroCss(losses)}}" }
-            Remove
-            %span.value {{losses}}
+            %span.value -{{losses}}
             {{name.pluralize(losses)}}
 
   .summary-actions

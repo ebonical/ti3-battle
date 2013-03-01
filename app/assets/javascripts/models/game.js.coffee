@@ -4,6 +4,7 @@ class ti3.Game extends Backbone.Model
     token: null
     players: []
     expansionsInUse: ['se']
+    optionalRulesInUse: ['shock_troops']
 
   initialize: ->
     if _.isArray @get("players")
@@ -26,10 +27,10 @@ class ti3.Game extends Backbone.Model
       p.getNumber() is number
 
   usingExpansion: (code) ->
-    if code?
-      @get("expansionsInUse").indexOf(code) > -1
-    else
-      true
+    code is "base" or @get("expansionsInUse").indexOf(code) > -1
+
+  usingOptionalRule: (code) ->
+    code is "none" or @get("optionalRulesInUse").indexOf(code)> -1
 
   update: ->
     @fetch

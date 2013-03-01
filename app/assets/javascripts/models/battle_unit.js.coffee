@@ -51,6 +51,12 @@ class ti3.BattleUnit extends Backbone.Model
   getExpansion: ->
     @get("expansion")
 
+  getOptionalRule: ->
+    @get("optionalRule")
+
+  isOptional: ->
+    @getOptionalRule() != "none"
+
   setDamage: (damage) ->
     if damage < 0 or @getQuantity() is 0
       damage = 0
@@ -172,10 +178,17 @@ class ti3.BattleUnit extends Backbone.Model
       @setSafeValue(mod.key, value)
     # Apply battle value modifier from user input
 
-
-
   rollDice: ->
-    @setDiceRolls ti3.Dice.roll(@getQuantity() * @getDice())
+    rolls = ti3.Dice.roll(@getQuantity() * @getDice())
+
+    # Ground Forces promote to Shock Troops
+    if @id is "ground" and state.game.usingOptionalRule("shock_troops")
+      tens = _.filter rolls, (n) -> n is 10
+      @_promotions = tens.length
+    else
+      @_promotions = 0
+
+    @setDiceRolls(rolls)
 
   setDiceRolls: (rolls) ->
     hits = 0
@@ -185,6 +198,9 @@ class ti3.BattleUnit extends Backbone.Model
 
   hitTest: (value) ->
     value >= @getBattleValue()
+
+  getPromotions: ->
+    @_promotions or 0
 
   # After dice have been rolled and damage has been attached to each unit group
   # then reduce quantities by damage level applied

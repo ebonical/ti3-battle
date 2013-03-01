@@ -49,7 +49,7 @@ class ti3.Battle extends Backbone.Model
       force.reset()
 
       for unit in ti3.Units.where(conditions)
-        if state.game.usingExpansion(unit.getExpansion())
+        if state.game.usingOptionalRule(unit.getOptionalRule())
           force.addUnit unit, 0
 
       force.resetModifiers(combatType)
