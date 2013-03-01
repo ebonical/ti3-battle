@@ -15,11 +15,4 @@ window.zeroCss = (n) ->
   if n is 0 then "zero" else ""
 
 $ ->
-  cache = window.applicationCache
-  cache.addEventListener 'updateready', (e) ->
-    console.log(cache.status == cache.UPDATEREADY)
-    if cache.status == cache.UPDATEREADY
-      cache.swapCache()
-      window.location.reload()
-
   new FastClick(document.body)
