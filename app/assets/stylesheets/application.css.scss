@@ -769,12 +769,15 @@ a.disabled {
       }
       .hits-from-opponent {
         border-right: 1px solid #CCC;
-        padding-right: 8px;
+        padding: 3px 8px;
+        margin-top: -3px;
         text-align: right;
         right: 50%;
-        color: #C00;
+        color: #FFF;
+        background: #D22;
+        @include border-radius(5px);
         &.zero {
-          color: inherit;
+          background-color: #AAA;
         }
       }
       .damage-applied {
@@ -872,14 +875,15 @@ a.disabled {
         width: auto;
         height: auto;
         list-style: none;
-        padding: 0 0 0 45px;
+        @include box-sizing(border-box);
+        padding: 8px 0 0 45px;
         margin: 0;
         float:none;
         min-height: 40px;
         position: relative;
         border: none;
         @include font-size(16px);
-        line-height: 1.5em;
+        line-height: 18px;
         span {
           position: static;
         }
@@ -900,12 +904,19 @@ a.disabled {
         }
         .rolls {
           margin: 0 5px 0 0;
-          line-height: 1.5em;
         }
         .losses {
           color: #C00;
           white-space: nowrap;
           font-weight: bold;
+          margin-right: 5px;
+          &.zero {
+            display: none;
+          }
+        }
+        .promotions {
+          font-weight: bold;
+          white-space: nowrap;
           &.zero {
             display: none;
           }
@@ -1005,9 +1016,9 @@ a.disabled {
       @include opacity(50);
     }
     .phase-message {
-      color: $warningText;
-      background-color: $warningBackground;
-      border-color: $warningBorder;
+      color: $errorText;
+      background-color: $errorBackground;
+      border-color: $errorBorder;
       .setup {
         display: none;
       }

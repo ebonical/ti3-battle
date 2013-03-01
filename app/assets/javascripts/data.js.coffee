@@ -99,7 +99,7 @@ ti3.Data =
     }
     {
       id: "shock"
-      name: "Shock Troops"
+      name: "Shock Troop"
       cost: 1
       battle: 5
       move: 0

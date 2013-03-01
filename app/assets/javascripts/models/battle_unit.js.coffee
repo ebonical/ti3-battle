@@ -234,4 +234,5 @@ class ti3.BattleUnit extends Backbone.Model
     _.extend(obj, super)
     obj.cid = @cid
     obj.losses = @get("quantityBefore") - @getQuantity()
+    obj.promotions = @getPromotions()
     obj

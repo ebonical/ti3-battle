@@ -35,6 +35,8 @@
           %span.losses{ class: "{{zeroCss(losses)}}" }
             %span.value -{{losses}}
             {{name.pluralize(losses)}}
+          %span.promotions{ class: "{{zeroCss(promotions)}}" }
+            Promote {{promotions}} {{"unit".pluralize(promotions)}}!
 
   .summary-actions
     %a.done.btn{href:'#done'}> Thanks, We’re Done

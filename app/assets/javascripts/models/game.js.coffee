@@ -30,7 +30,7 @@ class ti3.Game extends Backbone.Model
     code is "base" or @get("expansionsInUse").indexOf(code) > -1
 
   usingOptionalRule: (code) ->
-    code is "none" or @get("optionalRulesInUse").indexOf(code)> -1
+    code is "none" or @get("optionalRulesInUse").indexOf(code) > -1
 
   update: ->
     @fetch

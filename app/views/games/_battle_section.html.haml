@@ -9,7 +9,7 @@
 
 .phase-message.message
   %p.setup Set unit quantities, adjust battle values and apply pre-existing damage as needed.
-  %p.after-dice Apply any damage from hits received and tap 'Resolve Round.'
+  %p.after-dice Apply damage by tapping on affected units then <strong>Resolve Damage</strong>.
 
 .battle-board
   .force.attacker{'data-player' => 0}
@@ -28,7 +28,7 @@
       %a.new-ground-combat.btn{href:'#new-ground-combat'}> Ground
   %a.roll-dice.btn{href:'#roll-dice'}> Roll Dice!
   %a.reset-dice.btn{href:'#reset-dice'}> Reset Dice
-  %a.resolve-round.btn{href:'#resolve-round'}> Resolve Round
+  %a.resolve-round.btn{href:'#resolve-round'}> Resolve Damage
 
 
 = render "round_summary"
