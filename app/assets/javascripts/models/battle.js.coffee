@@ -104,13 +104,8 @@ class ti3.Battle extends Backbone.Model
     for force in [@attacker, @defender]
       opposite = @[force.oppositeStance()]
 
-      ships = force.getUnitsWith
-        antifighter: true
-        hasUnits: true
-
-      fighters = opposite.getUnitsWith
-        id: "fighter"
-        hasUnits: true
+      ships = force.getActiveUnitsWith antifighter: true
+      fighters = opposite.getActiveUnitsWith id: "fighter"
 
       if ships.length > 0 and fighters.length > 0
         for ship in ships
@@ -123,10 +118,7 @@ class ti3.Battle extends Backbone.Model
   _rollGroundCombatDice: ->
     units = {}
     for force in [@attacker, @defender]
-      units[force.id] = force.getUnitsWith
-        activeGroundCombatUnit: true
-        hasUnits: true
-
+      units[force.id] = force.getActiveUnitsWith activeGroundCombatUnit: true
       units[force.id].totalHits = 0
       for unit in units[force.id]
         unit.rollDice()
@@ -156,7 +148,7 @@ class ti3.Battle extends Backbone.Model
         totalHits += unit.getHits()
 
       # If we're only applying to 1 active ground force type
-      groundForces = @defender.getUnitsWith hasUnits: true, activeGroundCombatUnit: true
+      groundForces = @defender.getActiveUnitsWith activeGroundCombatUnit: true
       if groundForces.length == 1
         groundForces[0].adjustDamageBy totalHits
 
@@ -165,7 +157,7 @@ class ti3.Battle extends Backbone.Model
       pds = @defender.getUnit("pds")
       pds.rollDice()
 
-      groundForces = @attacker.getUnitsWith hasUnits: true, activeGroundCombatUnit: true
+      groundForces = @attacker.getActiveUnitsWith activeGroundCombatUnit: true
       if groundForces.length == 1
         groundForces[0].adjustDamageBy pds.getHits()
 
@@ -251,10 +243,10 @@ class ti3.Battle extends Backbone.Model
     test = attacker: {}, defender: {}
 
     for force in [@attacker, @defender]
-      units = force.getUnitsWith antifighter: true, hasUnits: true
+      units = force.getActiveUnitsWith antifighter: true
       test[force.id].hasAntiFighter = units.length > 0
 
-      units = force.getUnitsWith id: "fighter", hasUnits: true
+      units = force.getActiveUnitsWith id: "fighter"
       test[force.id].hasFighters = units.length > 0
 
     doIt or= test.attacker.hasAntiFighter and test.defender.hasFighters
@@ -273,22 +265,22 @@ class ti3.Battle extends Backbone.Model
 
     for force in [@attacker, @defender]
       # Does the force have any active ground units?
-      units = force.getUnitsWith hasUnits: true, activeGroundCombatUnit: true
+      units = force.getActiveUnitsWith activeGroundCombatUnit: true
       test[force.id].hasGroundForces = units.length > 0
 
       if force.id is "attacker"
         # 2. Bombard
-        units = force.getUnitsWith hasUnits: true, bombard: true
+        units = force.getActiveUnitsWith bombard: true
         test[force.id].hasBombard = units.length > 0
 
         # 2b. Ignoring PDS defense
         if test[force.id].hasBombard
-          units = force.getUnitsWith hasUnits: true, ignorePds: true
+          units = force.getActiveUnitsWith ignorePds: true
           test[force.id].hasIgnorePds = units.length > 0
 
       if force.id is "defender"
         # 1. PDS fire
-        units = force.getUnitsWith hasUnits: true, id: "pds"
+        units = force.getActiveUnitsWith id: "pds"
         test[force.id].hasPds = units.length > 0
 
     # If defender has PDS then attacker must be able to ignore it

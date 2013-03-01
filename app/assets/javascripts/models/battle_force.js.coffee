@@ -90,6 +90,9 @@ class ti3.BattleForce extends Backbone.Model
           unit.get(key) is value
       _.all(results, _.identity)
 
+  getActiveUnitsWith: (conditions) ->
+    @getUnitsWith _.extend({hasUnits: true}, conditions)
+
   indexOfUnit: (theUnit) ->
     found = index for unit, index in @units when unit.id is theUnit.id
     found
@@ -110,7 +113,7 @@ class ti3.BattleForce extends Backbone.Model
 
   # Units remaining that can maintain planetary control
   totalPlanetControllingUnits: ->
-    units = @getUnitsWith hasUnits: true, planetaryControl: true
+    units = @getActiveUnitsWith planetaryControl: true
     _.reduce(units, ((sum, unit) -> sum + unit.getQuantity()), 0)
 
   totalNumberOfUnitsBefore: ->
