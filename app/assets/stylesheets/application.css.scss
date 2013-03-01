@@ -921,6 +921,10 @@ a.disabled {
             display: none;
           }
         }
+        // Make sure to display Fighters if they are involved
+        &.fighter {
+          visibility: visible !important;
+        }
       }
       $colorIndex: 0;
       $unitIndex: 0;

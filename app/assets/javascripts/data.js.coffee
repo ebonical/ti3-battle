@@ -96,6 +96,7 @@ ti3.Data =
       inSpaceCombat: false
       inGroundCombat: true
       activeGroundCombatUnit: true
+      planetaryControl: true
     }
     {
       id: "shock"
@@ -106,6 +107,7 @@ ti3.Data =
       inSpaceCombat: false
       inGroundCombat: true
       activeGroundCombatUnit: true
+      planetaryControl: true
       optionalRule: "shock_troops"
     }
     {
@@ -885,7 +887,7 @@ ti3.Data =
           id: "tech-graviton-negator-fighter"
           scope: "ground"
           stance: "attacker"
-          round: 1
+          round: 0
           unitRequires:
             id: "fighter"
           modify:

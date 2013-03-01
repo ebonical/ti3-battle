@@ -108,6 +108,11 @@ class ti3.BattleForce extends Backbone.Model
   totalNumberOfUnits: ->
     @get("totalNumberOfUnits") or 0
 
+  # Units remaining that can maintain planetary control
+  totalPlanetControllingUnits: ->
+    units = @getUnitsWith hasUnits: true, planetaryControl: true
+    _.reduce(units, ((sum, unit) -> sum + unit.getQuantity()), 0)
+
   totalNumberOfUnitsBefore: ->
     _.reduce(@units, (total, unit) ->
         total + unit.getQuantityBefore()

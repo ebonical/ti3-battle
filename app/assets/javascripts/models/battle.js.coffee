@@ -212,9 +212,9 @@ class ti3.Battle extends Backbone.Model
         zeroAttackers = @attacker.totalNumberOfUnits() is 0
         zeroDefenders = @defender.totalNumberOfUnits() is 0
       when "ground"
-        zeroAttackers = not @attacker.getUnit("ground").hasUnits()
-        zeroDefenders = not @defender.getUnit("ground").hasUnits()
-
+        zeroAttackers = @attacker.totalPlanetControllingUnits() is 0
+        zeroDefenders = @defender.totalPlanetControllingUnits() is 0
+    #
     zeroAttackers or zeroDefenders
 
   winner: ->
@@ -223,9 +223,9 @@ class ti3.Battle extends Backbone.Model
         attackersRemain = @attacker.totalNumberOfUnits() > 0
         defendersRemain = @defender.totalNumberOfUnits() > 0
       when "ground"
-        attackersRemain = @attacker.getUnit("ground").hasUnits()
-        defendersRemain = @defender.getUnit("ground").hasUnits()
-
+        attackersRemain = @attacker.totalPlanetControllingUnits() > 0
+        defendersRemain = @defender.totalPlanetControllingUnits() > 0
+    #
     if attackersRemain and not defendersRemain
       @attacker
     else if defendersRemain and not attackersRemain
