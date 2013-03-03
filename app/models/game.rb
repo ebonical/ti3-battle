@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  has_many :players
+  has_many :players, order: "number"
 
   before_create :set_token
 
