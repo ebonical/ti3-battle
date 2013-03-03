@@ -72,6 +72,35 @@ class ti3.BattleForce extends Backbone.Model
   resolveDamage: ->
     unit.resolveDamage() for unit in @units
 
+  getPromotions: ->
+    ground = @getUnit("ground")
+    shock = @getUnit("shock")
+    if ground? and shock?
+      promotions = ground.getPromotions()
+      demotions = 0
+      # Demotions
+      if ground.getQuantity() - promotions is 0 and shock.getQuantity() + promotions > 0
+        demotions = 1
+      #
+      {
+        promotions
+        demotions
+      }
+    else
+      { promotions: 0, demotions: 0 }
+
+  # Ground Forces promote to Shock Troops.
+  # If Shock Troop is left alone without a GF then it is demoted.
+  resolvePromotions: ->
+    outcome = @getPromotions()
+    if outcome.promotions > 0
+      @getUnit("ground").adjustQuantityBy -outcome.promotions
+      @getUnit("shock").adjustQuantityBy outcome.promotions
+    if outcome.demotions > 0
+      @getUnit("ground").adjustQuantityBy outcome.demotions
+      @getUnit("shock").adjustQuantityBy -outcome.demotions
+    outcome
+
   getUnit: (unitId) ->
     @getUnits(unitId)[0]
 

@@ -914,13 +914,6 @@ a.disabled {
             display: none;
           }
         }
-        .promotions {
-          font-weight: bold;
-          white-space: nowrap;
-          &.zero {
-            display: none;
-          }
-        }
         // Make sure to display Fighters if they are involved
         &.fighter {
           visibility: visible !important;
@@ -944,7 +937,19 @@ a.disabled {
       .shock .image {
         background-position:-320px 0px;
       }
+      .promotions {
+        display: none;
+        font-weight: bold;
+        margin: 15px 15px 5px;
+      }
     } //.force
+    .promotions-notice {
+      display: none;
+      position: absolute;
+      bottom: 28px;
+      width: 270px;
+      @include serif;
+    }
     .summary-actions {
       clear: both;
       text-align: right;

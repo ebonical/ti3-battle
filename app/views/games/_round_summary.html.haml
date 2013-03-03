@@ -25,6 +25,8 @@
           %ul.units
             -# List of Units from template below
 
+          .promotions
+
       -# Extracted and inserted into %ul.units above
       .unit.template
         %li.unit{ class: "{{id}}"}
@@ -35,8 +37,9 @@
           %span.losses{ class: "{{zeroCss(losses)}}" }
             %span.value -{{losses}}
             {{name.pluralize(losses)}}
-          %span.promotions{ class: "{{zeroCss(promotions)}}" }
-            Promote {{promotions}} {{"unit".pluralize(promotions)}}!
+
+  .promotions-notice
+    %p Promotions will be applied automatically when you <b>Continue</b>...
 
   .summary-actions
     %a.done.btn{href:'#done'}> Thanks, We’re Done

@@ -231,6 +231,10 @@ class ti3.Battle extends Backbone.Model
     @resolvingDamage = false
     @set "roundResolved", true
 
+  resolvePromotions: ->
+    @attacker.resolvePromotions(@getCombatType())
+    @defender.resolvePromotions(@getCombatType())
+
   hasPreCombat: (combatType) ->
     if combatType is "ground" then @hasPreGroundCombat() else @hasPreSpaceCombat()
 

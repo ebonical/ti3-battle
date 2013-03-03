@@ -200,7 +200,8 @@ class ti3.BattleUnit extends Backbone.Model
     value >= @getBattleValue()
 
   getPromotions: ->
-    @_promotions or 0
+    promotions = @_promotions or 0
+    if 0 < promotions > @getQuantity() then @getQuantity() else promotions
 
   # After dice have been rolled and damage has been attached to each unit group
   # then reduce quantities by damage level applied
@@ -234,5 +235,4 @@ class ti3.BattleUnit extends Backbone.Model
     _.extend(obj, super)
     obj.cid = @cid
     obj.losses = @get("quantityBefore") - @getQuantity()
-    obj.promotions = @getPromotions()
     obj

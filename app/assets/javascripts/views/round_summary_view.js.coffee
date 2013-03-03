@@ -28,6 +28,20 @@ class ti3.RoundSummaryView extends Backbone.View
   hide: ->
     @$el.modal("hide")
 
+  getPromotionsText: (force) ->
+    output = []
+    outcome = force.getPromotions()
+    p = outcome.promotions
+    d = outcome.demotions
+    if p > 0 and p is d
+      output.push "Ground Force would have been promoted but you only have 1 left."
+    else
+      if p > 0
+        output.push "#{p} #{'Ground Troop'.pluralize(p)} to be promoted."
+      if d > 0
+        output.push "1 Shock Troop will be demoted."
+    output.join("<br>")
+
   render: ->
     el = @$el
     el.removeClass("finished win draw")
@@ -46,6 +60,9 @@ class ti3.RoundSummaryView extends Backbone.View
 
     # Add attacking forces
     el.find(".forces").html ""
+
+    elPromotionsNotice = el.find('.promotions-notice')
+    elPromotionsNotice.hide()
 
     for force in [@model.attacker, @model.defender]
       elForce = @forceTemplate
@@ -70,6 +87,18 @@ class ti3.RoundSummaryView extends Backbone.View
         # insert formatted rolls
         new ti3.DiceRollsView(hit: obj.battle, rolls: obj.rolls, el: elUnit.find(".rolls")).render()
 
+      # Promotions
+      promotionsText = @getPromotionsText(force)
+      promotions = elForce.find('.promotions')
+      if promotionsText.length
+        promotions.show()
+        promotions.html "<p>#{promotionsText}</p>"
+        elPromotionsNotice.show()
+      else
+        promotions.hide()
+
+    # end for force
+
     # What buttons do we have available
     button.addClass("hidden") for key, button of @conditionalButtons
 
@@ -87,6 +116,7 @@ class ti3.RoundSummaryView extends Backbone.View
 
   _nextRoundHandler: (e) ->
     e.preventDefault()
+    @model.resolvePromotions()
     @model.nextRound()
     @hide()
 
