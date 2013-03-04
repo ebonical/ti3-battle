@@ -85,7 +85,10 @@ class ti3.RoundSummaryView extends Backbone.View
         elUnit = $ @unitTemplate(obj)
         elUnits.append elUnit
         # insert formatted rolls
-        new ti3.DiceRollsView(hit: obj.battle, rolls: obj.rolls, el: elUnit.find(".rolls")).render()
+        data =
+          rolls: unit.getRolledValues()
+          el: elUnit.find(".rolls")
+        new ti3.DiceRollsView(data).render()
 
       # Promotions
       promotionsText = @getPromotionsText(force)

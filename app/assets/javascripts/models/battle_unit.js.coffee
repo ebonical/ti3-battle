@@ -24,7 +24,7 @@ class ti3.BattleUnit extends Backbone.Model
     @get "battle"
 
   setBattleValue: (value) ->
-    value = 10 if value > 10
+    value = 10 if value > 11
     value = 1 if value < 1
     @set "battle", +value
 
@@ -101,6 +101,22 @@ class ti3.BattleUnit extends Backbone.Model
   getMaxDamage: ->
     @getToughness() * @getQuantity() - @getSustainedDamage()
 
+  getRerolls: ->
+    @get("rerolls") or 0
+
+  getRolledValues: ->
+    out = []
+    for roll, index in @get("rolls")
+      obj =
+        value: roll
+        hit: @hitTest(roll)
+      if @getRerolls() and @_rerolled.length
+        rr = _.find @_rerolled, (reroll) -> reroll[0] is index
+        if rr
+          obj.reroll = rr[1]
+      out.push obj
+    out
+
 
   canSustainDamage: ->
     @getToughness() > 1
@@ -121,8 +137,8 @@ class ti3.BattleUnit extends Backbone.Model
 
   adjustBattleValueBy: (change) ->
     adjustment = (@get("battleValueAdjustment") || 0) + change
-    if Math.abs(adjustment) > 5
-      adjustment = 5 * (if change < 0 then -1 else 1)
+    if Math.abs(adjustment) > 9
+      adjustment = 9 * (if change < 0 then -1 else 1)
     @set "battleValueAdjustment", adjustment
 
   adjustDamageBy: (change) ->
@@ -187,6 +203,15 @@ class ti3.BattleUnit extends Backbone.Model
       @_promotions = tens.length
     else
       @_promotions = 0
+
+    @_rerolled = []
+    # TODO this needs more work :(
+    # if @getRerolls()
+    #   for roll, index in rolls
+    #     break if @_rerolled.length >= @getRerolls()
+    #     if !@hitTest(roll)
+    #       @_rerolled.push [index, roll]
+    #       rolls[index] = ti3.Dice.roll(1)[0]
 
     @setDiceRolls(rolls)
 

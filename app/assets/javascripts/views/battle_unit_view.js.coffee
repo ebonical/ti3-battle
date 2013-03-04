@@ -67,7 +67,10 @@ class ti3.BattleUnitView extends Backbone.View
     elQty.toggleClass "double", quantity > 9
 
   _setRolls: (model, rolls) ->
-    new ti3.DiceRollsView(hit: model.getBattleValue(), rolls: rolls, el: @$el.find(".rolls")).render()
+    data =
+      el: @$el.find(".rolls")
+      rolls: model.getRolledValues()
+    new ti3.DiceRollsView(data).render()
 
   _setBattleValue: (value) ->
     @$el.find(".battle .value").text(value)
