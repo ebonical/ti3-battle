@@ -14,6 +14,64 @@ ti3.Data =
     }
   ]
 
+  leaders: [
+    {
+      id: "general"
+      name: "General"
+      modifiers: [
+        {
+          id: "leader-general-attacker"
+          scope: "ground"
+          stance: "attacker"
+          modify:
+            rerolls: 2
+        }
+        {
+          id: "leader-general-defender"
+          scope: "ground"
+          stance: "defender"
+          unitRequires:
+            id: ["ground", "shock"]
+          modify:
+            battle: "+1"
+        }
+        {
+          id: "leader-general-bombardment"
+          scope: "ground"
+          stance: "defender"
+          round: 0
+          duration: 1
+          modifyOpponent:
+            battle: "-4"
+        }
+      ]
+    }
+    {
+      id: "admiral"
+      name: "Admiral"
+      modifiers: [
+        {
+          id: "leader-admiral"
+          scope: "space"
+          modify:
+            dice: "+1"
+        }
+      ]
+    }
+    {
+      id: "scientist"
+      name: "Scientist"
+    }
+    {
+      id: "diplomat"
+      name: "Diplomat"
+    }
+    {
+      id: "agent"
+      name: "Agent"
+    }
+  ]
+
   units: [
     {
       id: "warsun"
@@ -172,10 +230,20 @@ ti3.Data =
       leaders: ["general", "admiral", "diplomat"]
       modifiers: [
         {
-          id: "race-letnev-combat"
-          scope: "combat"
+          id: "race-letnev-space"
+          scope: "space"
           modify:
             battle: "+1"
+          duration: 1
+          automatic: false
+        }
+        {
+          id: "race-letnev-ground"
+          scope: "ground"
+          unitRequires:
+            id: ["ground", "shock"]
+          modify:
+            battle: "+2"
           duration: 1
           automatic: false
         }
@@ -234,7 +302,7 @@ ti3.Data =
       abilities: [
         "You receive -1 on *all* your combat rolls."
         "When executing the Secondary Ability of the Technology Strategy, you may execute both its Primary Ability and the Secondary ability."
-        "You may spend a Command Counter from your Strategy Allocation, to immediately re-roll any of your die rolls."
+        "You may spend a Command Counter from your Strategy Allocation, to immediately re-roll any one of your die rolls."
       ]
       units: [
         { id: "ground", amount: 2 }
