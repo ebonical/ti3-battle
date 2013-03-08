@@ -300,7 +300,7 @@ ti3.Data =
         }
         {
           id: "race-l1z1x-ground-force"
-          summary: "Ground Forces get +1"
+          summary: "Attacking Ground Forces +1"
           scope: "ground"
           stance: "attacker"
           unitRequires:

@@ -1,5 +1,8 @@
 class ti3.Modifier extends Backbone.Model
 
+  getSummary: ->
+    @get("summary")
+
   getRound: ->
     @get("round")
 
@@ -12,6 +15,8 @@ class ti3.Modifier extends Backbone.Model
   getOpponentModifiers: ->
     @get("modifyOpponent")
 
+  getSupportRequirements: ->
+    @get("supportRequires") or {}
 
   modifiesOpponent: ->
     @getOpponentModifiers()?
@@ -58,6 +63,9 @@ class ti3.Modifier extends Backbone.Model
         else
           isOk and= unitValue is value
     isOk
+
+  requiresSupport: ->
+    @get("supportRequires")?
 
   cloneForOpponent: ->
     newMod = @clone()

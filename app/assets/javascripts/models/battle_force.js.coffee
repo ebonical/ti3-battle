@@ -20,6 +20,10 @@ class ti3.BattleForce extends Backbone.Model
             @fetchModifiers @attributes.battle.getCombatType()
             @applyModifiers()
 
+    @on "change:totalNumberOfUnits", (model, value) =>
+      @_checkSupportRequirements()
+
+  # end initialize
 
   setPlayer: (player) ->
     @player = player
@@ -159,6 +163,7 @@ class ti3.BattleForce extends Backbone.Model
     stance = @stance()
     # Start with global modifiers
     @modifiers = [].concat ti3.GlobalModifiers.models
+    @modsNeedSupport = []
 
     if @player?
       # Racial abilities
@@ -172,8 +177,12 @@ class ti3.BattleForce extends Backbone.Model
 
     # Send modifiers off to opponent if needed
     @modifiersForOpponent = []
-    for m in @modifiers when m.modifiesOpponent()
-      @modifiersForOpponent.push m.cloneForOpponent()
+    # Sort modifiers
+    for mod in @modifiers
+      if mod.modifiesOpponent()
+        @modifiersForOpponent.push mod.cloneForOpponent()
+      if mod.requiresSupport()
+        @modsNeedSupport.push(mod)
 
   applyModifiers: ->
     @_setActiveModifiers(@activeModifiers)
@@ -181,11 +190,16 @@ class ti3.BattleForce extends Backbone.Model
     @applyModifiersFromOpponent(@opponent())
     activeIds = _.map @activeModifiers, (obj) -> obj.id
 
-    for mod in @modifiers.concat()
+    for mod in @modifiers #.concat()
       modAdded = false
       if (not _.include(activeIds, mod.id)) and (mod.isAutomatic() or @isModifierOn(mod)) and mod.isForRound(round)
+        if mod.requiresSupport()
+          supportMet = @isModifierSupportMet(mod)
+        else
+          supportMet = true
+
         for unit in @units
-          if mod.isForUnit(unit)
+          if supportMet and mod.isForUnit(unit)
             unit.addModifier(mod)
             modAdded = true
         if modAdded
@@ -213,6 +227,8 @@ class ti3.BattleForce extends Backbone.Model
         roundDelta = Math.abs round - active.round
         if roundDelta >= mod.getDuration()
           active.expired = true
+      else if mod.requiresSupport() and (not @isModifierSupportMet(mod))
+        active.expired = true
     # Remove expired modifiers
     @_setActiveModifiers _.reject @activeModifiers, (aMod) =>
       if aMod.expired
@@ -230,6 +246,13 @@ class ti3.BattleForce extends Backbone.Model
     unless _.include(@optionalModifiersTurnedOn, modifier.id)
       @optionalModifiersTurnedOn.push modifier.id
       @applyModifiers()
+
+  turnOffModifier: (modifier) ->
+    @optionalModifiersTurnedOn ?= []
+    index = _.indexOf(@optionalModifiersTurnedOn, modifier.id)
+    if index > -1
+      @optionalModifiersTurnedOn.splice(index, 1)
+      @expireModifiers()
 
   isModifierOn: (modifier) ->
     _.include(@optionalModifiersTurnedOn, modifier.id)
@@ -255,11 +278,29 @@ class ti3.BattleForce extends Backbone.Model
     @_setActiveModifiers []
     @optionalModifiersTurnedOn = []
     @modifiersFromOpponent = []
+    @modsNeedSupport = []
     unit.clearModifiers() for unit in @units
     @fetchModifiers(combatType)
     @applyModifiers()
 
+  isModifierActive: (modifier) ->
+    found = _.find @activeModifiers, (check) -> check.id is modifier.id
+    found?
+
+  isModifierSupportMet: (modifier) ->
+    @getActiveUnitsWith(modifier.getSupportRequirements()).length > 0
+
   _setActiveModifiers: (activeModifiersArray) ->
     @activeModifiers = activeModifiersArray or []
     @set 'activeModifiers', _.map(@activeModifiers, (m) -> m.id).join(',')
+
+  _checkSupportRequirements: ->
+    if @modsNeedSupport?
+      for mod in @modsNeedSupport
+        supportMet = @isModifierSupportMet(mod)
+        isOn = @isModifierActive(mod)
+        if supportMet and (not isOn)
+          @applyModifiers()
+        else if (not supportMet) and isOn
+          @expireModifiers()
 
