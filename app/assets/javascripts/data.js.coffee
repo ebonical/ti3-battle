@@ -14,64 +14,6 @@ ti3.Data =
     }
   ]
 
-  leaders: [
-    {
-      id: "general"
-      name: "General"
-      modifiers: [
-        {
-          id: "leader-general-attacker"
-          scope: "ground"
-          stance: "attacker"
-          modify:
-            rerolls: 2
-        }
-        {
-          id: "leader-general-defender"
-          scope: "ground"
-          stance: "defender"
-          unitRequires:
-            id: ["ground", "shock"]
-          modify:
-            battle: "+1"
-        }
-        {
-          id: "leader-general-bombardment"
-          scope: "ground"
-          stance: "defender"
-          round: 0
-          duration: 1
-          modifyOpponent:
-            battle: "-4"
-        }
-      ]
-    }
-    {
-      id: "admiral"
-      name: "Admiral"
-      modifiers: [
-        {
-          id: "leader-admiral"
-          scope: "space"
-          modify:
-            dice: "+1"
-        }
-      ]
-    }
-    {
-      id: "scientist"
-      name: "Scientist"
-    }
-    {
-      id: "diplomat"
-      name: "Diplomat"
-    }
-    {
-      id: "agent"
-      name: "Agent"
-    }
-  ]
-
   units: [
     {
       id: "warsun"
@@ -231,6 +173,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-letnev-space"
+          summary: "Ships get +1"
           scope: "space"
           modify:
             battle: "+1"
@@ -239,6 +182,7 @@ ti3.Data =
         }
         {
           id: "race-letnev-ground"
+          summary: "Ground Forces get +2"
           scope: "ground"
           unitRequires:
             id: ["ground", "shock"]
@@ -289,6 +233,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-norr-combat"
+          summary: "Everything at +1"
           scope: "combat"
           modify:
             battle: "+1"
@@ -317,6 +262,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-jolnar-combat"
+          summary: "Everything at -1"
           scope: "combat"
           modify:
             battle: "-1"
@@ -345,6 +291,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-l1z1x-dreadnought"
+          summary: "Dreadnoughts +1 in Space Battles"
           scope: "space"
           unitRequires:
             id: "dreadnought"
@@ -353,10 +300,11 @@ ti3.Data =
         }
         {
           id: "race-l1z1x-ground-force"
+          summary: "Ground Forces get +1"
           scope: "ground"
           stance: "attacker"
           unitRequires:
-            id: "ground"
+            id: ["ground", "shock"]
           modify:
             battle: "+1"
         }
@@ -383,6 +331,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-mentak-pre-battle"
+          summary: "Cruisers, Destroyers first strike"
           scope: "space"
           round: 0
           duration: 1
@@ -415,6 +364,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-naalu-fighters"
+          summary: "Fighers +1 in Space Battles"
           scope: "space"
           unitRequires:
             id: "fighter"
@@ -445,6 +395,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-xxcha-first-round"
+          summary: "Xxcha opponent -1 in 1st round"
           scope: "combat"
           round: 1
           duration: 1
@@ -538,6 +489,7 @@ ti3.Data =
       modifiers: [
         {
           id: "race-yin-invasion-special"
+          summary: "Special attack on Ground Forces"
           scope: "ground"
           stance: "attacker"
           round: 0
@@ -591,6 +543,7 @@ ti3.Data =
       modifiers: [
         {
           id: "tech-hylar"
+          summary: "Cruisers, Destroyers always +1"
           scope: "combat"
           unitRequires:
             id: ["cruiser", "destroyer"]
@@ -610,6 +563,7 @@ ti3.Data =
       modifiers: [
         {
           id: "tech-defense-turrets"
+          summary: "Destroyers, extra die and +2"
           scope: "space"
           round: 0
           duration: 1
@@ -708,6 +662,7 @@ ti3.Data =
       modifiers: [
         {
           id: "tech-cybernetics"
+          summary: "Fighters always +1"
           scope: "combat"
           unitRequires:
             id: "fighter"
@@ -744,6 +699,7 @@ ti3.Data =
       modifiers: [
         {
           id: "tech-graviton-laser"
+          summary: "PDS get a re-roll on misses"
           scope: "combat"
           unitRequires:
             id: "pds"
@@ -765,9 +721,11 @@ ti3.Data =
       modifiers: [
         {
           id: "tech-magen-ground-forces"
+          summary: "Ground Forces +1 with PDS"
           scope: "ground"
+          stance: "defender"
           unitRequires:
-            id: "ground"
+            id: ["ground", "shock"]
           modify:
             battle: "+1"
           supportRequires:
@@ -775,6 +733,7 @@ ti3.Data =
         }
         {
           id: "tech-magen-pds"
+          summary: "PDS get +1"
           scope: "combat"
           unitRequires:
             id: "pds"
@@ -819,9 +778,10 @@ ti3.Data =
       modifiers: [
         {
           id: "tech-gen-synthesis"
+          summary: "Ground Forces +1"
           scope: "ground"
           unitRequires:
-            id: "ground"
+            id: ["ground", "shock"]
           modify:
             battle: "+1"
         }
@@ -1020,9 +980,110 @@ ti3.Data =
     }
   ]
 
+  leaders: [
+    {
+      id: "general"
+      name: "General"
+      modifiers: [
+        {
+          id: "leader-general-attacker"
+          summary: "2 rerolls"
+          scope: "ground"
+          stance: "attacker"
+          modify:
+            rerolls: 2
+          automatic: false
+        }
+        {
+          id: "leader-general-defender"
+          summary: "Ground Forces get +1"
+          scope: "ground"
+          stance: "defender"
+          unitRequires:
+            id: ["ground", "shock"]
+          modify:
+            battle: "+1"
+          automatic: false
+        }
+        {
+          id: "leader-general-bombardment"
+          summary: "Bombardments at -4"
+          scope: "ground"
+          stance: "defender"
+          round: 0
+          duration: 1
+          modifyOpponent:
+            battle: "-4"
+          automatic: false
+        }
+      ]
+    }
+    {
+      id: "admiral"
+      name: "Admiral"
+      modifiers: [
+        {
+          id: "leader-admiral"
+          summary: "Ship gets 1 extra die"
+          scope: "space"
+          modify:
+            dice: "+1"
+          automatic: false
+        }
+      ]
+    }
+    {
+      id: "scientist"
+      name: "Scientist"
+      modifiers: [
+        {
+          id: "leader-scientist-pds"
+          summary: "PDS gets +1"
+          scope: "ground"
+          stance: "defender"
+          unitRequires:
+            id: "pds"
+          modify:
+            battle: "+1"
+          automatic: false
+        }
+        {
+          id: "leader-scientist-bombardment"
+          summary: "War Suns cannot ignore PDS"
+          scope: "ground"
+          stance: "defender"
+          modifyOpponent:
+            ignorePds: false
+          automatic: false
+        }
+      ]
+    }
+    {
+      id: "diplomat"
+      name: "Diplomat"
+    }
+    {
+      id: "agent"
+      name: "Agent"
+      modifiers: [
+        {
+          id: "leader-agent"
+          summary: "PDS cannot fire"
+          scope: "ground"
+          stance: "attacker"
+          unitRequires:
+            id: "pds"
+          modifyOpponent:
+            dice: 0
+        }
+      ]
+    }
+  ]
+
   modifiers: [
     {
       id: "global-antifighter-barrage"
+      summary: "Anti-Fighter barrage"
       scope: "space"
       round: 0
       duration: 1
@@ -1033,6 +1094,7 @@ ti3.Data =
     }
     {
       id: "global-high-alert"
+      summary: "High Alert!"
       scope: "space"
       round: 1
       modify:
